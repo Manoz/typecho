@@ -8,7 +8,7 @@
 */
 
 /**
- * IXR日期
+ * IXR date
  *
  * @package IXR
  */

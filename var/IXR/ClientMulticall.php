@@ -9,7 +9,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 */
 
 /**
- * IXR客户端
+ * IXR client
  *
  * @package IXR
  */

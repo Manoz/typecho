@@ -8,18 +8,18 @@
 */
 
 /**
- * IXR客户端
+ * IXR client
  * reload by typecho team(http://www.typecho.org)
  *
  * @package IXR
  */
 class IXR_Client
 {
-    /** 默认客户端 */
+    /** Default client */
     const DEFAULT_USERAGENT = 'The Incutio XML-RPC PHP Library(Reload By Typecho)';
 
     /**
-     * 服务端地址
+     * Server address
      *
      * @access private
      * @var string
@@ -27,7 +27,7 @@ class IXR_Client
     private $server;
 
     /**
-     * 端口名称
+     * Port Name
      *
      * @access private
      * @var integer
@@ -35,7 +35,7 @@ class IXR_Client
     private $port;
 
     /**
-     * 路径名称
+     * Path name
      *
      * @access private
      * @var string
@@ -43,7 +43,7 @@ class IXR_Client
     private $path;
 
     /**
-     * 地址
+     * Address
      *
      * @access private
      * @var string
@@ -51,7 +51,7 @@ class IXR_Client
     private $url;
 
     /**
-     * 客户端
+     * Client
      *
      * @access private
      * @var string
@@ -59,7 +59,7 @@ class IXR_Client
     private $useragent;
 
     /**
-     * 回执结构体
+     * Receipt structure
      *
      * @access private
      * @var string
@@ -67,7 +67,7 @@ class IXR_Client
     private $response;
 
     /**
-     * 消息体
+     * Message Body
      *
      * @access private
      * @var string
@@ -75,7 +75,7 @@ class IXR_Client
     private $message = false;
 
     /**
-     * 调试开关
+     * Debugging
      *
      * @access private
      * @var boolean
@@ -83,7 +83,7 @@ class IXR_Client
     private $debug = false;
 
     /**
-     * 请求前缀
+     * Prefix Request
      *
      * @access private
      * @var string
@@ -94,13 +94,13 @@ class IXR_Client
     private $error = false;
 
     /**
-     * 客户端构造函数
+     * Client constructor
      *
      * @access public
-     * @param string $server 服务端地址
-     * @param string $path 路径名称
-     * @param integer $port 端口名称
-     * @param string $useragent 客户端
+     * @param string $server    Server address
+     * @param string $path      Path name
+     * @param integer $port     Port Name
+     * @param string $useragent Client
      * @return void
      */
     public function __construct($server, $path = false, $port = 80, $useragent = self::DEFAULT_USERAGENT, $prefix = NULL)
@@ -139,7 +139,7 @@ class IXR_Client
     }
 
     /**
-     * 设置调试模式
+     * Set debug mode
      *
      * @access public
      * @return void
@@ -150,7 +150,7 @@ class IXR_Client
     }
 
     /**
-     * 执行请求
+     * Execution request
      *
      * @access public
      * @return void
@@ -198,13 +198,13 @@ class IXR_Client
     }
 
     /**
-     * 增加前缀
+     * Add Prefix
      * <code>
      * $rpc->metaWeblog->newPost();
      * </code>
      *
      * @access public
-     * @param string $prefix 前缀
+     * @param string $prefix Prefix
      * @return void
      */
     public function __get($prefix)
@@ -213,7 +213,7 @@ class IXR_Client
     }
 
     /**
-     * 增加魔术特性
+     * Magic features increase
      * by 70
      *
      * @access public
@@ -233,7 +233,7 @@ class IXR_Client
     }
 
     /**
-     * 获得返回值
+     * Get the return value
      *
      * @access public
      * @return void
@@ -245,7 +245,7 @@ class IXR_Client
     }
 
     /**
-     * 是否为错误
+     * Is an error
      *
      * @access public
      * @return void
@@ -256,7 +256,7 @@ class IXR_Client
     }
 
     /**
-     * 获取错误代码
+     * Get the error code
      *
      * @access public
      * @return void
@@ -267,7 +267,7 @@ class IXR_Client
     }
 
     /**
-     * 获取错误消息
+     * Get the error message
      *
      * @access public
      * @return void

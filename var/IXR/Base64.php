@@ -8,21 +8,21 @@
 */
 
 /**
- * IXR Base64编码
+ * IXR Base64 encoding
  *
  * @package IXR
  */
 class IXR_Base64
 {
     /**
-     * 编码数据
+     * Encoded data
      *
      * @var string
      */
     private $data;
 
     /**
-     * 初始化数据
+     * Data initialization
      *
      * @param string $data
      */
@@ -32,7 +32,7 @@ class IXR_Base64
     }
 
     /**
-     * 获取XML数据
+     * Get XML data
      *
      * @return string
      */

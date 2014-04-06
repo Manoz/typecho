@@ -8,7 +8,7 @@
 */
 
 /**
- * IXR请求体
+ * IXR request body
  *
  * @package IXR
  */

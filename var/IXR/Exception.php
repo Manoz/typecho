@@ -9,7 +9,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 */
 
 /**
- * IXR异常类
+ * IXR exception class
  *
  * @package IXR
  */

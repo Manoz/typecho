@@ -8,14 +8,14 @@
 */
 
 /**
- * IXR服务器
+ * IXR server
  *
  * @package IXR
  */
 class IXR_Server
 {
     /**
-     * 输入参数
+     * Input parameters
      *
      * @access private
      * @var array
@@ -23,7 +23,7 @@ class IXR_Server
     private $data;
 
     /**
-     * 回调函数
+     * The callback function
      *
      * @access private
      * @var array
@@ -31,7 +31,7 @@ class IXR_Server
     private $callbacks = array();
 
     /**
-     * 消息体
+     * Message Body
      *
      * @access private
      * @var IXR_Message
@@ -39,7 +39,7 @@ class IXR_Server
     private $message;
 
     /**
-     * 默认参数
+     * The default parameters
      *
      * @access private
      * @var array
@@ -47,11 +47,11 @@ class IXR_Server
     private $capabilities;
 
     /**
-     * 构造函数
+     * Constructors
      *
      * @access public
-     * @param mixed $callbacks 回调函数
-     * @param mixed $data 输入参数
+     * @param mixed $callbacks The callback function
+     * @param mixed $data Input parameters
      * @return void
      */
     public function __construct($callbacks = false, $data = false)
@@ -65,11 +65,11 @@ class IXR_Server
     }
 
     /**
-     * 呼叫内部方法
+     * Internal method call
      *
      * @access private
-     * @param string $methodname 方法名
-     * @param mixed $args 参数
+     * @param string $methodname Method name
+     * @param mixed $args Arguments
      * @return mixed
      */
     private function call($methodname, $args)
@@ -78,7 +78,7 @@ class IXR_Server
         if (0 !== strpos($methodname, 'hook.') && $this->hasMethod('hook.beforeCall')) {
             $this->call('hook.beforeCall', array($methodname));
         }
-        
+
         if (!$this->hasMethod($methodname)) {
             return new IXR_Error(-32601, 'server error. requested method '.$methodname.' does not exist.');
         }
@@ -99,7 +99,7 @@ class IXR_Server
                 if (!is_callable($method)) {
                     return new IXR_Error(-32601, 'server error. requested class method "'.$object . '.' . $func.'" does not exist.');
                 }
-                
+
                 $result = call_user_func_array(array($object, $func), $args);
             } elseif (!function_exists($method)) {
                 // It's a function - does it exist?
@@ -109,21 +109,21 @@ class IXR_Server
                 $result = $method($args);
             }
         }
-        
+
         // hook
         if (0 !== strpos($methodname, 'hook.') && $this->hasMethod('hook.afterCall')) {
             $this->call('hook.afterCall', array($methodname));
         }
-        
+
         return $result;
     }
 
     /**
-     * 抛出错误
+     * Throw an error
      *
      * @access private
-     * @param integer $error 错误代码
-     * @param string $message 错误消息
+     * @param integer $error Error Codes
+     * @param string $message Error Messages
      * @return void
      */
     private function error($error, $message = false)
@@ -136,11 +136,11 @@ class IXR_Server
     }
 
     /**
-     * 输出xml
+     * Output xml
      *
      * @access private
-     * @param string $xml 输出xml
-     * @return 输出xml
+     * @param string $xml Output xml
+     * @return Output xml
      */
     private function output($xml)
     {
@@ -155,10 +155,10 @@ class IXR_Server
     }
 
     /**
-     * 是否存在方法
+     * Whether there is a method
      *
      * @access private
-     * @param string $method 方法名
+     * @param string $method Method name
      * @return mixed
      */
     private function hasMethod($method)
@@ -167,7 +167,7 @@ class IXR_Server
     }
 
     /**
-     * 设置默认参数
+     * Set the default Argument
      *
      * @access public
      * @return void
@@ -192,7 +192,7 @@ class IXR_Server
     }
 
     /**
-     * 设置默认方法
+     * Set the default method
      *
      * @access private
      * @return void
@@ -205,10 +205,10 @@ class IXR_Server
     }
 
     /**
-     * 服务入口
+     * Service Entrance
      *
      * @access private
-     * @param mixed $data 输入参数
+     * @param mixed $data Input parameters
      * @return void
      */
     private function serve($data = false)
@@ -234,11 +234,11 @@ class IXR_Server
         if ($this->message->messageType != 'methodCall') {
             $this->error(-32600, 'server error. invalid xml-rpc. not conforming to spec. Request must be a methodCall');
         }
-        
+
         if (0 === strpos($this->message->methodName, 'hook.')) {
             die('THIS METHOD MUST BE CALLED INSIDE.');
         }
-        
+
         $result = $this->call($this->message->methodName, $this->message->params);
         // Is the result an error?
         if (is_a($result, 'IXR_Error')) {
@@ -264,16 +264,16 @@ EOD;
         if ($this->hasMethod('hook.beforeOutput')) {
             $this->call('hook.beforeOutput', array());
         }
-        
+
         // Send it
         $this->output($xml);
     }
 
     /**
-     * 获取默认参数
+     * Get the default parameters
      *
      * @access public
-     * @param mixed $args 输入参数
+     * @param mixed $args Input parameters
      * @return array
      */
     public function getCapabilities($args)
@@ -282,10 +282,10 @@ EOD;
     }
 
     /**
-     * 列出所有方法
+     * List all methods
      *
      * @access public
-     * @param mixed $args 输入参数
+     * @param mixed $args Input parameters
      * @return mixed
      */
     public function listMethods($args)
@@ -296,7 +296,7 @@ EOD;
     }
 
     /**
-     * 一次处理多个请求
+     * Handle multiple requests
      *
      * @access public
      * @param void $methodcalls

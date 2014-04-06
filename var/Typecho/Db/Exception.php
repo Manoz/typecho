@@ -9,7 +9,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 数据库异常类
+ * Database exception类
  *
  * @package Db
  */

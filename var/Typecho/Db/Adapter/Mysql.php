@@ -9,14 +9,14 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 数据库Mysql适配器
+ * Mysql database adapter
  *
  * @package Db
  */
 class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
 {
     /**
-     * 数据库连接字符串标示
+     * Database connection string mark
      *
      * @access private
      * @var resource
@@ -24,7 +24,7 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
     private $_dbLink;
 
     /**
-     * 判断适配器是否可用
+     * Determine if adapters are available
      *
      * @access public
      * @return boolean
@@ -35,9 +35,9 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
     }
 
     /**
-     * 数据库连接函数
+     * Database connection function
      *
-     * @param Typecho_Config $config 数据库配置
+     * @param Typecho_Config $config Database Configuration
      * @throws Typecho_Db_Exception
      * @return resource
      */
@@ -53,17 +53,17 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
             }
         }
 
-        /** 数据库异常 */
+        /** Database exception */
         throw new Typecho_Db_Adapter_Exception(@mysql_error($this->_dbLink));
     }
 
     /**
-     * 执行数据库查询
+     * Execute database queries
      *
-     * @param string $query 数据库查询SQL字符串
-     * @param mixed $handle 连接对象
-     * @param integer $op 数据库读写状态
-     * @param string $action 数据库动作
+     * @param string $query SQL database query string
+     * @param mixed $handle Connection object
+     * @param integer $op Database read and write state
+     * @param string $action Database action
      * @throws Typecho_Db_Exception
      * @return resource
      */
@@ -73,14 +73,15 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
             return $resource;
         }
 
-        /** 数据库异常 */
+        /** Database exception */
         throw new Typecho_Db_Query_Exception(@mysql_error($this->_dbLink), mysql_errno($this->_dbLink));
     }
 
     /**
-     * 将数据查询的其中一行作为数组取出,其中字段名对应数组键值
+     * The data query as an array of one line out,
+     * which corresponds to an array of key field names
      *
-     * @param resource $resource 查询返回资源标识
+     * @param resource $resource Returns the query ressource identifier
      * @return array
      */
     public function fetch($resource)
@@ -89,9 +90,10 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
     }
 
     /**
-     * 将数据查询的其中一行作为对象取出,其中字段名对应对象属性
+     * The data queries where row as an object out,
+     * which corresponds to an object attribute field name
      *
-     * @param resource $resource 查询的资源数据
+     * @param resource $resource Resource data query
      * @return object
      */
     public function fetchObject($resource)
@@ -100,9 +102,9 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
     }
 
     /**
-     * 引号转义函数
+     * Quotes escape function
      *
-     * @param string $string 需要转义的字符串
+     * @param string $string Need to escape strings
      * @return string
      */
     public function quoteValue($string)
@@ -111,7 +113,7 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
     }
 
     /**
-     * 对象引号过滤
+     * Quotes filter
      *
      * @access public
      * @param string $string
@@ -123,10 +125,10 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
     }
 
     /**
-     * 合成查询语句
+     * Synthetic query
      *
      * @access public
-     * @param array $sql 查询对象词法数组
+     * @param array $sql Lexical query object array
      * @return string
      */
     public function parseSelect(array $sql)
@@ -146,10 +148,10 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
     }
 
     /**
-     * 取出最后一次查询影响的行数
+     * Remove the last number of rows affected by the query
      *
-     * @param resource $resource 查询的资源数据
-     * @param mixed $handle 连接对象
+     * @param resource $resource Resource data query
+     * @param mixed $handle Connection object
      * @return integer
      */
     public function affectedRows($resource, $handle)
@@ -158,10 +160,10 @@ class Typecho_Db_Adapter_Mysql implements Typecho_Db_Adapter
     }
 
     /**
-     * 取出最后一次插入返回的主键值
+     * Remove the insert to return last primary key
      *
-     * @param resource $resource 查询的资源数据
-     * @param mixed $handle 连接对象
+     * @param resource $resource Resource data query
+     * @param mixed $handle Connection object
      * @return integer
      */
     public function lastInsertId($resource, $handle)

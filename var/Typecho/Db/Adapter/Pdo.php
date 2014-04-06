@@ -9,14 +9,14 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 数据库PDOMysql适配器
+ * PDOMysql database adapter
  *
  * @package Db
  */
 abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
 {
     /**
-     * 数据库对象
+     * Database Objects
      *
      * @access protected
      * @var PDO
@@ -24,7 +24,7 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     protected $_object;
 
     /**
-     * 最后一次操作的数据表
+     * The last table operation
      *
      * @access protected
      * @var string
@@ -32,7 +32,7 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     protected $_lastTable;
 
     /**
-     * 判断适配器是否可用
+     * Determine if adapters are available
      *
      * @access public
      * @return boolean
@@ -43,9 +43,9 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     }
 
     /**
-     * 数据库连接函数
+     * Database connection function
      *
-     * @param Typecho_Config $config 数据库配置
+     * @param Typecho_Config $config Database Configuration
      * @throws Typecho_Db_Exception
      * @return resource
      */
@@ -56,15 +56,15 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
             $this->_object->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $this->_object;
         } catch (PDOException $e) {
-            /** 数据库异常 */
+            /** Database exception */
             throw new Typecho_Db_Adapter_Exception($e->getMessage());
         }
     }
 
     /**
-     * 初始化数据库
+     * Initialize the database
      *
-     * @param Typecho_Config $config 数据库配置
+     * @param Typecho_Config $config Database Configuration
      * @abstract
      * @access public
      * @return PDO
@@ -72,12 +72,12 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     abstract public function init(Typecho_Config $config);
 
     /**
-     * 执行数据库查询
+     * Execute database queries
      *
-     * @param string $query 数据库查询SQL字符串
-     * @param mixed $handle 连接对象
-     * @param integer $op 数据库读写状态
-     * @param string $action 数据库动作
+     * @param string $query SQL database query string
+     * @param mixed $handle Connection object
+     * @param integer $op Database read and write state
+     * @param string $action Database action
      * @throws Typecho_Db_Exception
      * @return resource
      */
@@ -89,7 +89,7 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
             $resource = $handle->prepare($isQueryObject ? $query->__toString() : $query);
             $resource->execute();
         } catch (PDOException $e) {
-            /** 数据库异常 */
+            /** Database exception */
             throw new Typecho_Db_Query_Exception($e->getMessage(), $e->getCode());
         }
 
@@ -97,9 +97,10 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     }
 
     /**
-     * 将数据查询的其中一行作为数组取出,其中字段名对应数组键值
+     * The data query as an array of one line out,
+     * which corresponds to an array of key field names
      *
-     * @param resource $resource 查询返回资源标识
+     * @param resource $resource Returns the ressource identifier
      * @return array
      */
     public function fetch($resource)
@@ -108,9 +109,9 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     }
 
     /**
-     * 将数据查询的其中一行作为对象取出,其中字段名对应对象属性
+     * The data queries where row as an object out, which corresponds to an object attribute field name
      *
-     * @param resource $resource 查询的资源数据
+     * @param resource $resource Resource data query
      * @return object
      */
     public function fetchObject($resource)
@@ -119,9 +120,9 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     }
 
     /**
-     * 引号转义函数
+     * Quotes escape function
      *
-     * @param string $string 需要转义的字符串
+     * @param string $string Need to escape strings
      * @return string
      */
     public function quoteValue($string)
@@ -130,7 +131,7 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     }
 
     /**
-     * 对象引号过滤
+     * Filter quotes
      *
      * @access public
      * @param string $string
@@ -139,19 +140,19 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     public function quoteColumn($string){}
 
     /**
-     * 合成查询语句
+     * Synthetic query
      *
      * @access public
-     * @param array $sql 查询对象词法数组
+     * @param array $sql Lexical query object array
      * @return string
      */
     public function parseSelect(array $sql){}
 
     /**
-     * 取出最后一次查询影响的行数
+     * Remove the last number of rows affected by the query
      *
-     * @param resource $resource 查询的资源数据
-     * @param mixed $handle 连接对象
+     * @param resource $resource Resource data query
+     * @param mixed $handle Connection object
      * @return integer
      */
     public function affectedRows($resource, $handle)
@@ -160,10 +161,10 @@ abstract class Typecho_Db_Adapter_Pdo implements Typecho_Db_Adapter
     }
 
     /**
-     * 取出最后一次插入返回的主键值
+     * Remove the insert to return last primary key
      *
-     * @param resource $resource 查询的资源数据
-     * @param mixed $handle 连接对象
+     * @param resource $resource Resource data query
+     * @param mixed $handle Connection object
      * @return integer
      */
     public function lastInsertId($resource, $handle)

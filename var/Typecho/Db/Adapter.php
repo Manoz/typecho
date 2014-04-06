@@ -8,15 +8,15 @@
  */
 
 /**
- * Typecho数据库适配器
- * 定义通用的数据库适配接口
+ * Typecho database adapter
+ * Fit the definition of a common database interfaces
  *
  * @package Db
  */
 interface Typecho_Db_Adapter
 {
     /**
-     * 判断适配器是否可用
+     * Determine if adapters are available
      *
      * @access public
      * @return boolean
@@ -24,50 +24,52 @@ interface Typecho_Db_Adapter
     public static function isAvailable();
 
     /**
-     * 数据库连接函数
+     * Database connection function
      *
-     * @param Typecho_Config $config 数据库配置
+     * @param Typecho_Config $config Database Configuration
      * @return resource
      */
     public function connect(Typecho_Config $config);
 
     /**
-     * 执行数据库查询
+     * Execute database queries
      *
-     * @param string $query 数据库查询SQL字符串
-     * @param mixed $handle 连接对象
-     * @param integer $op 数据库读写状态
-     * @param string $action 数据库动作
+     * @param string $query SQL database query string
+     * @param mixed $handle Connection object
+     * @param integer $op Database read and write state
+     * @param string $action Database action
      * @return resource
      */
     public function query($query, $handle, $op = Typecho_Db::READ, $action = NULL);
 
     /**
-     * 将数据查询的其中一行作为数组取出,其中字段名对应数组键值
+     * The data query as an array of one line out,
+     * which corresponds to an array of key field names
      *
-     * @param resource $resource 查询的资源数据
+     * @param resource $resource Resource data query
      * @return array
      */
     public function fetch($resource);
 
     /**
-     * 将数据查询的其中一行作为对象取出,其中字段名对应对象属性
+     * The data queries where row as an object out,
+     * which corresponds to an object attribute field name
      *
-     * @param resource $resource 查询的资源数据
+     * @param resource $resource Resource data query
      * @return object
      */
     public function fetchObject($resource);
 
     /**
-     * 引号转义函数
+     * Quotes escape function
      *
-     * @param string $string 需要转义的字符串
+     * @param string $string Need to escape strings
      * @return string
      */
     public function quoteValue($string);
 
     /**
-     * 对象引号过滤
+     * Filter quotes
      *
      * @access public
      * @param string $string
@@ -76,28 +78,28 @@ interface Typecho_Db_Adapter
     public function quoteColumn($string);
 
     /**
-     * 合成查询语句
+     * Synthetic query
      *
      * @access public
-     * @param array $sql 查询对象词法数组
+     * @param array $sql Lexical query object array
      * @return string
      */
     public function parseSelect(array $sql);
 
     /**
-     * 取出最后一次查询影响的行数
+     * Remove the last number of rows affected by the query
      *
-     * @param resource $resource 查询的资源数据
-     * @param mixed $handle 连接对象
+     * @param resource $resource Resource data query
+     * @param mixed $handle Connection object
      * @return integer
      */
     public function affectedRows($resource, $handle);
 
     /**
-     * 取出最后一次插入返回的主键值
+     * Remove the insert to return last primary key
      *
-     * @param resource $resource 查询的资源数据
-     * @param mixed $handle 连接对象
+     * @param resource $resource Resource data query
+     * @param mixed $handle Connection object
      * @return integer
      */
     public function lastInsertId($resource, $handle);

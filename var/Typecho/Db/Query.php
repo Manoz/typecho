@@ -8,14 +8,14 @@
  */
 
 /**
- * Typecho数据库查询语句构建类
- * 使用方法:
- * $query = new Typecho_Db_Query();	//或者使用DB积累的sql方法返回实例化对象
+ * Build the Typecho database class
+ * Use:
+ * $query = new Typecho_Db_Query();	// Or use sql DB accumulation method returns an instance of an object
  * $query->select('posts', 'post_id, post_title')
  * ->where('post_id = %d', 1)
  * ->limit(1);
  * echo $query;
- * 打印的结果将是
+ * The results will be printed
  * SELECT post_id, post_title FROM posts WHERE 1=1 AND post_id = 1 LIMIT 1
  *
  *
@@ -23,12 +23,12 @@
  */
 class Typecho_Db_Query
 {
-    /** 数据库关键字 */
+    /** Database keyword */
     const KEYWORDS = '*PRIMARY|AND|OR|LIKE|BINARY|BY|DISTINCT|AS|IN|IS|NULL';
 
     /**
-     * 默认字段 
-     * 
+     * Default field
+     *
      * @var array
      * @access private
      */
@@ -47,21 +47,22 @@ class Typecho_Db_Query
     );
 
     /**
-     * 数据库适配器
+     * Database Adapter
      *
      * @var Typecho_Db_Adapter
      */
     private $_adapter;
 
     /**
-     * 查询语句预结构,由数组构成,方便组合为SQL查询字符串
+     * Pre-query structure, composed of an array of
+     * convenient combination of SQLQuery and String
      *
      * @var array
      */
     private $_sqlPreBuild;
 
     /**
-     * 前缀
+     * Prefix
      *
      * @access private
      * @var string
@@ -69,10 +70,10 @@ class Typecho_Db_Query
     private $_prefix;
 
     /**
-     * 构造函数,引用数据库适配器作为内部数据
+     * Constructors, reference the database adapter as an internal data
      *
-     * @param Typecho_Db_Adapter $adapter 数据库适配器
-     * @param string $prefix 前缀
+     * @param Typecho_Db_Adapter $adapter Database Adapter
+     * @param string $prefix Prefix
      * @return void
      */
     public function __construct(Typecho_Db_Adapter $adapter, $prefix)
@@ -84,9 +85,10 @@ class Typecho_Db_Query
     }
 
     /**
-     * 过滤表前缀,表前缀由table.构成
+     * 过滤表Prefix,表Prefix由table.构成
+     * Filter the prefix, table prefix. Structure
      *
-     * @param string $string 需要解析的字符串
+     * @param string $string Need to parse the string
      * @return string
      */
     private function filterPrefix($string)
@@ -95,10 +97,10 @@ class Typecho_Db_Query
     }
 
     /**
-     * 过滤数组键值
+     * Filter array keys
      *
      * @access private
-     * @param string $str 待处理字段值
+     * @param string $str Pending field values
      * @return string
      */
     private function filterColumn($str)
@@ -156,7 +158,7 @@ class Typecho_Db_Query
     }
 
     /**
-     * 从参数中合成查询字段
+     * Synthesized from the parameter query field
      *
      * @access private
      * @param array $parameters
@@ -180,9 +182,9 @@ class Typecho_Db_Query
     }
 
     /**
-     * 转义参数 
-     * 
-     * @param array $values 
+     * Escape Argument
+     *
+     * @param array $values
      * @access protected
      * @return array
      */
@@ -200,10 +202,10 @@ class Typecho_Db_Query
     }
 
     /**
-     * 获取查询字串属性值
+     * Get the query string property values
      *
      * @access public
-     * @param string $attributeName 属性名称
+     * @param string $attributeName Property Name
      * @return string
      */
     public function getAttribute($attributeName)
@@ -212,10 +214,10 @@ class Typecho_Db_Query
     }
 
     /**
-     * 清除查询字串属性值
+     * Clear Query String property value
      *
      * @access public
-     * @param string $attributeName 属性名称
+     * @param string $attributeName Property Name
      * @return Typecho_Db_Query
      */
     public function cleanAttribute($attributeName)
@@ -227,11 +229,11 @@ class Typecho_Db_Query
     }
 
     /**
-     * 连接表
+     * Connection Table
      *
-     * @param string $table 需要连接的表
-     * @param string $condition 连接条件
-     * @param string $op 连接方法(LEFT, RIGHT, INNER)
+     * @param string $table Tables need to connect
+     * @param string $condition Connection conditions
+     * @param string $op Connection method (LEFT, RIGHT, INNER)
      * @return Typecho_Db_Query
      */
     public function join($table, $condition, $op = Typecho_Db::INNER_JOIN)
@@ -241,10 +243,10 @@ class Typecho_Db_Query
     }
 
     /**
-     * AND条件查询语句
+     * AND condition query
      *
-     * @param string $condition 查询条件
-     * @param mixed $param 条件值
+     * @param string $condition Query
+     * @param mixed $param Condition value
      * @return Typecho_Db_Query
      */
     public function where()
@@ -265,10 +267,10 @@ class Typecho_Db_Query
     }
 
     /**
-     * OR条件查询语句
+     * OR condition query
      *
-     * @param string $condition 查询条件
-     * @param mixed $param 条件值
+     * @param string $condition Query
+     * @param mixed $param Condition value
      * @return Typecho_Db_Query
      */
     public function orWhere()
@@ -289,9 +291,9 @@ class Typecho_Db_Query
     }
 
     /**
-     * 查询行数限制
+     * Query to limit the number of rows
      *
-     * @param integer $limit 需要查询的行数
+     * @param integer $limit Need to query the number of rows
      * @return Typecho_Db_Query
      */
     public function limit($limit)
@@ -301,9 +303,9 @@ class Typecho_Db_Query
     }
 
     /**
-     * 查询行数偏移量
+     * Query rows offset
      *
-     * @param integer $offset 需要偏移的行数
+     * @param integer $offset Number of rows you want to shift
      * @return Typecho_Db_Query
      */
     public function offset($offset)
@@ -313,10 +315,10 @@ class Typecho_Db_Query
     }
 
     /**
-     * 分页查询
+     * Query page
      *
-     * @param integer $page 页数
-     * @param integer $pageSize 每页行数
+     * @param integer $page Page
+     * @param integer $pageSize The number of lines per page
      * @return Typecho_Db_Query
      */
     public function page($page, $pageSize)
@@ -328,7 +330,7 @@ class Typecho_Db_Query
     }
 
     /**
-     * 指定需要写入的栏目及其值
+     * Specify columns and their values ​​to be written
      *
      * @param array $rows
      * @return Typecho_Db_Query
@@ -342,11 +344,11 @@ class Typecho_Db_Query
     }
 
     /**
-     * 指定需要写入栏目及其值
-     * 单行且不会转义引号
+     * Specify the columns and their values ​​to be written
+     * One-way and will not escape quotes
      *
-     * @param string $key 栏目名称
-     * @param mixed $value 指定的值
+     * @param string $key Column Name
+     * @param mixed $value Specified value
      * @return Typecho_Db_Query
      */
     public function expression($key, $value)
@@ -356,10 +358,10 @@ class Typecho_Db_Query
     }
 
     /**
-     * 排序顺序(ORDER BY)
+     * Sort Order (ORDER BY)
      *
-     * @param string $orderby 排序的索引
-     * @param string $sort 排序的方式(ASC, DESC)
+     * @param string $orderby Sorted index
+     * @param string $sort Way of sort (ASC, DESC)
      * @return Typecho_Db_Query
      */
     public function order($orderby, $sort = Typecho_Db::SORT_ASC)
@@ -371,7 +373,7 @@ class Typecho_Db_Query
     /**
      * 集合聚集(GROUP BY)
      *
-     * @param string $key 聚集的键值
+     * @param string $key Gather key
      * @return Typecho_Db_Query
      */
     public function group($key)
@@ -403,10 +405,10 @@ class Typecho_Db_Query
     }
 
     /**
-     * 选择查询字段
+     * Select the query field
      *
      * @access public
-     * @param mixed $field 查询字段
+     * @param mixed $field Query field
      * @return Typecho_Db_Query
      */
     public function select($field = '*')
@@ -419,9 +421,9 @@ class Typecho_Db_Query
     }
 
     /**
-     * 查询记录操作(SELECT)
+     * Query recording operation (SELECT)
      *
-     * @param string $table 查询的表
+     * @param string $table Query table
      * @return Typecho_Db_Query
      */
     public function from($table)
@@ -431,9 +433,9 @@ class Typecho_Db_Query
     }
 
     /**
-     * 更新记录操作(UPDATE)
+     * Update recording operation (UPDATE)
      *
-     * @param string $table 需要更新记录的表
+     * @param string $table Need to update the record of the table
      * @return Typecho_Db_Query
      */
     public function update($table)
@@ -444,9 +446,9 @@ class Typecho_Db_Query
     }
 
     /**
-     * 删除记录操作(DELETE)
+     * Delete recording operation (DELETE)
      *
-     * @param string $table 需要删除记录的表
+     * @param string $table Need to delete table records
      * @return Typecho_Db_Query
      */
     public function delete($table)
@@ -457,9 +459,9 @@ class Typecho_Db_Query
     }
 
     /**
-     * 插入记录操作(INSERT)
+     * Insert recording operation (INSERT)
      *
-     * @param string $table 需要插入记录的表
+     * @param string $table Need to insert a table record
      * @return Typecho_Db_Query
      */
     public function insert($table)
@@ -470,7 +472,7 @@ class Typecho_Db_Query
     }
 
     /**
-     * 构造最终查询语句
+     * Construct the final query
      *
      * @return string
      */

@@ -9,14 +9,14 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 数据库Pdo_Mysql适配器
+ * Database Pdo_Mysql adapter
  *
  * @package Db
  */
 class Typecho_Db_Adapter_Pdo_Mysql extends Typecho_Db_Adapter_Pdo
 {
     /**
-     * 判断适配器是否可用
+     * Determine if adapters are available
      *
      * @access public
      * @return boolean
@@ -27,9 +27,9 @@ class Typecho_Db_Adapter_Pdo_Mysql extends Typecho_Db_Adapter_Pdo
     }
 
     /**
-     * 初始化数据库
+     * Initialize the database
      *
-     * @param Typecho_Config $config 数据库配置
+     * @param Typecho_Config $config Database Configuration
      * @access public
      * @return PDO
      */
@@ -43,7 +43,7 @@ class Typecho_Db_Adapter_Pdo_Mysql extends Typecho_Db_Adapter_Pdo
     }
 
     /**
-     * 对象引号过滤
+     * Filter quotes
      *
      * @access public
      * @param string $string
@@ -55,9 +55,9 @@ class Typecho_Db_Adapter_Pdo_Mysql extends Typecho_Db_Adapter_Pdo
     }
 
     /**
-     * 引号转义函数
+     * Quotes escape function
      *
-     * @param string $string 需要转义的字符串
+     * @param string $string Need to escape strings
      * @return string
      */
     public function quoteValue($string)
@@ -66,10 +66,10 @@ class Typecho_Db_Adapter_Pdo_Mysql extends Typecho_Db_Adapter_Pdo
     }
 
     /**
-     * 合成查询语句
+     * Synthetic query
      *
      * @access public
-     * @param array $sql 查询对象词法数组
+     * @param array $sql query object array
      * @return string
      */
     public function parseSelect(array $sql)

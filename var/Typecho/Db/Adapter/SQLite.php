@@ -9,14 +9,14 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 数据库SQLite适配器
+ * SQLite database adapter
  *
  * @package Db
  */
 class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
 {
     /**
-     * 数据库标示
+     * Database mark
      *
      * @access private
      * @var resource
@@ -24,7 +24,7 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
     private $_dbHandle;
 
     /**
-     * 判断适配器是否可用
+     * Determine if adapters are available
      *
      * @access public
      * @return boolean
@@ -35,7 +35,7 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
     }
 
     /**
-     * 过滤字段名
+     * Filter field name
      *
      * @access private
      * @param mixed $result
@@ -43,21 +43,21 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
      */
     private function filterColumnName($result)
     {
-        /** 如果结果为空,直接返回 */
+        /** If the result is empty, return */
         if (!$result) {
             return $result;
         }
 
         $tResult = array();
 
-        /** 遍历数组 */
+        /** Loop through the array */
         foreach ($result as $key => $val) {
-            /** 按点分隔 */
+            /** Separated by dots */
             if (false !== ($pos = strpos($key, '.'))) {
                 $key = substr($key, $pos + 1);
             }
 
-            /** 按引号分割 */
+            /** Divided by quotes */
             if (false === ($pos = strpos($key, '"'))) {
                 $tResult[$key] = $val;
             } else {
@@ -69,9 +69,9 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
     }
 
     /**
-     * 数据库连接函数
+     * Database connection function
      *
-     * @param Typecho_Config $config 数据库配置
+     * @param Typecho_Config $config Database Configuration
      * @throws Typecho_Db_Exception
      * @return resource
      */
@@ -81,16 +81,16 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
             return $this->_dbHandle;
         }
 
-        /** 数据库异常 */
+        /** Database exception */
         throw new Typecho_Db_Adapter_Exception($error);
     }
 
     /**
-     * 执行数据库查询
+     * Execute database queries
      *
-     * @param string $sql 查询字符串
-     * @param mixed $handle 连接对象
-     * @param boolean $op 查询读写开关
+     * @param string $sql Query String
+     * @param mixed $handle Connection object
+     * @param boolean $op Query read switch
      * @throws Typecho_Db_Exception
      * @return resource
      */
@@ -100,15 +100,16 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
             return $resource;
         }
 
-        /** 数据库异常 */
+        /** Database exception */
         $errorCode = sqlite_last_error($this->_dbHandle);
         throw new Typecho_Db_Query_Exception(sqlite_error_string($errorCode), $errorCode);
     }
 
     /**
-     * 将数据查询的其中一行作为数组取出,其中字段名对应数组键值
+     * The data query as an array of one line out,
+     * which corresponds to an array of key field names
      *
-     * @param resource $resource 查询返回资源标识
+     * @param resource $resource Returns the ressource identifier
      * @return array
      */
     public function fetch($resource)
@@ -117,9 +118,10 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
     }
 
     /**
-     * 将数据查询的其中一行作为对象取出,其中字段名对应对象属性
+     * The data queries where row as an object out,
+     * which corresponds to an object attribute field name
      *
-     * @param resource $resource 查询的资源数据
+     * @param resource $resource Resource data query
      * @return object
      */
     public function fetchObject($resource)
@@ -128,9 +130,9 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
     }
 
     /**
-     * 引号转义函数
+     * Quotes escape function
      *
-     * @param string $string 需要转义的字符串
+     * @param string $string Need to escape strings
      * @return string
      */
     public function quoteValue($string)
@@ -139,7 +141,7 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
     }
 
     /**
-     * 对象引号过滤
+     * Filter quotes
      *
      * @access public
      * @param string $string
@@ -151,10 +153,10 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
     }
 
     /**
-     * 合成查询语句
+     * Synthetic query
      *
      * @access public
-     * @param array $sql 查询对象词法数组
+     * @param array $sql Lexical query object array
      * @return string
      */
     public function parseSelect(array $sql)
@@ -174,10 +176,10 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
     }
 
     /**
-     * 取出最后一次查询影响的行数
+     * Remove the last number of rows affected by the query
      *
-     * @param resource $resource 查询的资源数据
-     * @param mixed $handle 连接对象
+     * @param resource $resource Resource data query
+     * @param mixed $handle Connection object
      * @return integer
      */
     public function affectedRows($resource, $handle)
@@ -186,10 +188,10 @@ class Typecho_Db_Adapter_SQLite implements Typecho_Db_Adapter
     }
 
     /**
-     * 取出最后一次插入返回的主键值
+     * Remove the insert to return last primary key
      *
-     * @param resource $resource 查询的资源数据
-     * @param mixed $handle 连接对象
+     * @param resource $resource Resource data query
+     * @param mixed $handle Connection object
      * @return integer
      */
     public function lastInsertId($resource, $handle)

@@ -2,8 +2,8 @@
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
  * Hello World
- * 
- * @package HelloWorld 
+ *
+ * @package HelloWorld
  * @author qining
  * @version 1.0.0
  * @link http://typecho.org
@@ -11,8 +11,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class HelloWorld_Plugin implements Typecho_Plugin_Interface
 {
     /**
-     * 激活插件方法,如果激活失败,直接抛出异常
-     * 
+     * Activate the plugin method, if activation fails, an exception is thrown directly
+     *
      * @access public
      * @return void
      * @throws Typecho_Plugin_Exception
@@ -21,43 +21,43 @@ class HelloWorld_Plugin implements Typecho_Plugin_Interface
     {
         Typecho_Plugin::factory('admin/menu.php')->navBar = array('HelloWorld_Plugin', 'render');
     }
-    
+
     /**
-     * 禁用插件方法,如果禁用失败,直接抛出异常
-     * 
+     * Disabling plug-in method, if the disable fails, an exception is thrown directly
+     *
      * @static
      * @access public
      * @return void
      * @throws Typecho_Plugin_Exception
      */
     public static function deactivate(){}
-    
+
     /**
-     * 获取插件配置面板
-     * 
+     * Get plugin configuration panel
+     *
      * @access public
-     * @param Typecho_Widget_Helper_Form $form 配置面板
+     * @param Typecho_Widget_Helper_Form $form Configuration panel
      * @return void
      */
     public static function config(Typecho_Widget_Helper_Form $form)
     {
-        /** 分类名称 */
-        $name = new Typecho_Widget_Helper_Form_Element_Text('word', NULL, 'Hello World', _t('说点什么'));
+        /** Category Name */
+        $name = new Typecho_Widget_Helper_Form_Element_Text('word', NULL, 'Hello World', _t('Say something'));
         $form->addInput($name);
     }
-    
+
     /**
-     * 个人用户的配置面板
-     * 
+     * Individual user's configuration panel
+     *
      * @access public
      * @param Typecho_Widget_Helper_Form $form
      * @return void
      */
     public static function personalConfig(Typecho_Widget_Helper_Form $form){}
-    
+
     /**
-     * 插件实现方法
-     * 
+     * Plugin method
+     *
      * @access public
      * @return void
      */

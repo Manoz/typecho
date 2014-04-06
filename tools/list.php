@@ -1,14 +1,14 @@
 <?php
 
-/** 参数不存在则退出 */
+/** If Parameter does not exist then exit */
 if (!isset($argv[1])) {
     echo 'no args';
     exit(1);
 }
 
 /**
- * 获取所有文件
- * 
+ * Access to all documents
+ *
  * @param string $dir
  * @param string $pattern
  * @return array
@@ -20,7 +20,7 @@ function all_files($dir, $pattern = '*') {
     foreach ($items as $item) {
         if (is_file($item)) {
             $result[] = $item;
-        } 
+        }
     }
 
     $items = glob($dir . '/*', GLOB_ONLYDIR);

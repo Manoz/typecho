@@ -1,15 +1,15 @@
 <?php
 
-/** 参数不存在则退出 */
+/** If Parameter does not exist then exit */
 if (!isset($argv[1])) {
     echo 'no args';
     exit(1);
 }
 
-/** 解析所有的参数 */
+/** Resolve all parameters */
 parse_str($argv[1], $options);
 
-/** 必要参数检测 */
+/** Detect necessary arguments */
 if (!isset($options['in']) || !isset($options['out'])) {
     echo 'no input or output file';
     exit(1);

@@ -13,3 +13,11 @@ http://forum.typecho.org/
 ####Download
 http://typecho.org/download
 
+TODO English translation
+========================
+
+* [x] Translate Installation
+* [ ] Translate core files
+* [ ] Translate theme
+* [ ] Translate plugins
+* [ ] Dring coffee

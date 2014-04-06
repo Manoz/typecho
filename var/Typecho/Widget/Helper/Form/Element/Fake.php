@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
- * 虚拟域帮手类
+ * Virtual domain helper class
  *
  * @category typecho
  * @package Widget
@@ -11,7 +11,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 虚拟域帮手类
+ * Virtual domain helper class
  *
  * @category typecho
  * @package Widget
@@ -21,11 +21,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Typecho_Widget_Helper_Form_Element_Fake extends Typecho_Widget_Helper_Form_Element
 {
     /**
-     * 构造函数
+     * Constructors
      *
      * @access public
-     * @param string $name 表单输入项名称
-     * @param mixed $value 表单默认值
+     * @param string $name Form entry name
+     * @param mixed $value Form defaults
      * @return void
      */
     public function __construct($name, $value)
@@ -33,20 +33,20 @@ class Typecho_Widget_Helper_Form_Element_Fake extends Typecho_Widget_Helper_Form
         $this->name = $name;
         self::$uniqueId ++;
 
-        /** 运行自定义初始函数 */
+        /** Run a custom init function */
         $this->init();
 
-        /** 初始化表单项 */
+        /** Initialization single table */
         $this->input = $this->input($name, $options);
 
-        /** 初始化表单值 */
+        /** Initialization form values */
         if (NULL !== $value) {
             $this->value($value);
         }
     }
 
     /**
-     * 自定义初始函数
+     * Custom init function
      *
      * @access public
      * @return void
@@ -55,11 +55,11 @@ class Typecho_Widget_Helper_Form_Element_Fake extends Typecho_Widget_Helper_Form
     {}
 
     /**
-     * 初始化当前输入项
+     * Initialize the current entry
      *
      * @access public
-     * @param string $name 表单元素名称
-     * @param array $options 选择项
+     * @param string $name Form elements name
+     * @param array $options Select items
      * @return Typecho_Widget_Helper_Layout
      */
     public function input($name = NULL, array $options = NULL)
@@ -70,10 +70,10 @@ class Typecho_Widget_Helper_Form_Element_Fake extends Typecho_Widget_Helper_Form
     }
 
     /**
-     * 设置表单项默认值
+     * Set a single default value in the table
      *
      * @access protected
-     * @param string $value 表单项默认值
+     * @param string $value Table single default value
      * @return void
      */
     protected function _value($value)

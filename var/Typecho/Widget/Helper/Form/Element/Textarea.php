@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
- * 多行文字域帮手
+ * Textarea fields helper
  *
  * @category typecho
  * @package Widget
@@ -11,7 +11,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 多行文字域帮手类
+ * Textarea fields helper class
  *
  * @category typecho
  * @package Widget
@@ -21,11 +21,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Typecho_Widget_Helper_Form_Element_Textarea extends Typecho_Widget_Helper_Form_Element
 {
     /**
-     * 初始化当前输入项
+     * Initialize the current entry
      *
      * @access public
-     * @param string $name 表单元素名称
-     * @param array $options 选择项
+     * @param string $name Form elements name
+     * @param array $options Select items
      * @return Typecho_Widget_Helper_Layout
      */
     public function input($name = NULL, array $options = NULL)
@@ -39,10 +39,10 @@ class Typecho_Widget_Helper_Form_Element_Textarea extends Typecho_Widget_Helper_
     }
 
     /**
-     * 设置表单项默认值
+     * Set a single default value in the table
      *
      * @access protected
-     * @param string $value 表单项默认值
+     * @param string $value Table single default value
      * @return void
      */
     protected function _value($value)

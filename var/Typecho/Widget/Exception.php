@@ -9,7 +9,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 组件异常类
+ * Components exception class
  *
  * @package Widget
  */

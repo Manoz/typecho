@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
- * 多选框帮手
+ * Checkbox helper
  *
  * @category typecho
  * @package Widget
@@ -11,7 +11,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 多选框帮手类
+ * Checkbox helper class
  *
  * @category typecho
  * @package Widget
@@ -21,7 +21,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Typecho_Widget_Helper_Form_Element_Checkbox extends Typecho_Widget_Helper_Form_Element
 {
     /**
-     * 选择值
+     * Select a value
      *
      * @access private
      * @var array
@@ -29,11 +29,11 @@ class Typecho_Widget_Helper_Form_Element_Checkbox extends Typecho_Widget_Helper_
     private $_options = array();
 
     /**
-     * 初始化当前输入项
+     * Initialize the current entry
      *
      * @access public
-     * @param string $name 表单元素名称
-     * @param array $options 选择项
+     * @param string $name Form elements name
+     * @param array $options Select items
      * @return Typecho_Widget_Helper_Layout
      */
     public function input($name = NULL, array $options = NULL)
@@ -58,10 +58,10 @@ class Typecho_Widget_Helper_Form_Element_Checkbox extends Typecho_Widget_Helper_
     }
 
     /**
-     * 设置表单元素值
+     * Set the value of the form element
      *
      * @access protected
-     * @param mixed $value 表单元素值
+     * @param mixed $value Form element values
      * @return void
      */
     protected function _value($value)

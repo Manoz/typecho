@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
- * 提交按钮表单项帮手
+ * Submit button single helper
  *
  * @category typecho
  * @package Widget
@@ -11,7 +11,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 提交按钮表单项帮手类
+ * Submit button single helper class
  *
  * @category typecho
  * @package Widget
@@ -21,11 +21,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Typecho_Widget_Helper_Form_Element_Submit extends Typecho_Widget_Helper_Form_Element
 {
     /**
-     * 初始化当前输入项
+     * Initialize the current entry
      *
      * @access public
-     * @param string $name 表单元素名称
-     * @param array $options 选择项
+     * @param string $name Form elements name
+     * @param array $options Select items
      * @return Typecho_Widget_Helper_Layout
      */
     public function input($name = NULL, array $options = NULL)
@@ -39,10 +39,10 @@ class Typecho_Widget_Helper_Form_Element_Submit extends Typecho_Widget_Helper_Fo
     }
 
     /**
-     * 设置表单元素值
+     * Set the value of the form element
      *
      * @access protected
-     * @param mixed $value 表单元素值
+     * @param mixed $value Form element values
      * @return void
      */
     protected function _value($value)

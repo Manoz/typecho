@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
- * 文字输入表单项帮手
+ * Text input helper
  *
  * @category typecho
  * @package Widget
@@ -11,7 +11,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 文字输入表单项帮手类
+ * Text input helper class
  *
  * @category typecho
  * @package Widget
@@ -21,11 +21,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Typecho_Widget_Helper_Form_Element_Text extends Typecho_Widget_Helper_Form_Element
 {
     /**
-     * 初始化当前输入项
+     * Initialize the current entry
      *
      * @access public
-     * @param string $name 表单元素名称
-     * @param array $options 选择项
+     * @param string $name Form elements name
+     * @param array $options Select items
      * @return Typecho_Widget_Helper_Layout
      */
     public function input($name = NULL, array $options = NULL)
@@ -40,10 +40,10 @@ class Typecho_Widget_Helper_Form_Element_Text extends Typecho_Widget_Helper_Form
     }
 
     /**
-     * 设置表单项默认值
+     * Set a single default value in the table
      *
      * @access protected
-     * @param mixed $value 表单项默认值
+     * @param mixed $value Table single default value
      * @return void
      */
     protected function _value($value)

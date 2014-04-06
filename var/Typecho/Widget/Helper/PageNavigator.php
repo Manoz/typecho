@@ -8,14 +8,14 @@
  */
 
 /**
- * 内容分页抽象类
+ * Paging abstract class
  *
  * @package Widget
  */
 abstract class Typecho_Widget_Helper_PageNavigator
 {
     /**
-     * 记录总数
+     * Total number of records
      *
      * @access protected
      * @var integer
@@ -23,7 +23,7 @@ abstract class Typecho_Widget_Helper_PageNavigator
     protected $_total;
 
     /**
-     * 页面总数
+     * Total number of pages
      *
      * @access protected
      * @var integer
@@ -31,7 +31,7 @@ abstract class Typecho_Widget_Helper_PageNavigator
     protected $_totalPage;
 
     /**
-     * 当前页面
+     * Current page
      *
      * @access protected
      * @var integer
@@ -39,7 +39,7 @@ abstract class Typecho_Widget_Helper_PageNavigator
     protected $_currentPage;
 
     /**
-     * 每页内容数
+     * Number of page content
      *
      * @access protected
      * @var integer
@@ -47,7 +47,7 @@ abstract class Typecho_Widget_Helper_PageNavigator
     protected $_pageSize;
 
     /**
-     * 页面链接模板
+     * Template page links
      *
      * @access protected
      * @var string
@@ -55,7 +55,7 @@ abstract class Typecho_Widget_Helper_PageNavigator
     protected $_pageTemplate;
 
     /**
-     * 链接锚点
+     * Anchor link
      *
      * @access protected
      * @var string
@@ -63,7 +63,7 @@ abstract class Typecho_Widget_Helper_PageNavigator
     protected $_anchor;
 
     /**
-     * 页面占位符
+     * Placeholder page
      *
      * @access protected
      * @var mixed
@@ -71,13 +71,13 @@ abstract class Typecho_Widget_Helper_PageNavigator
     protected $_pageHolder = array('{page}', '%7Bpage%7D');
 
     /**
-     * 构造函数,初始化页面基本信息
+     * Init basic page information constructors
      *
      * @access public
-     * @param integer $total 记录总数
-     * @param integer $page 当前页面
-     * @param integer $pageSize 每页记录数
-     * @param string $pageTemplate 页面链接模板
+     * @param integer $total Total number of records
+     * @param integer $page Current page
+     * @param integer $pageSize The number of records per page
+     * @param string $pageTemplate Template page links
      * @return void
      */
     public function __construct($total, $currentPage, $pageSize, $pageTemplate)
@@ -94,10 +94,10 @@ abstract class Typecho_Widget_Helper_PageNavigator
     }
 
     /**
-     * 设置页面占位符
+     * Settings page placeholder
      *
      * @access protected
-     * @param string $holder 页面占位符
+     * @param string $holder Page placeholder
      * @return void
      */
     public function setPageHolder($holder)
@@ -107,10 +107,10 @@ abstract class Typecho_Widget_Helper_PageNavigator
     }
 
     /**
-     * 设置锚点
+     * Set anchor
      *
      * @access public
-     * @param string $anchor 锚点
+     * @param string $anchor Anchor
      * @return void
      */
     public function setAnchor($anchor)
@@ -119,7 +119,7 @@ abstract class Typecho_Widget_Helper_PageNavigator
     }
 
     /**
-     * 输出方法
+     * Output method
      *
      * @access public
      * @return void

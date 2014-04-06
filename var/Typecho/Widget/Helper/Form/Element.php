@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
- * 表单元素抽象帮手
+ * Form element helper
  *
  * @category typecho
  * @package Widget
@@ -11,7 +11,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 表单元素抽象类
+ * Form element helper class
  *
  * @category typecho
  * @package Widget
@@ -21,7 +21,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_Layout
 {
     /**
-     * 表单描述
+     * Form Description
      *
      * @access private
      * @var string
@@ -29,7 +29,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     protected $description;
 
     /**
-     * 表单消息
+     * Form Message
      *
      * @access protected
      * @var string
@@ -37,7 +37,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     protected $message;
 
     /**
-     * 多行输入
+     * Multi-line input
      *
      * @access public
      * @var array()
@@ -45,7 +45,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     protected $multiline = array();
 
     /**
-     * 单例唯一id
+     * Single case unique id
      *
      * @access protected
      * @var integer
@@ -53,7 +53,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     protected static $uniqueId = 0;
 
     /**
-     * 表单元素容器
+     * Form element container
      *
      * @access public
      * @var Typecho_Widget_Helper_Layout
@@ -61,7 +61,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     public $container;
 
     /**
-     * 输入栏
+     * Input field
      *
      * @access public
      * @var Typecho_Widget_Helper_Layout
@@ -69,15 +69,15 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     public $input;
 
     /**
-     * inputs  
-     * 
+     * Inputs
+     *
      * @var array
      * @access public
      */
     public $inputs = array();
 
     /**
-     * 表单标题
+     * Form title
      *
      * @access public
      * @var Typecho_Widget_Helper_Layout
@@ -85,7 +85,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     public $label;
 
     /**
-     * 表单验证器
+     * Form Validator
      *
      * @access public
      * @var array
@@ -93,7 +93,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     public $rules = array();
 
     /**
-     * 表单名称
+     * Form Name
      *
      * @access public
      * @var string
@@ -101,7 +101,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     public $name;
 
     /**
-     * 表单值
+     * Form values
      *
      * @access public
      * @var mixed
@@ -109,49 +109,49 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     public $value;
 
     /**
-     * 构造函数
+     * Constructors
      *
      * @access public
-     * @param string $name 表单输入项名称
-     * @param array $options 选择项
-     * @param mixed $value 表单默认值
-     * @param string $label 表单标题
-     * @param string $description 表单描述
+     * @param string $name Form entry name
+     * @param array $options Select items
+     * @param mixed $value Form defaults
+     * @param string $label Form title
+     * @param string $description Form Description
      * @return void
      */
     public function __construct($name = NULL, array $options = NULL, $value = NULL, $label = NULL, $description = NULL)
     {
-        /** 创建html元素,并设置class */
+        /** Create html element, and set the class */
         parent::__construct('ul', array('class' => 'typecho-option', 'id' => 'typecho-option-item-' . $name . '-' . self::$uniqueId));
         $this->name = $name;
         self::$uniqueId ++;
 
-        /** 运行自定义初始函数 */
+        /** Run a custom init function */
         $this->init();
 
-        /** 初始化表单标题 */
+        /** Form title Init */
         if (NULL !== $label) {
             $this->label($label);
         }
 
-        /** 初始化表单项 */
+        /** Initialization single table */
         $this->input = $this->input($name, $options);
 
-        /** 初始化表单值 */
+        /** Initialization form values */
         if (NULL !== $value) {
             $this->value($value);
         }
 
-        /** 初始化表单描述 */
+        /** Form Description init */
         if (NULL !== $description) {
             $this->description($description);
         }
     }
 
     /**
-     * filterValue  
-     * 
-     * @param mixed $value 
+     * filterValue
+     *
+     * @param mixed $value
      * @access protected
      * @return string
      */
@@ -165,7 +165,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     }
 
     /**
-     * 自定义初始函数
+     * Custom init function
      *
      * @access public
      * @return void
@@ -173,15 +173,15 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     public function init(){}
 
     /**
-     * 创建表单标题
+     * Create the form title
      *
      * @access public
-     * @param string $value 标题字符串
+     * @param string $value Title string
      * @return Typecho_Widget_Helper_Form_Element
      */
     public function label($value)
     {
-        /** 创建标题元素 */
+        /** Create a header element */
         if (empty($this->label)) {
             $this->label = new Typecho_Widget_Helper_Layout('label', array('class' => 'typecho-label'));
             $this->container($this->label);
@@ -192,15 +192,15 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     }
 
     /**
-     * 在容器里增加元素
+     * Increase the container element
      *
      * @access public
-     * @param Typecho_Widget_Helper_Layout $item 表单元素
+     * @param Typecho_Widget_Helper_Layout $item Form elements
      * @return $this
      */
     public function container(Typecho_Widget_Helper_Layout $item)
     {
-        /** 创建表单容器 */
+        /** Create a form container */
         if (empty($this->container)) {
             $this->container = new Typecho_Widget_Helper_Layout('li');
             $this->addItem($this->container);
@@ -211,10 +211,10 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     }
 
     /**
-     * 设置提示信息
+     * Set messages
      *
      * @access public
-     * @param string $message 提示信息
+     * @param string $message Message
      * @return Typecho_Widget_Helper_Form_Element
      */
     public function message($message)
@@ -229,15 +229,15 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     }
 
     /**
-     * 设置描述信息
+     * Set a description
      *
      * @access public
-     * @param string $description 描述信息
+     * @param string $description Description
      * @return Typecho_Widget_Helper_Form_Element
      */
     public function description($description)
     {
-        /** 创建描述元素 */
+        /** Create the description of the elements */
         if (empty($this->description)) {
             $this->description = new Typecho_Widget_Helper_Layout('p', array('class' => 'description'));
             $this->container($this->description);
@@ -248,10 +248,10 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     }
 
     /**
-     * 设置表单元素值
+     * Set the value of the form element
      *
      * @access public
-     * @param mixed $value 表单元素值
+     * @param mixed $value Form element values
      * @return Typecho_Widget_Helper_Form_Element
      */
     public function value($value)
@@ -262,7 +262,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     }
 
     /**
-     * 多行输出模式
+     * Multi-line output mode
      *
      * @access public
      * @return Typecho_Widget_Helper_Layout
@@ -275,7 +275,7 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     }
 
     /**
-     * 多行输出模式
+     * Multi-line output mode
      *
      * @access public
      * @return Typecho_Widget_Helper_Form_Element
@@ -289,27 +289,27 @@ abstract class Typecho_Widget_Helper_Form_Element extends Typecho_Widget_Helper_
     }
 
     /**
-     * 初始化当前输入项
+     * Initialize the current entry
      *
      * @access public
-     * @param Typecho_Widget_Helper_Layout $container 容器对象
-     * @param string $name 表单元素名称
-     * @param array $options 选择项
+     * @param Typecho_Widget_Helper_Layout $container Container object
+     * @param string $name Form elements name
+     * @param array $options Select items
      * @return Typecho_Widget_Helper_Form_Element
      */
     abstract public function input($name = NULL, array $options = NULL);
 
     /**
-     * 设置表单元素值
+     * Set the value of the form element
      *
      * @access protected
-     * @param mixed $value 表单元素值
+     * @param mixed $value Form element values
      * @return void
      */
     abstract protected function _value($value);
 
     /**
-     * 增加验证器
+     * Increase validator
      *
      * @access public
      * @return Typecho_Widget_Helper_Form_Element

@@ -1,6 +1,6 @@
 <?php
 /**
- * widget对象帮手
+ * Widget object helper
  *
  * @category typecho
  * @package Widget
@@ -10,7 +10,7 @@
  */
 
 /**
- * widget对象帮手,用于处理空对象方法
+ * Widget object helper methods for handling null object
  *
  * @category typecho
  * @package Widget
@@ -20,7 +20,7 @@
 class Typecho_Widget_Helper_Empty
 {
     /**
-     * 单例句柄
+     * Single Handle Cases
      *
      * @access private
      * @var Typecho_Widget_Helper_Empty
@@ -28,7 +28,7 @@ class Typecho_Widget_Helper_Empty
     private static $_instance = null;
 
     /**
-     * 获取单例句柄
+     * Get a handle to Single case
      *
      * @access public
      * @return Typecho_Widget_Helper_Empty
@@ -43,11 +43,11 @@ class Typecho_Widget_Helper_Empty
     }
 
     /**
-     * 所有方法请求直接返回
+     * All methods return requests directly
      *
      * @access public
-     * @param string $name 方法名
-     * @param array $args 参数列表
+     * @param string $name Method name
+     * @param array $args Parameter List
      * @return void
      */
     public function __call($name, $args)

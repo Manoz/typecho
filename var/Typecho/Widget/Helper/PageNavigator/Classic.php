@@ -9,7 +9,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 经典分页样式
+ * Classic style pagination
  *
  * @author qining
  * @category typecho
@@ -20,11 +20,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Typecho_Widget_Helper_PageNavigator_Classic extends Typecho_Widget_Helper_PageNavigator
 {
     /**
-     * 输出经典样式的分页
+     * Classic style pagination output
      *
      * @access public
-     * @param string $prevWord 上一页文字
-     * @param string $nextWord 下一页文字
+     * @param string $prevWord Previous text
+     * @param string $nextWord Next text
      * @return void
      */
     public function render($prevWord = 'PREV', $nextWord = 'NEXT')
@@ -34,15 +34,15 @@ class Typecho_Widget_Helper_PageNavigator_Classic extends Typecho_Widget_Helper_
     }
 
     /**
-     * 输出上一页
+     * Output Previous
      *
      * @access public
-     * @param string $prevWord 上一页文字
+     * @param string $prevWord Previous text
      * @return void
      */
     public function prev($prevWord = 'PREV')
     {
-        //输出上一页
+        // Output Previous
         if ($this->_total > 0 && $this->_currentPage > 1) {
             echo '<a class="prev" href="' . str_replace($this->_pageHolder, $this->_currentPage - 1, $this->_pageTemplate) . $this->_anchor . '">'
             . $prevWord . '</a>';
@@ -50,15 +50,15 @@ class Typecho_Widget_Helper_PageNavigator_Classic extends Typecho_Widget_Helper_
     }
 
     /**
-     * 输出下一页
+     * Output Next
      *
      * @access public
-     * @param string $prevWord 下一页文字
+     * @param string $prevWord Next text
      * @return void
      */
     public function next($nextWord = 'NEXT')
     {
-        //输出下一页
+        // Output Next
         if ($this->_total > 0 && $this->_currentPage < $this->_totalPage) {
             echo '<a class="next" title="" href="' . str_replace($this->_pageHolder, $this->_currentPage + 1, $this->_pageTemplate) . $this->_anchor . '">'
             . $nextWord . '</a>';

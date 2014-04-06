@@ -18,6 +18,6 @@ TODO English translation
 
 * [x] Translate Installation
 * [ ] Translate core files
-* [ ] Translate theme
-* [ ] Translate plugins
+* [x] Translate theme
+* [x] Translate plugins
 * [ ] Dring coffee

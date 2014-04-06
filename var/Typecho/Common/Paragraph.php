@@ -1,6 +1,6 @@
 <?php
 /**
- * 段落处理类
+ * Paragraph processing class
  *
  * @category typecho
  * @package Common
@@ -10,7 +10,7 @@
  */
 
 /**
- * 用于对自动分段做处理
+ * Do processing for automatic segmentation
  *
  * @category typecho
  * @package Common
@@ -20,26 +20,26 @@
 class Typecho_Common_Paragraph
 {
     /**
-     * 唯一id
-     * 
+     * Unique id
+     *
      * @access private
      * @var integer
      */
     private static $_uniqueId = 0;
-    
+
     /**
-     * 存储的段落
-     * 
+     * Store paragraphs
+     *
      * @access private
      * @var array
      */
     private static $_blocks = array();
-    
+
     /**
-     * 作为段落看待的标签
-     * 
+     * Regarded as a paragraph tag
+     *
      * (default value: 'p|code|pre|div|blockquote|form|ul|ol|dd|table|h1|h2|h3|h4|h5|h6')
-     * 
+     *
      * @var string
      * @access private
      * @static
@@ -48,7 +48,8 @@ class Typecho_Common_Paragraph
 
     /**
      * 生成唯一的id, 为了速度考虑最多支持1万个tag的处理
-     * 
+     * Generate a unique id, to consider supporting speeds up to 10,000 tag processing
+     *
      * @access private
      * @return string
      */
@@ -56,10 +57,10 @@ class Typecho_Common_Paragraph
     {
         return ':' . str_pad(self::$_uniqueId ++, 4, '0', STR_PAD_LEFT);
     }
-    
+
     /**
-     * 用段落方法处理换行
-     * 
+     * Wrap treatment method with paragraph
+     *
      * @access private
      * @param string $text
      * @return string
@@ -75,10 +76,10 @@ class Typecho_Common_Paragraph
         $text = preg_replace("/<p>{$space}*<\/p>/is", '', $text);
         return $text;
     }
-    
+
     /**
-     * 修复段落开头和结尾
-     * 
+     * Beginning and end of a paragraph repair
+     *
      * @access private
      * @param string $text
      * @return string
@@ -89,17 +90,17 @@ class Typecho_Common_Paragraph
         if (!preg_match("/^<(" . self::$_blockTag . ")(\s|>)/i", $text)) {
             $text = '<p>' . $text;
         }
-        
+
         if (!preg_match("/<\/(" . self::$_blockTag . ")>$/i", $text)) {
             $text = $text . '</p>';
         }
-        
+
         return $text;
     }
-    
+
     /**
-     * 替换段落的回调函数
-     * 
+     * Replace paragraph callback function
+     *
      * @access public
      * @param array $matches 匹配值
      * @return string
@@ -108,13 +109,14 @@ class Typecho_Common_Paragraph
     {
         $tagMatch = '|' . $matches[1] . '|';
         $text = $matches[4];
-    
+
         switch (true) {
             /** 用br处理换行 */
+            /** Deal with BR newline tag */
             case false !== strpos('|li|dd|dt|td|p|a|span|cite|strong|sup|sub|small|del|u|i|b|h1|h2|h3|h4|h5|h6|', $tagMatch):
                 $text = nl2br(trim($text));
                 break;
-            /** 用段落处理换行 */
+            /** Wrap paragraphs */
             case false !== strpos('|div|blockquote|form|', $tagMatch):
                 $text = self::cutByBlock($text);
                 if (false !== strpos($text, '</p><p>')) {
@@ -124,51 +126,52 @@ class Typecho_Common_Paragraph
             default:
                 break;
         }
-        
-        /** 没有段落能力的标签 */
+
+        /** No ability to tag a paragraph */
         if (false !== strpos('|a|span|cite|strong|sup|sub|small|del|u|i|b|', $tagMatch)) {
             $key = '<b' . $matches[2] . '/>';
         } else {
             $key = '<p' . $matches[2] . '/>';
         }
-        
+
         self::$_blocks[$key] = "<{$matches[1]}{$matches[3]}>{$text}</{$matches[1]}>";
         return $key;
     }
 
     /**
-     * 处理文本
-     * 
+     * Text processing
+     *
      * @access public
-     * @param string $text 文本
+     * @param string $text Text
      * @return string
      */
     public static function process($text)
     {
-        /** 锁定标签 */
+        /** Locked tags */
         $text = Typecho_Common::lockHTML($text);
-        
-        /** 重置计数器 */
+
+        /** Reset the counter */
         self::$_uniqueId = 0;
         self::$_blocks = array();
-    
+
         /** 将已有的段落后面的换行处理掉 */
+        /** Dispose the wrap behing the existing paragraph */
         $text = preg_replace(array("/<\/p>\s+<p(\s*)/is", "/\s*<br\s*\/?>\s*/is"), array("</p><p\\1", "<br />"), trim($text));
-        
-        /** 将所有非自闭合标签解析为唯一的字符串 */
+
+        /** All non-self-closing tag resolves to a unique string */
         $foundTagCount = 0;
         $textLength = strlen($text);
         $uniqueIdList = array();
-        
+
         if (preg_match_all("/<\/\s*([a-z0-9]+)>/is", $text, $matches, PREG_OFFSET_CAPTURE)) {
             foreach ($matches[0] as $key => $match) {
                 $tag = $matches[1][$key][0];
-                
+
                 $leftOffset = $match[1] - $textLength;
                 $posSingle = strrpos($text, '<' . $tag . '>', $leftOffset);
                 $posFix = strrpos($text, '<' . $tag . ' ', $leftOffset);
                 $pos = false;
-                
+
                 switch (true) {
                     case (false !== $posSingle && false !== $posFix):
                         $pos = max($posSingle, $posFix);
@@ -182,34 +185,34 @@ class Typecho_Common_Paragraph
                     default:
                         break;
                 }
-                
+
                 if (false !== $pos) {
                     $uniqueId = self::makeUniqueId();
                     $uniqueIdList[$uniqueId] = $tag;
                     $tagLength = strlen($tag);
-                    
+
                     $text = substr_replace($text, $uniqueId, $pos + 1 + $tagLength, 0);
                     $text = substr_replace($text, $uniqueId, $match[1] + 7 + $foundTagCount * 10 + $tagLength, 0); // 7 = 5 + 2
                     $foundTagCount ++;
                 }
             }
         }
-        
+
         foreach ($uniqueIdList as $uniqueId => $tag) {
             $text = preg_replace_callback("/<({$tag})({$uniqueId})([^>]*)>(.*)<\/\\1\\2>/is",
                 array('Typecho_Common_Paragraph', 'replaceBlockCallback'), $text, 1);
         }
-        
+
         $text = self::cutByBlock($text);
         $blocks = array_reverse(self::$_blocks);
-        
+
         foreach ($blocks as $blockKey => $blockValue) {
             $text = str_replace($blockKey, $blockValue, $text);
         }
-        
+
         $text = self::fixPragraph($text);
-        
-        /** 释放标签 */
+
+        /** Release tags */
         return Typecho_Common::releaseHTML($text);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * 插件接口
+ * Plugin interface
  *
  * @category typecho
  * @package Plugin
@@ -10,7 +10,7 @@
  */
 
 /**
- * 插件接口
+ * Plugin interface
  *
  * @package Plugin
  * @abstract
@@ -18,7 +18,7 @@
 interface Typecho_Plugin_Interface
 {
     /**
-     * 启用插件方法,如果启用失败,直接抛出异常
+     * Enable plugin method, if it fails to enable throw an exception
      *
      * @static
      * @access public
@@ -28,7 +28,7 @@ interface Typecho_Plugin_Interface
     public static function activate();
 
     /**
-     * 禁用插件方法,如果禁用失败,直接抛出异常
+     * Disabling plugin method, if it fails, an exception is thrown directly
      *
      * @static
      * @access public
@@ -38,17 +38,17 @@ interface Typecho_Plugin_Interface
     public static function deactivate();
 
     /**
-     * 获取插件配置面板
+     * Get plugin configuration panel
      *
      * @static
      * @access public
-     * @param Typecho_Widget_Helper_Form $form 配置面板
+     * @param Typecho_Widget_Helper_Form $form Configuration panel
      * @return void
      */
     public static function config(Typecho_Widget_Helper_Form $form);
 
     /**
-     * 个人用户的配置面板
+     * Individual user's configuration panel
      *
      * @access public
      * @param Typecho_Widget_Helper_Form $form

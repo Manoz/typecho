@@ -1,6 +1,6 @@
 <?php
 /**
- * 路由器解析器
+ * Routers parser
  *
  * @category typecho
  * @package Router
@@ -10,7 +10,7 @@
  */
 
 /**
- * 路由器解析器
+ * Routers parser
  *
  * @category typecho
  * @package Router
@@ -20,7 +20,7 @@
 class Typecho_Router_Parser
 {
     /**
-     * 默认匹配表
+     * The default match table
      *
      * @access private
      * @var array
@@ -28,7 +28,7 @@ class Typecho_Router_Parser
     private $_defaultRegx;
 
     /**
-     * 路由器映射表
+     * Router mapping table
      *
      * @access private
      * @var array
@@ -36,7 +36,7 @@ class Typecho_Router_Parser
     private $_routingTable;
 
     /**
-     * 参数表
+     * Parameters
      *
      * @access private
      * @var array
@@ -44,10 +44,10 @@ class Typecho_Router_Parser
     private $_params;
 
     /**
-     * 设置路由表
+     * Set the routing table
      *
      * @access public
-     * @param array $routingTable 路由器映射表
+     * @param array $routingTable Router mapping table
      * @return void
      */
     public function __construct(array $routingTable)
@@ -65,10 +65,10 @@ class Typecho_Router_Parser
     }
 
     /**
-     * 局部匹配并替换正则字符串
+     * Regular local match and replace strings
      *
      * @access public
-     * @param array $matches 匹配部分
+     * @param array $matches Matching part
      * @return string
      */
     public function _match(array $matches)
@@ -89,7 +89,7 @@ class Typecho_Router_Parser
     }
 
     /**
-     * 解析路由表
+     * Resolve the routing table
      *
      * @access public
      * @return array
@@ -103,7 +103,7 @@ class Typecho_Router_Parser
             $route['regx'] = preg_replace_callback("/%([^%]+)%/", array($this, '_match'),
             preg_quote(str_replace(array('[', ']', ':'), array('%', '%', ' '), $route['url'])));
 
-            /** 处理斜线 */
+            /** Slash processing */
             $route['regx'] = rtrim($route['regx'], '/');
             $route['regx'] = '|^' . $route['regx'] . '[/]?$|';
 

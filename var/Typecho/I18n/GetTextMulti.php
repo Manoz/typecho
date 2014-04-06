@@ -8,8 +8,8 @@
  */
 
 /**
- * 用于解决一个多个mo文件带来的读写问题
- * 我们重写了一个文件读取类
+ * Mo files used to solve more than one problem to bring read and write
+ * We rewrite the class to read a file
  *
  * @author qining
  * @category typecho
@@ -18,7 +18,7 @@
 class Typecho_I18n_GetTextMulti
 {
     /**
-     * 所有的文件读写句柄
+     * Handles all file read and write
      *
      * @access private
      * @var array
@@ -26,10 +26,10 @@ class Typecho_I18n_GetTextMulti
     private $_handles = array();
 
     /**
-     * 构造函数
+     * Constructors
      *
      * @access public
-     * @param string $fileName 语言文件名
+     * @param string $fileName Language file name
      * @return void
      */
     public function __construct($fileName)
@@ -38,10 +38,10 @@ class Typecho_I18n_GetTextMulti
     }
 
     /**
-     * 增加一个语言文件
+     * Adding a language file
      *
      * @access public
-     * @param string $fileName 语言文件名
+     * @param string $fileName Language file name
      * @return void
      */
     public function addFile($fileName)
@@ -90,7 +90,7 @@ class Typecho_I18n_GetTextMulti
     }
 
     /**
-     * 关闭所有句柄
+     * Close all handles
      *
      * @access public
      * @return void
@@ -98,7 +98,7 @@ class Typecho_I18n_GetTextMulti
     public function __destruct()
     {
         foreach ($this->_handles as $handle) {
-            /** 显示的释放内存 */
+            /** Unset released memory */
             unset($handle);
         }
     }

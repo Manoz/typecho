@@ -79,7 +79,7 @@ class Typecho_I18n_GetText
         // Caching can be turned off
         $this->enable_cache = $enable_cache;
         $this->STREAM = @fopen($file, 'rb');
-        
+
         $unpacked = unpack('c', $this->read(4));
         $magic = array_shift($unpacked);
 
@@ -101,9 +101,9 @@ class Typecho_I18n_GetText
     }
 
     /**
-     * read  
-     * 
-     * @param mixed $count 
+     * read
+     *
+     * @param mixed $count
      * @access private
      * @return void
      */
@@ -381,7 +381,7 @@ class Typecho_I18n_GetText
     }
 
     /**
-     * 关闭文件句柄
+     * Close the file handle
      *
      * @access public
      * @return void

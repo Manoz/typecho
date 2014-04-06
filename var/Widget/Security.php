@@ -48,7 +48,7 @@ class Widget_Security extends Typecho_Widget
     }
 
     /**
-     * 生成带token的路径
+     * 生成带token的path
      *
      * @param $path
      * @return string
@@ -80,7 +80,7 @@ class Widget_Security extends Typecho_Widget
     }
 
     /**
-     * 获取安全的后台路径
+     * 获取安全的后台path
      *
      * @param string $path
      * @return string
@@ -91,7 +91,7 @@ class Widget_Security extends Typecho_Widget
     }
 
     /**
-     * 获取安全的路由路径
+     * 获取安全的路由path
      *
      * @param $path
      * @return string
@@ -102,7 +102,7 @@ class Widget_Security extends Typecho_Widget
     }
 
     /**
-     * 获取绝对路由路径
+     * 获取绝对路由path
      *
      * @param $path
      * @return string
@@ -113,7 +113,7 @@ class Widget_Security extends Typecho_Widget
     }
 
     /**
-     * 输出后台安全路径
+     * 输出后台安全path
      *
      * @param $path
      */
@@ -123,7 +123,7 @@ class Widget_Security extends Typecho_Widget
     }
 
     /**
-     * 输出安全的路由路径
+     * 输出安全的路由path
      *
      * @param $path
      */
@@ -132,4 +132,3 @@ class Widget_Security extends Typecho_Widget
         echo $this->getIndex($path);
     }
 }
- 

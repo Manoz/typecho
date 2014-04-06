@@ -138,9 +138,9 @@ class Widget_Abstract_Metas extends Widget_Abstract
 
     /**
      * 获取最大排序
-     * 
-     * @param mixed $type 
-     * @param int $parent 
+     *
+     * @param mixed $type
+     * @param int $parent
      * @access public
      * @return integer
      */
@@ -215,7 +215,7 @@ class Widget_Abstract_Metas extends Widget_Abstract
      * 根据tag获取ID
      *
      * @access public
-     * @param mixed $inputTags 标签名
+     * @param mixed $inputTags Label name
      * @return array
      */
     public function scanTags($inputTags)
@@ -254,7 +254,7 @@ class Widget_Abstract_Metas extends Widget_Abstract
 
     /**
      * 清理没有任何内容的标签
-     * 
+     *
      * @access public
      * @return void
      */

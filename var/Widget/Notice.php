@@ -24,10 +24,10 @@ class Widget_Notice extends Typecho_Widget
     public $highlight;
 
     /**
-     * 高亮相关元素
+     * 高亮相关Element
      *
      * @access public
-     * @param string $theId 需要高亮元素的id
+     * @param string $theId 需要高亮Element的id
      * @return void
      */
     public function highlight($theId)

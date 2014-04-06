@@ -23,10 +23,10 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
     const UPLOAD_DIR = '/usr/uploads';
 
     /**
-     * 创建上传路径
+     * 创建上传path
      *
      * @access private
-     * @param string $path 路径
+     * @param string $path path
      * @return boolean
      */
     private static function makeUploadDir($path)
@@ -56,9 +56,9 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
     }
 
     /**
-     * 获取安全的文件名 
-     * 
-     * @param string $name 
+     * 获取安全的文件名
+     *
+     * @param string $name
      * @static
      * @access private
      * @return string
@@ -70,7 +70,7 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
         $name = false === strpos($name, '/') ? ('a' . $name) : str_replace('/', '/a', $name);
         $info = pathinfo($name);
         $name = substr($info['basename'], 1);
-    
+
         return isset($info['extension']) ? $info['extension'] : '';
     }
 
@@ -86,7 +86,7 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
         if (empty($file['name'])) {
             return false;
         }
-        
+
         $result = Typecho_Plugin::factory('Widget_Upload')->trigger($hasUploaded)->uploadHandle($file);
         if ($hasUploaded) {
             return $result;
@@ -134,10 +134,10 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
             $file['size'] = filesize($path);
         }
 
-        //返回相对存储路径
+        //返回相对存储path
         return array(
             'name' => $file['name'],
-            'path' => (defined('__TYPECHO_UPLOAD_DIR__') ? __TYPECHO_UPLOAD_DIR__ : self::UPLOAD_DIR) 
+            'path' => (defined('__TYPECHO_UPLOAD_DIR__') ? __TYPECHO_UPLOAD_DIR__ : self::UPLOAD_DIR)
                 . '/' . $date->year . '/' . $date->month . '/' . $fileName,
             'size' => $file['size'],
             'type' => $ext,
@@ -158,14 +158,14 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
         if (empty($file['name'])) {
             return false;
         }
-        
+
         $result = Typecho_Plugin::factory('Widget_Upload')->trigger($hasModified)->modifyHandle($content, $file);
         if ($hasModified) {
             return $result;
         }
 
         $ext = self::getSafeName($file['name']);
-        
+
         if ($content['attachment']->type != $ext || Typecho_Common::isAppEngine()) {
             return false;
         }
@@ -181,7 +181,7 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
         }
 
         if (isset($file['tmp_name'])) {
-            
+
             @unlink($path);
 
             //移动上传文件
@@ -189,7 +189,7 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
                 return false;
             }
         } else if (isset($file['bytes'])) {
-            
+
             @unlink($path);
 
             //直接写入文件
@@ -204,7 +204,7 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
             $file['size'] = filesize($path);
         }
 
-        //返回相对存储路径
+        //返回相对存储path
         return array(
             'name' => $content['attachment']->name,
             'path' => $content['attachment']->path,
@@ -228,12 +228,12 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
             return $result;
         }
 
-        return !Typecho_Common::isAppEngine() 
+        return !Typecho_Common::isAppEngine()
             && @unlink(__TYPECHO_ROOT_DIR__ . '/' . $content['attachment']->path);
     }
 
     /**
-     * 获取实际文件绝对访问路径
+     * 获取实际文件绝对访问path
      *
      * @access public
      * @param array $content 文件相关信息
@@ -378,7 +378,7 @@ class Widget_Upload extends Widget_Abstract_Contents implements Widget_Interface
 
                 if (false !== $result) {
                     $this->pluginHandle()->beforeModify($result);
-                    
+
                     $this->update(array(
                         'text'      =>  serialize($result)
                     ), $this->db->sql()->where('cid = ?', $this->cid));

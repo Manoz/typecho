@@ -24,10 +24,10 @@ class Widget_Archive extends Widget_Abstract_Contents
      * @var string
      */
     private $_themeFile;
-    
+
     /**
      * 风格目录
-     * 
+     *
      * @access private
      * @var string
      */
@@ -176,12 +176,12 @@ class Widget_Archive extends Widget_Abstract_Contents
      * @var string
      */
     private $_archiveSingle = false;
-    
+
     /**
      * 是否为自定义首页, 主要为了标记自定义首页的情况
-     * 
+     *
      * (default value: false)
-     * 
+     *
      * @var boolean
      * @access private
      */
@@ -204,7 +204,7 @@ class Widget_Archive extends Widget_Abstract_Contents
     private $_pageNav;
 
     /**
-     * 构造函数,初始化组件
+     * Constructors,初始化组件
      *
      * @param mixed $request
      * @param mixed $response
@@ -232,8 +232,8 @@ class Widget_Archive extends Widget_Abstract_Contents
         if ($this->parameter->isFeed) {
             $this->_invokeByFeed = true;
         }
-        
-        /** 初始化皮肤路径 */
+
+        /** 初始化皮肤path */
         $this->_themeDir =  __TYPECHO_ROOT_DIR__ . '/' . __TYPECHO_THEME_DIR__ . '/' . $this->options->theme . '/';
 
         /** 处理feed模式 **/
@@ -287,10 +287,10 @@ class Widget_Archive extends Widget_Abstract_Contents
             $this->parameter->pageSize = 10;
         }
     }
-    
+
     /**
      * 评论地址
-     * 
+     *
      * @access protected
      * @return string
      */
@@ -299,13 +299,13 @@ class Widget_Archive extends Widget_Abstract_Contents
         /** 生成反馈地址 */
         /** 评论 */
         $commentUrl = parent::___commentUrl();
-        
+
         //不依赖js的父级评论
         $reply = $this->request->filter('int')->replyTo;
         if ($reply && $this->is('single')) {
             $commentUrl .= '?parent=' . $reply;
         }
-        
+
         return $this->security->getTokenUrl($commentUrl);
     }
 
@@ -442,7 +442,7 @@ class Widget_Archive extends Widget_Abstract_Contents
     {
         $this->_themeFile = $themeFile;
     }
-    
+
     /**
      * @param $_themeDir the $_themeDir to set
      */
@@ -578,7 +578,7 @@ class Widget_Archive extends Widget_Abstract_Contents
 
     /**
      * 获取页数
-     * 
+     *
      * @return integer
      */
     public function getTotalPage()
@@ -593,7 +593,7 @@ class Widget_Archive extends Widget_Abstract_Contents
     {
         return $this->_themeFile;
     }
-    
+
     /**
      * @return the $_themeDir
      */
@@ -604,7 +604,7 @@ class Widget_Archive extends Widget_Abstract_Contents
 
     /**
      * 检查链接是否正确
-     * 
+     *
      * @access private
      * @return void
      */
@@ -617,7 +617,7 @@ class Widget_Archive extends Widget_Abstract_Contents
             || !$this->parameter->checkPermalink) { // 强制关闭
             return;
         }
-        
+
         if ($this->_archiveSingle) {
             $permalink = $this->permalink;
         } else {
@@ -749,7 +749,7 @@ class Widget_Archive extends Widget_Abstract_Contents
         $this->_archiveType = 'single';
 
         /** 匹配类型 */
-        
+
         if ('single' != $this->parameter->type) {
             $select->where('table.contents.type = ?', $this->parameter->type);
         }
@@ -803,7 +803,7 @@ class Widget_Archive extends Widget_Abstract_Contents
         $select->limit(1);
         $this->query($select);
 
-        if (!$this->have() 
+        if (!$this->have()
             || (isset($this->request->category) && $this->category != $this->request->category)
             || (isset($this->request->directory) && $this->request->directory != implode('/', $this->directory))) {
             if (!$this->_invokeFromOutside) {
@@ -1336,7 +1336,7 @@ class Widget_Archive extends Widget_Abstract_Contents
         $this->_feedRssUrl = $this->options->feedRssUrl;
         $this->_feedAtomUrl = $this->options->feedAtomUrl;
         $this->_keywords = $this->options->keywords;
-        $this->_description = $this->options->description; 
+        $this->_description = $this->options->description;
 
         if (isset($handles[$this->parameter->type])) {
             $handle = $handles[$this->parameter->type];
@@ -1344,7 +1344,7 @@ class Widget_Archive extends Widget_Abstract_Contents
         } else {
             $hasPushed = $this->pluginHandle()->handle($this->parameter->type, $this, $select);
         }
-        
+
         /** 初始化皮肤函数 */
         $functionsFile = $this->_themeDir . 'functions.php';
         if (!$this->_invokeFromOutside && file_exists($functionsFile)) {
@@ -1383,8 +1383,8 @@ class Widget_Archive extends Widget_Abstract_Contents
      * 输出分页
      *
      * @access public
-     * @param string $prev 上一页文字
-     * @param string $next 下一页文字
+     * @param string $prev Previous text
+     * @param string $next Next text
      * @param int $splitPage 分割范围
      * @param string $splitWord 分割字符
      * @param string $template 展现配置信息
@@ -1406,9 +1406,9 @@ class Widget_Archive extends Widget_Abstract_Contents
             }
 
             $template = array_merge($default, $config);
-            
+
             $total = $this->getTotal();
-            $this->pluginHandle()->trigger($hasNav)->pageNav($this->_currentPage, $total, 
+            $this->pluginHandle()->trigger($hasNav)->pageNav($this->_currentPage, $total,
                 $this->parameter->pageSize, $prev, $next, $splitPage, $splitWord);
 
             if (!$hasNav && $total > $this->parameter->pageSize) {
@@ -1417,10 +1417,10 @@ class Widget_Archive extends Widget_Abstract_Contents
                 $this->_pageRow, $this->options->index);
 
                 /** 使用盒状分页 */
-                $nav = new Typecho_Widget_Helper_PageNavigator_Box($total, 
+                $nav = new Typecho_Widget_Helper_PageNavigator_Box($total,
                     $this->_currentPage, $this->parameter->pageSize, $query);
-                
-                echo '<' . $template['wrapTag'] . (empty($template['wrapClass']) 
+
+                echo '<' . $template['wrapTag'] . (empty($template['wrapClass'])
                     ? '' : ' class="' . $template['wrapClass'] . '"') . '>';
                 $nav->render($prev, $next, $splitPage, $splitWord, $template);
                 echo '</' . $template['wrapTag'] . '>';
@@ -1473,8 +1473,8 @@ class Widget_Archive extends Widget_Abstract_Contents
     }
 
     /**
-     * 获取回响归档对象 
-     * 
+     * 获取回响归档对象
+     *
      * @access public
      * @return Widget_Comments_Ping
      */
@@ -1671,7 +1671,7 @@ class Widget_Archive extends Widget_Abstract_Contents
         if (!empty($allows['atom']) && $allowFeed) {
             $header .= '<link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="' . $allows['atom'] . '" />' . "\n";
         }
-        
+
         if ($this->options->commentsThreaded && $this->is('single')) {
             if ('' != $allows['commentReply']) {
                 if (1 == $allows['commentReply']) {
@@ -1681,14 +1681,14 @@ var TypechoComment = {
     dom : function (id) {
         return document.getElementById(id);
     },
-    
+
     create : function (tag, attr) {
         var el = document.createElement(tag);
-        
+
         for (var key in attr) {
             el.setAttribute(key, attr[key]);
         }
-        
+
         return el;
     },
 
@@ -1707,24 +1707,24 @@ var TypechoComment = {
 
             form.appendChild(input);
         }
-        
+
         input.setAttribute('value', coid);
 
         if (null == this.dom('comment-form-place-holder')) {
             var holder = this.create('div', {
                 'id' : 'comment-form-place-holder'
             });
-            
+
             response.parentNode.insertBefore(holder, response);
         }
 
         comment.appendChild(response);
         this.dom('cancel-comment-reply-link').style.display = '';
-        
+
         if (null != textarea && 'text' == textarea.name) {
             textarea.focus();
         }
-        
+
         return false;
     },
 
@@ -1785,7 +1785,7 @@ var TypechoComment = {
         if (!in_array($cookieName, array('author', 'mail', 'url'))) {
             return '';
         }
-    
+
         $value = Typecho_Cookie::get('__typecho_remember_' . $cookieName);
         if ($return) {
             return $value;
@@ -1796,10 +1796,10 @@ var TypechoComment = {
 
     /**
      * 输出归档标题
-     * 
-     * @param mixed $defines 
-     * @param string $before 
-     * @param string $end 
+     *
+     * @param mixed $defines
+     * @param string $before
+     * @param string $end
      * @access public
      * @return void
      */
@@ -1863,7 +1863,7 @@ var TypechoComment = {
     {
         /** 处理静态链接跳转 */
         $this->checkPermalink();
-        
+
         /** 添加Pingback */
         $this->response->setHeader('X-Pingback', $this->options->xmlRpcUrl);
         $validated = false;
@@ -1874,10 +1874,10 @@ var TypechoComment = {
                 $validated = true;
             }
         }
-        
+
         if (!$validated && !empty($this->_archiveType)) {
 
-            //~ 首先找具体路径, 比如 category/default.php
+            //~ 首先找具体path, 比如 category/default.php
             if (!$validated && !empty($this->_archiveSlug)) {
                 $themeFile = $this->_archiveType . '/' . $this->_archiveSlug . '.php';
                 if (file_exists($this->_themeDir . $themeFile)) {
@@ -1886,7 +1886,7 @@ var TypechoComment = {
                 }
             }
 
-            //~ 然后找归档类型路径, 比如 category.php
+            //~ 然后找归档类型path, 比如 category.php
             if (!$validated) {
                 $themeFile = $this->_archiveType . '.php';
                 if (file_exists($this->_themeDir . $themeFile)) {
@@ -1906,7 +1906,7 @@ var TypechoComment = {
                 }
             }
 
-            //~ 最后找归档路径, 比如 archive.php 或者 single.php
+            //~ 最后找归档path, 比如 archive.php 或者 single.php
             if (!$validated && 'index' != $this->_archiveType && 'front' != $this->_archiveType) {
                 $themeFile = $this->_archiveSingle ? 'single.php' : 'archive.php';
                 if (file_exists($this->_themeDir . $themeFile)) {

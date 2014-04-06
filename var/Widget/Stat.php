@@ -29,7 +29,7 @@ class Widget_Stat extends Typecho_Widget
     protected $user;
 
     /**
-     * 数据库对象
+     * Database Objects
      *
      * @access protected
      * @var Typecho_Db
@@ -37,7 +37,7 @@ class Widget_Stat extends Typecho_Widget
     protected $db;
 
     /**
-     * 构造函数,初始化组件
+     * Constructors,初始化组件
      *
      * @access public
      * @param mixed $request request对象
@@ -49,7 +49,7 @@ class Widget_Stat extends Typecho_Widget
     {
         parent::__construct($request, $response, $params);
 
-        /** 初始化数据库 */
+        /** Initialize the database */
         $this->db = Typecho_Db::get();
 
         /** 初始化常用组件 */
@@ -296,7 +296,7 @@ class Widget_Stat extends Typecho_Widget
                     ->where('table.comments.status = ?', 'spam')
                     ->where('table.comments.ownerId = ?', $this->user->uid))->num;
     }
-    
+
     /**
      * 获取当前文章的评论数目
      *

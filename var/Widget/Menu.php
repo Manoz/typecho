@@ -9,14 +9,14 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * 后台菜单显示
+ * Backend menu display
  *
  * @package Widget
  */
 class Widget_Menu extends Typecho_Widget
 {
     /**
-     * 父菜单列表
+     * Father menu list
      *
      * @access private
      * @var array
@@ -24,7 +24,7 @@ class Widget_Menu extends Typecho_Widget
     private $_menu = array();
 
     /**
-     * 当前父菜单
+     * Current parent menu
      *
      * @access private
      * @var integer
@@ -32,7 +32,7 @@ class Widget_Menu extends Typecho_Widget
     private $_currentParent = 1;
 
     /**
-     * 当前子菜单
+     * The current sub-menu
      *
      * @access private
      * @var integer
@@ -40,7 +40,7 @@ class Widget_Menu extends Typecho_Widget
     private $_currentChild = 0;
 
     /**
-     * 当前页面
+     * Current page
      *
      * @access private
      * @var string
@@ -48,7 +48,7 @@ class Widget_Menu extends Typecho_Widget
     private $_currentUrl;
 
     /**
-     * 全局选项
+     * Global Options
      *
      * @access protected
      * @var Widget_Options
@@ -56,7 +56,7 @@ class Widget_Menu extends Typecho_Widget
     protected $options;
 
     /**
-     * 用户对象
+     * User Object
      *
      * @access protected
      * @var Widget_User
@@ -64,94 +64,94 @@ class Widget_Menu extends Typecho_Widget
     protected $user;
 
     /**
-     * 当前菜单标题
+     * The current menu title
      * @var string
      */
     public $title;
-    
+
     /**
-     * 当前增加项目链接
+     * The current increase in project links
      * @var string
      */
     public $addLink;
 
     /**
-     * 构造函数,初始化组件
+     * Constructors, init components
      *
      * @access public
-     * @param mixed $request request对象
-     * @param mixed $response response对象
-     * @param mixed $params 参数列表
+     * @param mixed $request request object
+     * @param mixed $response response object
+     * @param mixed $params Parameter List
      * @return void
      */
     public function __construct($request, $response, $params = NULL)
     {
         parent::__construct($request, $response, $params);
 
-        /** 初始化常用组件 */
+        /** Initialization common components */
         $this->options = $this->widget('Widget_Options');
         $this->user = $this->widget('Widget_User');
     }
 
     /**
-     * 执行函数,初始化菜单
+     * Executive functions, init menu
      *
      * @access public
      * @return void
      */
     public function execute()
     {
-        $parentNodes = array(NULL, _t('控制台'), _t('撰写'), _t('管理'), _t('设置'));
+        $parentNodes = array(NULL, _t('Control Panel'), _t('Write'), _t('Administration'), _t('Setup'));
 
         $childNodes =  array(
         array(
-            array(_t('登录'), _t('登录到%s', $this->options->title), 'login.php', 'visitor'),
-            array(_t('注册'), _t('注册到%s', $this->options->title), 'register.php', 'visitor')
+            array(_t('Login'), _t('Log on to %s', $this->options->title), 'login.php', 'visitor'),
+            array(_t('Register'), _t('Sign up to %s', $this->options->title), 'register.php', 'visitor')
         ),
         array(
-            array(_t('概要'), _t('网站概要'), 'index.php', 'subscriber'),
-            array(_t('个人设置'), _t('个人设置'), 'profile.php', 'subscriber'),
-            array(_t('插件'), _t('插件管理'), 'plugins.php', 'administrator'),
+            array(_t('Summary'), _t('Site summary'), 'index.php', 'subscriber'),
+            array(_t('Personal Settings'), _t('Personal Settings'), 'profile.php', 'subscriber'),
+            array(_t('Plugins'), _t('Plugin Manager'), 'plugins.php', 'administrator'),
             array(array('Widget_Plugins_Config', 'getMenuTitle'), array('Widget_Plugins_Config', 'getMenuTitle'), 'options-plugin.php?config=', 'administrator', true),
-            array(_t('外观'), _t('网站外观'), 'themes.php', 'administrator'),
+            array(_t('Appearance'), _t('Website Appearance'), 'themes.php', 'administrator'),
             array(array('Widget_Themes_Files', 'getMenuTitle'), array('Widget_Themes_Files', 'getMenuTitle'), 'theme-editor.php', 'administrator', true),
             array(array('Widget_Themes_Config', 'getMenuTitle'), array('Widget_Themes_Config', 'getMenuTitle'), 'options-theme.php', 'administrator', true),
-            array(_t('升级'), _t('升级程序'), 'upgrade.php', 'administrator', true),
-            array(_t('欢迎'), _t('欢迎使用'), 'welcome.php', 'subscriber', true)
+            array(_t('Upgrade'), _t('The upgrade process'), 'upgrade.php', 'administrator', true),
+            array(_t('Welcome'), _t('Welcome'), 'welcome.php', 'subscriber', true)
         ),
         array(
-            array(_t('撰写文章'), _t('撰写新文章'), 'write-post.php', 'contributor'),
+            array(_t('Write a post'), _t('Compose new post'), 'write-post.php', 'contributor'),
             array(array('Widget_Contents_Post_Edit', 'getMenuTitle'), array('Widget_Contents_Post_Edit', 'getMenuTitle'), 'write-post.php?cid=', 'contributor', true),
-            array(_t('创建页面'), _t('创建新页面'), 'write-page.php', 'editor'),
+            array(_t('Create a page'), _t('Create a new page'), 'write-page.php', 'editor'),
             array(array('Widget_Contents_Page_Edit', 'getMenuTitle'), array('Widget_Contents_Page_Edit', 'getMenuTitle'), 'write-page.php?cid=', 'editor', true),
         ),
         array(
-            array(_t('文章'), _t('管理文章'), 'manage-posts.php', 'contributor', false, 'write-post.php'),
+            array(_t('Posts'), _t('Manage posts'), 'manage-posts.php', 'contributor', false, 'write-post.php'),
             array(array('Widget_Contents_Post_Admin', 'getMenuTitle'), array('Widget_Contents_Post_Admin', 'getMenuTitle'), 'manage-posts.php?uid=', 'contributor', true),
-            array(_t('独立页面'), _t('管理独立页面'), 'manage-pages.php', 'editor', false, 'write-page.php'),
-            array(_t('评论'), _t('管理评论'), 'manage-comments.php', 'contributor'),
+            array(_t('Pages'), _t('Manage pages'), 'manage-pages.php', 'editor', false, 'write-page.php'),
+            array(_t('Comments'), _t('Manage comments'), 'manage-comments.php', 'contributor'),
             array(array('Widget_Comments_Admin', 'getMenuTitle'), array('Widget_Comments_Admin', 'getMenuTitle'), 'manage-comments.php?cid=', 'contributor', true),
-            array(_t('分类'), _t('管理分类'), 'manage-categories.php', 'editor', false, 'category.php'),
-            array(_t('新增分类'), _t('新增分类'), 'category.php', 'editor', true),
+            array(_t('Categories'), _t('Manage categories'), 'manage-categories.php', 'editor', false, 'category.php'),
+            array(_t('New categorie'), _t('New categorie'), 'category.php', 'editor', true),
             array(array('Widget_Metas_Category_Admin', 'getMenuTitle'), array('Widget_Metas_Category_Admin', 'getMenuTitle'), 'manage-categories.php?parent=', 'editor', true, array('Widget_Metas_Category_Admin', 'getAddLink')),
             array(array('Widget_Metas_Category_Edit', 'getMenuTitle'), array('Widget_Metas_Category_Edit', 'getMenuTitle'), 'category.php?mid=', 'editor', true),
             array(array('Widget_Metas_Category_Edit', 'getMenuTitle'), array('Widget_Metas_Category_Edit', 'getMenuTitle'), 'category.php?parent=', 'editor', true),
-            array(_t('标签'), _t('管理标签'), 'manage-tags.php', 'editor'),
+            array(_t('Tags'), _t('Manage tags'), 'manage-tags.php', 'editor'),
             array(array('Widget_Metas_Tag_Admin', 'getMenuTitle'), array('Widget_Metas_Tag_Admin', 'getMenuTitle'), 'manage-tags.php?mid=', 'editor', true),
-            array(_t('文件'), _t('管理文件'), 'manage-medias.php', 'editor'),
+            array(_t('Files'), _t('Manage files'), 'manage-medias.php', 'editor'),
             array(array('Widget_Contents_Attachment_Edit', 'getMenuTitle'), array('Widget_Contents_Attachment_Edit', 'getMenuTitle'), 'media.php?cid=', 'contributor', true),
-            array(_t('用户'), _t('管理用户'), 'manage-users.php', 'administrator', false, 'user.php'),
-            array(_t('新增用户'), _t('新增用户'), 'user.php', 'administrator', true),
+            array(_t('Users'), _t('Manage users'), 'manage-users.php', 'administrator', false, 'user.php'),
+            array(_t('New user'), _t('New user'), 'user.php', 'administrator', true),
             array(array('Widget_Users_Edit', 'getMenuTitle'), array('Widget_Users_Edit', 'getMenuTitle'), 'user.php?uid=', 'administrator', true),
         ),
         array(
-            array(_t('基本'), _t('基本设置'), 'options-general.php', 'administrator'),
-            array(_t('评论'), _t('评论设置'), 'options-discussion.php', 'administrator'),
-            array(_t('阅读'), _t('阅读设置'), 'options-reading.php', 'administrator'),
-            array(_t('永久链接'), _t('永久链接设置'), 'options-permalink.php', 'administrator'),
+            array(_t('General'), _t('General settings'), 'options-general.php', 'administrator'),
+            array(_t('Discussions'), _t('Discussions settings'), 'options-discussion.php', 'administrator'),
+            array(_t('Read'), _t('Read settings'), 'options-reading.php', 'administrator'),
+            array(_t('Permalinks'), _t('Permalink settings'), 'options-permalink.php', 'administrator'),
         ));
 
-        /** 获取扩展菜单 */
+        /** Get extended menu */
         $panelTable = unserialize($this->options->panelTable);
         $extendingParentMenu = empty($panelTable['parent']) ? array() : $panelTable['parent'];
         $extendingChildMenu = empty($panelTable['child']) ? array() : $panelTable['child'];
@@ -183,13 +183,13 @@ class Widget_Menu extends Typecho_Widget
             $children = array();
             $showedChildrenCount = 0;
             $firstUrl = NULL;
-            
+
             foreach ($childNodes[$key] as $inKey => $childNode) {
                 // magic merge
                 $childNode += $defaultChildeNode;
                 list ($name, $title, $url, $access, $hidden, $addLink) = $childNode;
 
-                // 保存最原始的hidden信息
+                // Save the most original hidden information
                 $orgHidden = $hidden;
 
                 // parse url
@@ -213,14 +213,14 @@ class Widget_Menu extends Typecho_Widget
                         }
                     }
                 }
-                
+
                 if ($validate
                     && basename($urlParts['path']) == 'extending.php'
                     && !empty($currentUrlParams['panel']) && !empty($urlParams['panel'])
                     && $urlParams['panel'] != $currentUrlParams['panel']){
                     $validate = false;
                 }
-                
+
                 if ($hidden && $validate) {
                     $hidden = false;
                 }
@@ -240,7 +240,7 @@ class Widget_Menu extends Typecho_Widget
                         list($widget, $method) = $name;
                         $name = Typecho_Widget::widget($widget)->$method();
                     }
-                    
+
                     if (is_array($title)) {
                         list($widget, $method) = $title;
                         $title = Typecho_Widget::widget($widget)->$method();
@@ -256,12 +256,12 @@ class Widget_Menu extends Typecho_Widget
                     if ('visitor' != $access) {
                         $this->user->pass($access);
                     }
-                    
+
                     $this->_currentParent = $key;
                     $this->_currentChild = $inKey;
                     $this->title = $title;
                     $this->addLink = $addLink ? Typecho_Common::url($addLink, $adminUrl) : NULL;
-                } 
+                }
 
                 $children[$inKey] = array(
                     $name,
@@ -282,7 +282,7 @@ class Widget_Menu extends Typecho_Widget
     }
 
     /**
-     * 获取当前菜单
+     * Get the current menu
      *
      * @access public
      * @return array
@@ -293,7 +293,7 @@ class Widget_Menu extends Typecho_Widget
     }
 
     /**
-     * 输出父级菜单
+     * Output parent menu
      *
      * @access public
      * @return string
@@ -305,7 +305,7 @@ class Widget_Menu extends Typecho_Widget
                 continue;
             }
 
-            echo "<ul class=\"root" . ($key == $this->_currentParent ? ' ' . $class : NULL) 
+            echo "<ul class=\"root" . ($key == $this->_currentParent ? ' ' . $class : NULL)
                 . "\"><li class=\"parent\"><a href=\"{$node[2]}\">{$node[0]}</a></dt>"
                 . "</li><ul class=\"child\">";
 
@@ -315,7 +315,7 @@ class Widget_Menu extends Typecho_Widget
                     $last = $inKey;
                 }
             }
-            
+
             foreach ($node[3] as $inKey => $inNode) {
                 if ($inNode[4]) {
                     continue;

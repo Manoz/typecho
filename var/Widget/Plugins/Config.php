@@ -20,7 +20,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Widget_Plugins_Config extends Widget_Abstract_Options
 {
     /**
-     * 插件文件路径
+     * 插件文件path
      *
      * @access private
      * @var string

@@ -78,7 +78,7 @@ class Widget_Abstract_Contents extends Widget_Abstract
 
     /**
      * ___fields
-     * 
+     *
      * @access protected
      * @return Typecho_Config
      */
@@ -167,10 +167,10 @@ class Widget_Abstract_Contents extends Widget_Abstract
     {
         return $this->type . '-' . $this->cid;
     }
-    
+
     /**
      * 回复框id
-     * 
+     *
      * @access protected
      * @return string
      */
@@ -178,10 +178,10 @@ class Widget_Abstract_Contents extends Widget_Abstract
     {
         return 'respond-' . $this->theId;
     }
-    
+
     /**
      * 评论地址
-     * 
+     *
      * @access protected
      * @return string
      */
@@ -192,10 +192,10 @@ class Widget_Abstract_Contents extends Widget_Abstract
         return Typecho_Router::url('feedback',
             array('type' => 'comment', 'permalink' => $this->pathinfo), $this->options->index);
     }
-    
+
     /**
      * trackback地址
-     * 
+     *
      * @access protected
      * @return string
      */
@@ -204,10 +204,10 @@ class Widget_Abstract_Contents extends Widget_Abstract
         return Typecho_Router::url('feedback',
             array('type' => 'trackback', 'permalink' => $this->pathinfo), $this->options->index);
     }
-    
+
     /**
      * 回复地址
-     * 
+     *
      * @access protected
      * @return string
      */
@@ -415,8 +415,8 @@ class Widget_Abstract_Contents extends Widget_Abstract
 
     /**
      * 删除自定义字段
-     * 
-     * @param integer $cid 
+     *
+     * @param integer $cid
      * @access public
      * @return integer
      */
@@ -427,9 +427,9 @@ class Widget_Abstract_Contents extends Widget_Abstract
     }
 
     /**
-     * 检查字段名是否符合要求  
-     * 
-     * @param string $name 
+     * 检查字段名是否符合要求
+     *
+     * @param string $name
      * @access public
      * @return boolean
      */
@@ -439,10 +439,10 @@ class Widget_Abstract_Contents extends Widget_Abstract
     }
 
     /**
-     * 保存自定义字段 
-     * 
-     * @param array $fields 
-     * @param mixed $cid 
+     * 保存自定义字段
+     *
+     * @param array $fields
+     * @param mixed $cid
      * @access public
      * @return void
      */
@@ -473,7 +473,7 @@ class Widget_Abstract_Contents extends Widget_Abstract
             if (isset($exists[$name])) {
                 unset($exists[$name]);
             }
- 
+
             $this->setField($name, $type, $value, $cid);
         }
 
@@ -485,17 +485,17 @@ class Widget_Abstract_Contents extends Widget_Abstract
 
     /**
      * 设置单个字段
-     * 
-     * @param string $name 
-     * @param string $type 
-     * @param string $value 
-     * @param integer $cid 
+     *
+     * @param string $name
+     * @param string $type
+     * @param string $value
+     * @param integer $cid
      * @access public
      * @return integer
      */
     public function setField($name, $type, $value, $cid)
     {
-        if (empty($name) || !$this->checkFieldName($name) 
+        if (empty($name) || !$this->checkFieldName($name)
             || !in_array($type, array('str', 'int', 'float'))) {
             return false;
         }
@@ -527,10 +527,10 @@ class Widget_Abstract_Contents extends Widget_Abstract
 
     /**
      * 自增一个整形字段
-     * 
-     * @param string $name 
-     * @param integer $value 
-     * @param integer $cid 
+     *
+     * @param string $name
+     * @param integer $value
+     * @param integer $cid
      * @access public
      * @return integer
      */
@@ -598,7 +598,7 @@ class Widget_Abstract_Contents extends Widget_Abstract
             ->from('table.contents')
             ->cleanAttribute('group'))->num;
     }
-    
+
     /**
      * 获取当前所有自定义模板
      *
@@ -671,7 +671,7 @@ class Widget_Abstract_Contents extends Widget_Abstract
         $value['category'] = urlencode($value['category']);
         $value['directory'] = implode('/', array_map('urlencode', $value['directory']));
 
-        /** 生成静态路径 */
+        /** 生成静态path */
         $value['pathinfo'] = $routeExists ? Typecho_Router::url($type, $value) : '#';
 
         /** 生成静态链接 */
@@ -714,11 +714,11 @@ class Widget_Abstract_Contents extends Widget_Abstract
         $value['slug'] = $tmpSlug;
         $value['category'] = $tmpCategory;
         $value['directory'] = $tmpDirectory;
-        
+
         /** 处理密码保护流程 */
         if (!empty($value['password']) &&
         $value['password'] !== Typecho_Cookie::get('protectPassword') &&
-        $value['authorId'] != $this->user->uid && 
+        $value['authorId'] != $this->user->uid &&
         !$this->user->pass('editor', true)) {
             $value['hidden'] = true;
 

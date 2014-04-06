@@ -51,10 +51,10 @@ class Widget_Metas_Tag_Edit extends Widget_Abstract_Metas implements Widget_Inte
     }
 
     /**
-     * 判断标签名称是否存在
+     * 判断Label name称是否存在
      *
      * @access public
-     * @param string $name 标签名称
+     * @param string $name Label name称
      * @return boolean
      */
     public function nameExists($name)
@@ -74,10 +74,10 @@ class Widget_Metas_Tag_Edit extends Widget_Abstract_Metas implements Widget_Inte
     }
 
     /**
-     * 判断标签名转换到缩略名后是否合法
+     * 判断Label name转换到缩略名后是否合法
      *
      * @access public
-     * @param string $name 标签名
+     * @param string $name Label name
      * @return boolean
      */
     public function nameToSlug($name)
@@ -128,14 +128,14 @@ class Widget_Metas_Tag_Edit extends Widget_Abstract_Metas implements Widget_Inte
         $form = new Typecho_Widget_Helper_Form($this->security->getIndex('/action/metas-tag-edit'),
             Typecho_Widget_Helper_Form::POST_METHOD);
 
-        /** 标签名称 */
+        /** Label name称 */
         $name = new Typecho_Widget_Helper_Form_Element_Text('name', NULL, NULL,
-        _t('标签名称 *'), _t('这是标签在站点中显示的名称.可以使用中文,如 "地球".'));
+        _t('Label name称 *'), _t('这是标签在站点中显示的名称.可以使用中文,如 "地球".'));
         $form->addInput($name);
 
         /** 标签缩略名 */
         $slug = new Typecho_Widget_Helper_Form_Element_Text('slug', NULL, NULL,
-        _t('标签缩略名'), _t('标签缩略名用于创建友好的链接形式, 如果留空则默认使用标签名称.'));
+        _t('标签缩略名'), _t('标签缩略名用于创建友好的链接形式, 如果留空则默认使用Label name称.'));
         $form->addInput($slug);
 
         /** 标签动作 */
@@ -179,10 +179,10 @@ class Widget_Metas_Tag_Edit extends Widget_Abstract_Metas implements Widget_Inte
 
         /** 给表单增加规则 */
         if ('insert' == $action || 'update' == $action) {
-            $name->addRule('required', _t('必须填写标签名称'));
-            $name->addRule(array($this, 'nameExists'), _t('标签名称已经存在'));
-            $name->addRule(array($this, 'nameToSlug'), _t('标签名称无法被转换为缩略名'));
-            $name->addRule('xssCheck', _t('请不要标签名称中使用特殊字符'));
+            $name->addRule('required', _t('必须填写Label name称'));
+            $name->addRule(array($this, 'nameExists'), _t('Label name称已经存在'));
+            $name->addRule(array($this, 'nameToSlug'), _t('Label name称无法被转换为缩略名'));
+            $name->addRule('xssCheck', _t('请不要Label name称中使用特殊字符'));
             $slug->addRule(array($this, 'slugExists'), _t('缩略名已经存在'));
             $slug->addRule('xssCheck', _t('请不要在缩略名中使用特殊字符'));
         }
@@ -302,7 +302,7 @@ class Widget_Metas_Tag_Edit extends Widget_Abstract_Metas implements Widget_Inte
 
         $merge = $this->scanTags($this->request->merge);
         if (empty($merge)) {
-            $this->widget('Widget_Notice')->set(_t('合并到的标签名不合法'), 'error');
+            $this->widget('Widget_Notice')->set(_t('合并到的Label name不合法'), 'error');
             $this->response->goBack();
         }
 
@@ -333,7 +333,7 @@ class Widget_Metas_Tag_Edit extends Widget_Abstract_Metas implements Widget_Inte
         if ($tags) {
             foreach ($tags as $tag) {
                 $this->refreshCountByTypeAndStatus($tag, 'post', 'publish');
-            } 
+            }
 
             // 自动清理标签
             $this->clearTags();

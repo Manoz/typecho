@@ -37,7 +37,7 @@ class Widget_Options extends Typecho_Widget
     private $_personalPluginConfig = array();
 
     /**
-     * 数据库对象
+     * Database Objects
      *
      * @access protected
      * @var Typecho_Db
@@ -45,7 +45,7 @@ class Widget_Options extends Typecho_Widget
     protected $db;
 
     /**
-     * 构造函数,初始化组件
+     * Constructors,初始化组件
      *
      * @access public
      * @param mixed $request request对象
@@ -56,7 +56,7 @@ class Widget_Options extends Typecho_Widget
     {
         parent::__construct($request, $response, $params);
 
-        /** 初始化数据库 */
+        /** Initialize the database */
         $this->db = Typecho_Db::get();
     }
 
@@ -138,7 +138,7 @@ class Widget_Options extends Typecho_Widget
     }
 
     /**
-     * 获取解析路径前缀
+     * 获取解析pathPrefix
      *
      * @access protected
      * @return string
@@ -149,7 +149,7 @@ class Widget_Options extends Typecho_Widget
     }
 
     /**
-     * 获取模板路径
+     * 获取模板path
      *
      * @access protected
      * @return string
@@ -160,7 +160,7 @@ class Widget_Options extends Typecho_Widget
     }
 
     /**
-     * 获取插件路径
+     * 获取插件path
      *
      * @access protected
      * @return string
@@ -171,7 +171,7 @@ class Widget_Options extends Typecho_Widget
     }
 
     /**
-     * 获取后台路径
+     * 获取后台path
      *
      * @access protected
      * @return string
@@ -283,10 +283,10 @@ class Widget_Options extends Typecho_Widget
     {
         return isset($this->contentType) ? $this->contentType : 'text/html';
     }
-    
+
     /**
      * 软件名称
-     * 
+     *
      * @access protected
      * @return string
      */
@@ -295,10 +295,10 @@ class Widget_Options extends Typecho_Widget
         list($software, $version) = explode(' ', $this->generator);
         return $software;
     }
-    
+
     /**
      * 软件版本
-     * 
+     *
      * @access protected
      * @return string
      */
@@ -307,26 +307,26 @@ class Widget_Options extends Typecho_Widget
         list($software, $version) = explode(' ', $this->generator);
         return $version;
     }
-    
+
     /**
      * 允许上传的文件类型
-     * 
+     *
      * @access protected
      * @return string
      */
     protected function ___allowedAttachmentTypes()
     {
         $attachmentTypesResult = array();
-    
+
         if (NULL != $this->attachmentTypes) {
             $attachmentTypes = str_replace(
-                array('@image@', '@media@', '@doc@'), 
+                array('@image@', '@media@', '@doc@'),
                 array('gif,jpg,jpeg,png,tiff,bmp', 'mp3,wmv,wma,rmvb,rm,avi,flv',
                     'txt,doc,docx,xls,xlsx,ppt,pptx,zip,rar,pdf'), $this->attachmentTypes);
-            
+
             $attachmentTypesResult = array_unique(array_map('trim', explode(',', $attachmentTypes)));
         }
-        
+
         return $attachmentTypesResult;
     }
 
@@ -340,18 +340,18 @@ class Widget_Options extends Typecho_Widget
     {
         $this->db->fetchAll($this->db->select()->from('table.options')
         ->where('user = 0'), array($this, 'push'));
-        
+
         /** 支持皮肤变量重载 */
         if (!empty($this->row['theme:' . $this->row['theme']])) {
             $themeOptions = NULL;
-        
+
             /** 解析变量 */
             if ($themeOptions = unserialize($this->row['theme:' . $this->row['theme']])) {
                 /** 覆盖变量 */
                 $this->row = array_merge($this->row, $themeOptions);
             }
         }
-        
+
         $this->stack[] = &$this->row;
 
         /** 初始化站点信息 */
@@ -398,10 +398,10 @@ class Widget_Options extends Typecho_Widget
     }
 
     /**
-     * 输出网站路径
+     * 输出网站path
      *
      * @access public
-     * @param string $path 子路径
+     * @param string $path 子path
      * @return void
      */
     public function siteUrl($path = NULL)
@@ -413,7 +413,7 @@ class Widget_Options extends Typecho_Widget
      * 输出解析地址
      *
      * @access public
-     * @param string $path 子路径
+     * @param string $path 子path
      * @return void
      */
     public function index($path = NULL)
@@ -422,10 +422,10 @@ class Widget_Options extends Typecho_Widget
     }
 
     /**
-     * 输出模板路径
+     * 输出模板path
      *
      * @access public
-     * @param string $path 子路径
+     * @param string $path 子path
      * @return void
      */
     public function themeUrl($path = NULL)
@@ -434,10 +434,10 @@ class Widget_Options extends Typecho_Widget
     }
 
     /**
-     * 输出插件路径
+     * 输出插件path
      *
      * @access public
-     * @param string $path 子路径
+     * @param string $path 子path
      * @return void
      */
     public function pluginUrl($path = NULL)
@@ -446,10 +446,10 @@ class Widget_Options extends Typecho_Widget
     }
 
     /**
-     * 输出后台路径
+     * 输出后台path
      *
      * @access public
-     * @param string $path 子路径
+     * @param string $path 子path
      * @return void
      */
     public function adminUrl($path = NULL)

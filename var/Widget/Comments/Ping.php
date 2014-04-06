@@ -21,15 +21,15 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Widget_Comments_Ping extends Widget_Abstract_Comments
 {
     /**
-     * _customSinglePingCallback 
-     * 
+     * _customSinglePingCallback
+     *
      * @var boolean
      * @access private
      */
     private $_customSinglePingCallback = false;
-    
+
     /**
-     * 构造函数,初始化组件
+     * Constructors,初始化组件
      *
      * @access public
      * @param mixed $request request对象
@@ -41,7 +41,7 @@ class Widget_Comments_Ping extends Widget_Abstract_Comments
     {
         parent::__construct($request, $response, $params);
         $this->parameter->setDefault('parentId=0');
-        
+
         /** 初始化回调函数 */
         if (function_exists('singlePing')) {
             $this->_customSinglePingCallback = true;
@@ -58,10 +58,10 @@ class Widget_Comments_Ping extends Widget_Abstract_Comments
     {
         return $this->parameter->parentContent;
     }
-    
+
     /**
      * 回响回调函数
-     * 
+     *
      * @access private
      * @param string $singlePingOptions 单个回响自定义选项
      * @return void
@@ -90,7 +90,7 @@ class Widget_Comments_Ping extends Widget_Abstract_Comments
 </li>
 <?php
     }
-    
+
     /**
      * 输出文章回响数
      *
@@ -109,8 +109,8 @@ class Widget_Comments_Ping extends Widget_Abstract_Comments
     }
 
     /**
-     * execute  
-     * 
+     * execute
+     *
      * @access public
      * @return void
      */
@@ -119,7 +119,7 @@ class Widget_Comments_Ping extends Widget_Abstract_Comments
         if (!$this->parameter->parentId) {
             return;
         }
-        
+
         $select = $this->select()->where('table.comments.status = ?', 'approved')
         ->where('table.comments.cid = ?', $this->parameter->parentId)
         ->where('table.comments.type <> ?', 'comment')
@@ -127,10 +127,10 @@ class Widget_Comments_Ping extends Widget_Abstract_Comments
 
         $this->db->fetchAll($select, array($this, 'push'));
     }
-    
+
     /**
      * 列出回响
-     * 
+     *
      * @access private
      * @param mixed $singlePingOptions 单个回响自定义选项
      * @return void
@@ -149,13 +149,13 @@ class Widget_Comments_Ping extends Widget_Abstract_Comments
                 'afterDate'     =>  '',
                 'dateFormat'    =>  $this->options->commentDateFormat
             ));
-        
+
             echo $parsedSinglePingOptions->before;
-            
+
             while ($this->next()) {
                 $this->singlePingCallback($parsedSinglePingOptions);
             }
-            
+
             echo $parsedSinglePingOptions->after;
         }
     }

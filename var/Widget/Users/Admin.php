@@ -44,7 +44,7 @@ class Widget_Users_Admin extends Widget_Abstract_Users
     private $_currentPage;
 
     /**
-     * 仅仅输出域名和路径
+     * 仅仅输出域名和path
      *
      * @access protected
      * @return string

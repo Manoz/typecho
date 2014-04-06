@@ -20,7 +20,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Widget_ExceptionHandle extends Widget_Archive
 {
     /**
-     * 重载构造函数
+     * 重载Constructors
      */
     public function __construct()
     {

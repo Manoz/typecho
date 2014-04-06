@@ -41,7 +41,7 @@ class Widget_Init extends Typecho_Widget
         /** 初始化exception */
         Typecho_Common::$exceptionHandle = 'Widget_ExceptionHandle';
 
-        /** 设置路径 */
+        /** 设置path */
         if (defined('__TYPECHO_PATHINFO_ENCODING__')) {
             $pathInfo = $this->request->getPathInfo(__TYPECHO_PATHINFO_ENCODING__, $options->charset);
         } else {

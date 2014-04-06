@@ -36,7 +36,7 @@ class Widget_User extends Typecho_Widget
     protected $options;
 
     /**
-     * 数据库对象
+     * Database Objects
      *
      * @access protected
      * @var Typecho_Db
@@ -58,7 +58,7 @@ class Widget_User extends Typecho_Widget
             );
 
     /**
-     * 构造函数,初始化组件
+     * Constructors,初始化组件
      *
      * @access public
      * @param mixed $request request对象
@@ -69,7 +69,7 @@ class Widget_User extends Typecho_Widget
     {
         parent::__construct($request, $response, $params);
 
-        /** 初始化数据库 */
+        /** Initialize the database */
         $this->db = Typecho_Db::get();
         $this->options = $this->widget('Widget_Options');
     }
@@ -162,10 +162,10 @@ class Widget_User extends Typecho_Widget
         $this->pluginHandle()->loginFail($this, $name, $password, $temporarily, $expire);
         return false;
     }
-    
+
     /**
      * 只需要提供uid即可登录的方法, 多用于插件等特殊场合
-     * 
+     *
      * @access public
      * @param integer $uid 用户id
      * @return boolean
@@ -176,14 +176,14 @@ class Widget_User extends Typecho_Widget
         ->from('table.users')
         ->where('uid = ?', $uid)
         ->limit(1));
-        
+
         if (empty($user)) {
             return false;
         }
-        
+
         $this->push($user);
         $this->_hasLogin = true;
-        
+
         return true;
     }
 

@@ -53,16 +53,16 @@ class Widget_Options_Reading extends Widget_Options_Permalink
         $frontPattern = '</label></span><span class="multiline front-archive%class%">'
             . '<input type="checkbox" id="frontArchive" name="frontArchive" value="1"'
             . ($this->options->frontArchive && 'recent' != $frontPageType ? ' checked' : '') .' />
-<label for="frontArchive">' . _t('同时将文章列表页路径更改为 %s',
-            '<input type="text" name="archivePattern" class="w-20 mono" value="' 
-            . htmlspecialchars($this->decodeRule($this->options->routingTable['archive']['url'])) . '" />') 
+<label for="frontArchive">' . _t('同时将文章列表页path更改为 %s',
+            '<input type="text" name="archivePattern" class="w-20 mono" value="'
+            . htmlspecialchars($this->decodeRule($this->options->routingTable['archive']['url'])) . '" />')
             . '</label>';
 
         // 页面列表
         $pages = $this->db->fetchAll($this->db->select('cid', 'title')
         ->from('table.contents')->where('type = ?', 'page')
         ->where('status = ?', 'publish')->where('created < ?', $this->options->gmtTime));
-        
+
         if (!empty($pages)) {
             $pagesSelect = '<select name="frontPagePage" id="frontPage-frontPagePage">';
             foreach ($pages as $page) {
@@ -79,7 +79,7 @@ class Widget_Options_Reading extends Widget_Options_Permalink
             $selectedFrontPageType = 'page';
         }
 
-        // 自定义文件列表
+        // 自定义File List
         $files = glob(__TYPECHO_ROOT_DIR__ . '/' . __TYPECHO_THEME_DIR__ . '/' . $this->options->theme . '/*.php');
         $filesSelect = '';
 
@@ -104,7 +104,7 @@ class Widget_Options_Reading extends Widget_Options_Permalink
             . $filesSelect . '</select><label for="frontPage-frontPageFile">');
             $selectedFrontPageType = 'file';
         }
-        
+
         if (isset($frontPageOptions[$frontPageType]) && 'recent' != $frontPageType && isset($selectedFrontPageType)) {
             $selectedFrontPageType = $frontPageType;
             $frontPattern = str_replace('%class%', '', $frontPattern);

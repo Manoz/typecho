@@ -50,7 +50,7 @@ class Widget_Feedback extends Widget_Abstract_Comments implements Widget_Interfa
             'status'    =>  !$this->_content->allow('edit') && $this->options->commentsRequireModeration ? 'waiting' : 'approved'
         );
 
-        /** 判断父节点 */
+        /** 判断Parent node */
         if ($parentId = $this->request->filter('int')->get('parent')) {
             if ($this->options->commentsThreaded && ($parent = $this->db->fetchRow($this->db->select('coid', 'cid')->from('table.comments')
             ->where('coid = ?', $parentId))) && $this->_content->cid == $parent['cid']) {
@@ -111,7 +111,7 @@ class Widget_Feedback extends Widget_Abstract_Comments implements Widget_Interfa
             /** 记录登录用户的id */
             $comment['authorId'] = $this->user->uid;
         }
-        
+
         /** 评论者之前须有评论通过了审核 */
         if (!$this->options->commentsRequireModeration && $this->options->commentsWhitelist) {
             if ($commentApprovedNum = $this->size($this->select()->where('author = ? AND mail = ? AND status = ?', $comment['author'], $comment['mail'], 'approved'))) {
@@ -281,7 +281,7 @@ class Widget_Feedback extends Widget_Abstract_Comments implements Widget_Interfa
                 if (!$this->_content->allow('comment')) {
                     throw new Typecho_Widget_Exception(_t('对不起,此内容的反馈被禁止.'), 403);
                 }
-                
+
                 /** 检查来源 */
                 if ($this->options->commentsCheckReferer && 'false' != $this->parameter->checkReferer) {
                     $referer = $this->request->getReferer();
@@ -295,11 +295,11 @@ class Widget_Feedback extends Widget_Abstract_Comments implements Widget_Interfa
 
                     if ($refererPart['host'] != $currentPart['host'] ||
                     0 !== strpos($refererPart['path'], $currentPart['path'])) {
-                        
+
                         //自定义首页支持
                         if ('page:' . $this->_content->cid == $this->options->frontPage) {
                             $currentPart = parse_url(rtrim($this->options->siteUrl, '/') . '/');
-                            
+
                             if ($refererPart['host'] != $currentPart['host'] ||
                             0 !== strpos($refererPart['path'], $currentPart['path'])) {
                                 throw new Typecho_Widget_Exception(_t('评论来源页错误.'), 403);

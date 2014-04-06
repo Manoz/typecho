@@ -29,7 +29,7 @@ class Widget_Contents_Post_Date extends Typecho_Widget
     protected $options;
 
     /**
-     * 数据库对象
+     * Database Objects
      *
      * @access protected
      * @var Typecho_Db
@@ -37,7 +37,7 @@ class Widget_Contents_Post_Date extends Typecho_Widget
     protected $db;
 
     /**
-     * 构造函数,初始化组件
+     * Constructors,初始化组件
      *
      * @access public
      * @param mixed $request request对象
@@ -49,7 +49,7 @@ class Widget_Contents_Post_Date extends Typecho_Widget
     {
         parent::__construct($request, $response, $params);
 
-        /** 初始化数据库 */
+        /** Initialize the database */
         $this->db = Typecho_Db::get();
 
         /** 初始化常用组件 */

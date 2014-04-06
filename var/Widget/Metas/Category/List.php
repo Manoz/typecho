@@ -22,15 +22,15 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 {
     /**
      * 多级分类回调函数
-     * 
+     *
      * @var boolean
      * @access private
      */
     private $_customTreeViewCategoriesCallback = false;
 
     /**
-     * 树状分类结构 
-     * 
+     * 树状分类结构
+     *
      * @var array
      * @access private
      */
@@ -38,7 +38,7 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
     /**
      * _categoryOptions
-     * 
+     *
      * @var mixed
      * @access private
      */
@@ -46,15 +46,15 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
     /**
      * 顶层分类
-     * 
+     *
      * @var array
      * @access private
      */
     private $_top = array();
 
     /**
-     * 所有分类哈希表 
-     * 
+     * 所有分类哈希表
+     *
      * @var array
      * @access private
      */
@@ -62,30 +62,30 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
     /**
      * 顺序流
-     * 
+     *
      * @var array
      * @access private
      */
     private $_orders = array();
 
     /**
-     * 所有子节点列表 
-     * 
+     * 所有子节点列表
+     *
      * @var array
      * @access private
      */
     private $_children = array();
 
     /**
-     * 所有父节点列表 
-     * 
+     * 所有Parent node列表
+     *
      * @var array
      * @access private
      */
     private $_parents = array();
 
     /**
-     * 构造函数,初始化组件
+     * Constructors,初始化组件
      *
      * @access public
      * @param mixed $request request对象
@@ -97,7 +97,7 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
     {
         parent::__construct($request, $response, $params);
         $this->parameter->setDefault('ignore=0');
-        
+
         /** 初始化回调函数 */
         if (function_exists('treeViewCategories')) {
             $this->_customTreeViewCategoriesCallback = true;
@@ -124,7 +124,7 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
                 $this->_top[] = $mid;
             }
         }
-        
+
         // 预处理深度
         $this->levelWalkCallback($this->_top);
         $this->_map = array_map(array($this, 'filter'), $this->_map);
@@ -132,7 +132,7 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
     /**
      * 列出分类回调
-     * 
+     *
      * @access private
      */
     private function treeViewCategoriesCallback()
@@ -152,7 +152,7 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
         echo '<' . $categoryOptions->itemTag . ' class="'
             . implode(' ', $classes);
-        
+
         if ($this->levels > 0) {
             echo ' category-child';
             $this->levelsAlt(' category-level-odd', ' category-level-even');
@@ -179,7 +179,7 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
     /**
      * 预处理分类迭代
-     * 
+     *
      * @param array $categories
      * @param array $parents
      * @access private
@@ -193,7 +193,7 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
             $this->_children[$parent] = array_merge($this->_children[$parent], $categories);
         }
-        
+
         foreach ($categories as $mid) {
             $this->_orders[] = $mid;
             $parent = $this->_map[$mid]['parent'];
@@ -237,8 +237,8 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
     }
 
     /**
-     * treeViewCategories  
-     * 
+     * treeViewCategories
+     *
      * @access public
      * @return void
      */
@@ -268,7 +268,7 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
     }
 
     /**
-     * treeViewCategories  
+     * treeViewCategories
      *
      * @param $categoryOptions 输出选项
      * @access public
@@ -295,7 +295,7 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
         if (!$plugged) {
             $this->stack = $this->getCategories($this->_top);
 
-            if ($this->have()) { 
+            if ($this->have()) {
                 echo '<' . $this->_categoryOptions->wrapTag . (empty($this->_categoryOptions->wrapClass)
                     ? '' : ' class="' . $this->_categoryOptions->wrapClass . '"') . '>';
                 while ($this->next()) {
@@ -346,8 +346,8 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
     /**
      * 获取某个分类下的所有子节点
-     * 
-     * @param mixed $mid 
+     *
+     * @param mixed $mid
      * @access public
      * @return array
      */
@@ -358,15 +358,15 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
     /**
      * 获取某个分类所有父级节点
-     * 
-     * @param mixed $mid 
+     *
+     * @param mixed $mid
      * @access public
      * @return array
      */
     public function getAllParents($mid)
     {
         $parents = array();
-        
+
         if (isset($this->_parents[$mid])) {
             foreach ($this->_parents[$mid] as $parent) {
                 $parents[] = $this->_map[$parent]['slug'];
@@ -378,8 +378,8 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
 
     /**
      * 获取单个分类
-     * 
-     * @param integer $mid 
+     *
+     * @param integer $mid
      * @access public
      * @return mixed
      */
@@ -389,9 +389,9 @@ class Widget_Metas_Category_List extends Widget_Abstract_Metas
     }
 
     /**
-     * 获取多个分类 
-     * 
-     * @param mixed $mids 
+     * 获取多个分类
+     *
+     * @param mixed $mids
      * @access public
      * @return array
      */

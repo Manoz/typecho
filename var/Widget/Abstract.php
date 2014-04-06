@@ -44,7 +44,7 @@ abstract class Widget_Abstract extends Typecho_Widget
     protected $security;
 
     /**
-     * 数据库对象
+     * Database Objects
      *
      * @access protected
      * @var Typecho_Db
@@ -52,7 +52,7 @@ abstract class Widget_Abstract extends Typecho_Widget
     protected $db;
 
     /**
-     * 构造函数,初始化组件
+     * Constructors,初始化组件
      *
      * @access public
      * @param mixed $request request对象
@@ -63,7 +63,7 @@ abstract class Widget_Abstract extends Typecho_Widget
     {
         parent::__construct($request, $response, $params);
 
-        /** 初始化数据库 */
+        /** Initialize the database */
         $this->db = Typecho_Db::get();
 
         /** 初始化常用组件 */

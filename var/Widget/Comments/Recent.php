@@ -19,7 +19,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Widget_Comments_Recent extends Widget_Abstract_Comments
 {
     /**
-     * 构造函数,初始化组件
+     * Constructors,初始化组件
      *
      * @access public
      * @param mixed $request request对象
@@ -52,7 +52,7 @@ class Widget_Comments_Recent extends Widget_Abstract_Comments
         if ($this->options->commentsShowCommentOnly) {
             $select->where('type = ?', 'comment');
         }
-        
+
         /** 忽略作者评论 */
         if ($this->parameter->ignoreAuthor) {
             $select->where('ownerId <> authorId');

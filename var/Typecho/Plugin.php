@@ -8,7 +8,7 @@
  */
 
 /**
- * 插件处理类
+ * Plugin processing class
  *
  * @category typecho
  * @package Plugin
@@ -18,7 +18,7 @@
 class Typecho_Plugin
 {
     /**
-     * 所有启用的插件
+     * All enabled plugin
      *
      * @access private
      * @var array
@@ -26,7 +26,7 @@ class Typecho_Plugin
     private static $_plugins = array();
 
     /**
-     * 已经加载的文件
+     * File already loaded
      *
      * @access private
      * @var array
@@ -34,7 +34,7 @@ class Typecho_Plugin
     private static $_required = array();
 
     /**
-     * 实例化的插件对象
+     * The plugin object instantiation
      *
      * @access private
      * @var array
@@ -42,7 +42,7 @@ class Typecho_Plugin
     private static $_instances;
 
     /**
-     * 临时存储变量
+     * Temporary storage variable
      *
      * @access private
      * @var array
@@ -50,7 +50,7 @@ class Typecho_Plugin
     private static $_tmp = array();
 
     /**
-     * 唯一句柄
+     * A unique handle
      *
      * @access private
      * @var string
@@ -58,7 +58,7 @@ class Typecho_Plugin
     private $_handle;
 
     /**
-     * 组件
+     * Package
      *
      * @access private
      * @var string
@@ -66,7 +66,7 @@ class Typecho_Plugin
     private $_component;
 
     /**
-     * 是否触发插件的信号
+     * Plugin trigger signal
      *
      * @access private
      * @var boolean
@@ -74,20 +74,20 @@ class Typecho_Plugin
     private $_signal;
 
     /**
-     * 插件初始化
+     * Plugin init
      *
      * @access public
-     * @param string $handle 插件
+     * @param string $handle Plugin
      * @return void
      */
     public function __construct($handle)
     {
-        /** 初始化变量 */
+        /** Init variables */
         $this->_handle = $handle;
     }
 
     /**
-     * 插件handle比对
+     * Plugin handle comparison
      *
      * @access private
      * @param array $pluginHandles
@@ -106,11 +106,11 @@ class Typecho_Plugin
     }
 
     /**
-     * 插件初始化
+     * Plugin init
      *
      * @access public
-     * @param array $plugins 插件列表
-     * @param mixed $callback 获取插件系统变量的代理函数
+     * @param array $plugins Plugin list
+     * @param mixed $callback Get plugin system variables proxy function
      * @return void
      */
     public static function init(array $plugins)
@@ -118,12 +118,12 @@ class Typecho_Plugin
         $plugins['activated'] = array_key_exists('activated', $plugins) ? $plugins['activated'] : array();
         $plugins['handles'] = array_key_exists('handles', $plugins) ? $plugins['handles'] : array();
 
-        /** 初始化变量 */
+        /** Init variables */
         self::$_plugins = $plugins;
     }
 
     /**
-     * 获取实例化插件对象
+     * Get plugin object instantiation
      *
      * @access public
      * @return Typecho_Plugin
@@ -135,10 +135,10 @@ class Typecho_Plugin
     }
 
     /**
-     * 启用插件
+     * Enable plugins
      *
      * @access public
-     * @param string $pluginName 插件名称
+     * @param string $pluginName Plugin Name
      * @return void
      */
     public static function activate($pluginName)
@@ -148,15 +148,15 @@ class Typecho_Plugin
     }
 
     /**
-     * 禁用插件
+     * Disable plugin
      *
      * @access public
-     * @param string $pluginName 插件名称
+     * @param string $pluginName Plugin Name
      * @return void
      */
     public static function deactivate($pluginName)
     {
-        /** 去掉所有相关回调函数 */
+        /** Remove all callbacks */
         if (isset(self::$_plugins['activated'][$pluginName]['handles']) && is_array(self::$_plugins['activated'][$pluginName]['handles'])) {
             foreach (self::$_plugins['activated'][$pluginName]['handles'] as $handle => $handles) {
                 self::$_plugins['handles'][$handle] = self::pluginHandlesDiff(
@@ -168,12 +168,12 @@ class Typecho_Plugin
             }
         }
 
-        /** 禁用当前插件 */
+        /** Disable the current plugin */
         unset(self::$_plugins['activated'][$pluginName]);
     }
 
     /**
-     * 导出当前插件设置
+     * Export current plugin settings
      *
      * @access public
      * @return array
@@ -184,10 +184,10 @@ class Typecho_Plugin
     }
 
     /**
-     * 获取插件文件的头信息
+     * Get plugin file header information
      *
      * @access public
-     * @param string $pluginFile 插件文件路径
+     * @param string $pluginFile Plugin file path
      * @return array
      */
     public static function parseInfo($pluginFile)
@@ -224,10 +224,10 @@ class Typecho_Plugin
         );
 
         foreach ($tokens as $token) {
-            /** 获取doc comment */
+            /** Get doc comment */
             if (!$isDoc && is_array($token) && T_DOC_COMMENT == $token[0]) {
 
-                /** 分行读取 */
+                /** Branch reading */
                 $described = false;
                 $lines = preg_split("(\r|\n)", $token[1]);
                 foreach ($lines as $line) {
@@ -328,13 +328,13 @@ class Typecho_Plugin
     }
 
     /**
-     * 获取插件路径和类名
-     * 返回值为一个数组
-     * 第一项为插件路径,第二项为类名
+     * Get plugin path and name of the class
+     * The return value is an array
+     * The first term is the plugin path, the second is the class name
      *
      * @access public
-     * @param string $pluginName 插件名
-     * @param string $path 插件目录
+     * @param string $pluginName Plugin name
+     * @param string $path Plugin directory
      * @return array
      */
     public static function portal($pluginName, $path)
@@ -354,16 +354,16 @@ class Typecho_Plugin
     }
 
     /**
-     * 版本依赖性检测
+     * Version dependency detection
      *
      * @access public
-     * @param string $version 程序版本
+     * @param string $version Version
      * @param string $versionRange 依赖的版本规则
      * @return boolean
      */
     public static function checkDependence($version, $versionRange)
     {
-        //如果没有检测规则,直接掠过
+        // If the rule is not detected, directly passing
         if (empty($versionRange)) {
             return true;
         }
@@ -375,7 +375,7 @@ class Typecho_Plugin
 
         list ($minVersion, $maxVersion) = $items;
 
-        //对*和?的支持,4个9是最大版本
+        // For * and ? support, four 9 is the largest version
         $minVersion = str_replace(array('*', '?'), array('9999', '9'), $minVersion);
         $maxVersion = str_replace(array('*', '?'), array('9999', '9'), $maxVersion);
 
@@ -387,10 +387,10 @@ class Typecho_Plugin
     }
 
     /**
-     * 插件调用后的触发器
+     * After calling trigger plugin
      *
      * @access public
-     * @param boolean $signal 触发器
+     * @param boolean $signal Trigger
      * @return Typecho_Plugin
      */
     public function trigger(&$signal)
@@ -401,10 +401,10 @@ class Typecho_Plugin
     }
 
     /**
-     * 判断插件是否存在
+     * Determine whether there are plugins
      *
      * @access public
-     * @param string $pluginName 插件名称
+     * @param string $pluginName Plugin Name
      * @return void
      */
     public function exists($pluginName) {
@@ -412,11 +412,11 @@ class Typecho_Plugin
     }
 
     /**
-     * 设置回调函数
+     * Set a callback function
      *
      * @access public
-     * @param string $component 当前组件
-     * @param mixed $value 回调函数
+     * @param string $component Current component
+     * @param mixed $value The callback function
      * @return void
      */
     public function __set($component, $value)
@@ -428,7 +428,7 @@ class Typecho_Plugin
             list($component, $weight) = $parts;
             $weight = intval($weight) - 10;
         }
-        
+
         $component = $this->_handle . ':' . $component;
 
         if (!isset(self::$_plugins['handles'][$component])) {
@@ -456,10 +456,10 @@ class Typecho_Plugin
     }
 
     /**
-     * 通过魔术函数设置当前组件位置
+     * Set the current position of the component by a magic function
      *
      * @access public
-     * @param string $component 当前组件
+     * @param string $component Current component
      * @return Typecho_Plugin
      */
     public function __get($component)
@@ -469,11 +469,11 @@ class Typecho_Plugin
     }
 
     /**
-     * 回调处理函数
+     * Callback handler
      *
      * @access public
-     * @param string $component 当前组件
-     * @param string $args 参数
+     * @param string $component Current component
+     * @param string $args Parameters
      * @return mixed
      */
     public function __call($component, $args)

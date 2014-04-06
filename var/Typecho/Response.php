@@ -1,6 +1,6 @@
 <?php
 /**
- * API方法,Typecho命名空间
+ * Typecho namespace API methods
  *
  * @category typecho
  * @package Response
@@ -10,7 +10,7 @@
  */
 
 /**
- * Typecho公用方法
+ * Typecho Public Methods
  *
  * @category typecho
  * @package Response
@@ -69,18 +69,18 @@ class Typecho_Response
     );
 
     /**
-     * 字符编码
+     * Character Encoding
      *
      * @var mixed
      * @access private
      */
     private $_charset;
 
-    //默认的字符编码
+    // The default character encoding
     const CHARSET = 'UTF-8';
 
     /**
-     * 单例句柄
+     * Single Handle Cases
      *
      * @access private
      * @var Typecho_Response
@@ -88,7 +88,7 @@ class Typecho_Response
     private static $_instance = null;
 
     /**
-     * 获取单例句柄
+     * Get a handle for a single case
      *
      * @access public
      * @return Typecho_Response
@@ -103,15 +103,15 @@ class Typecho_Response
     }
 
     /**
-     * 解析ajax回执的内部函数
+     * Ajax receipt resolve internal function
      *
      * @access private
-     * @param mixed $message 格式化数据
+     * @param mixed $message Formatting data
      * @return string
      */
     private function _parseXml($message)
     {
-        /** 对于数组型则继续递归 */
+        /** For an array type continues recursively */
         if (is_array($message)) {
             $result = '';
 
@@ -127,10 +127,10 @@ class Typecho_Response
     }
 
     /**
-     * 设置默认回执编码
+     * Set the default encoding receipt
      *
      * @access public
-     * @param string $charset 字符集
+     * @param string $charset Character Set
      * @return void
      */
     public function setCharset($charset = null)
@@ -139,7 +139,7 @@ class Typecho_Response
     }
 
     /**
-     * 获取字符集
+     * Get Character Set
      *
      * @access public
      * @return string
@@ -154,10 +154,10 @@ class Typecho_Response
     }
 
     /**
-     * 在http头部请求中声明类型和字符集
+     * Statement type and character set in the http request header
      *
      * @access public
-     * @param string $contentType 文档类型
+     * @param string $contentType Document Type
      * @return void
      */
     public function setContentType($contentType = 'text/html')
@@ -166,11 +166,11 @@ class Typecho_Response
     }
 
     /**
-     * 设置http头
+     * Set http header
      *
      * @access public
-     * @param string $name 名称
-     * @param string $value 对应值
+     * @param string $name Name
+     * @param string $value Corresponding values
      * @return void
      */
     public function setHeader($name, $value)
@@ -179,10 +179,10 @@ class Typecho_Response
     }
 
     /**
-     * 设置HTTP状态
+     * Set HTTP status
      *
      * @access public
-     * @param integer $code http代码
+     * @param integer $code http code
      * @return void
      */
     public static function setStatus($code)
@@ -193,51 +193,51 @@ class Typecho_Response
     }
 
     /**
-     * 抛出ajax的回执信息
+     * Thrown the ajax information receipt
      *
      * @access public
-     * @param string $message 消息体
+     * @param string $message Message Body
      * @return void
      */
     public function throwXml($message)
     {
-        /** 设置http头信息 */
+        /** Set http header information */
         $this->setContentType('text/xml');
 
-        /** 构建消息体 */
+        /** Construct the message body */
         echo '<?xml version="1.0" encoding="' . $this->getCharset() . '"?>',
         '<response>',
         $this->_parseXml($message),
         '</response>';
 
-        /** 终止后续输出 */
+        /** Termination subsequent output */
         exit;
     }
 
     /**
-     * 抛出json回执信息
+     * Thrown the json information receipt
      *
      * @access public
-     * @param string $message 消息体
+     * @param string $message Message Body
      * @return void
      */
     public function throwJson($message)
     {
-        /** 设置http头信息 */
+        /** Set http header information */
         $this->setContentType('application/json');
 
         echo Json::encode($message);
 
-        /** 终止后续输出 */
+        /** Termination subsequent output */
         exit;
     }
 
     /**
-     * 重定向函数
+     * Redirect function
      *
      * @access public
-     * @param string $location 重定向路径
-     * @param boolean $isPermanently 是否为永久重定向
+     * @param string $location Redirect path
+     * @param boolean $isPermanently Whether it is a permanent redirect
      * @return void
      */
     public function redirect($location, $isPermanently = false)
@@ -255,18 +255,18 @@ class Typecho_Response
     }
 
     /**
-     * 返回来路
+     * Return the antecedents
      *
      * @access public
-     * @param string $suffix 附加地址
-     * @param string $default 默认来路
+     * @param string $suffix Additional Address
+     * @param string $default Default antecedents
      */
     public function goBack($suffix = NULL, $default = NULL)
     {
-        //获取来源
+        // Get the source
         $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 
-        //判断来源
+        // Determine the source
         if (!empty($referer)) {
             // ~ fix Issue 38
             if (!empty($suffix)) {

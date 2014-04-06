@@ -1,6 +1,6 @@
 <?php
 /**
- * API方法,Typecho命名空间
+ * Typecho namespace API methods
  *
  * @category typecho
  * @package Common
@@ -12,7 +12,7 @@
 define('__TYPECHO_MB_SUPPORTED__', function_exists('mb_get_info'));
 
 /**
- * Typecho公用方法
+ * Typecho Public Methods
  *
  * @category typecho
  * @package Common
@@ -21,27 +21,27 @@ define('__TYPECHO_MB_SUPPORTED__', function_exists('mb_get_info'));
  */
 class Typecho_Common
 {
-    /** 程序版本 */
+    /** Version */
     const VERSION = '0.9/14.3.14';
 
     /**
-     * 锁定的代码块
+     * Locked blocks
      *
      * @access private
      * @var array
      */
     private static $_lockedBlocks = array('<p></p>' => '');
-    
+
     /**
-     * 允许的属性
-     * 
+     * Allow property
+     *
      * @access private
      * @var array
      */
     private static $_allowableAttributes = array();
 
     /**
-     * 默认编码
+     * The default encoding
      *
      * @access public
      * @var string
@@ -49,7 +49,7 @@ class Typecho_Common
     public static $charset = 'UTF-8';
 
     /**
-     * 异常处理类
+     * Exception class
      *
      * @access public
      * @var string
@@ -57,10 +57,10 @@ class Typecho_Common
     public static $exceptionHandle;
 
     /**
-     * 锁定标签回调函数
+     * Locked labels callback
      *
      * @access private
-     * @param array $matches 匹配的值
+     * @param array $matches Matched values
      * @return string
      */
     public static function __lockHTML(array $matches)
@@ -71,26 +71,27 @@ class Typecho_Common
     }
 
     /**
-     * 将url中的非法xss去掉时的数组回调过滤函数
+     * The array of illegal xss callback url
+     * is removed when the filter function
      *
      * @access private
-     * @param string $string 需要过滤的字符串
+     * @param string $string Need to filter strings
      * @return string
      */
     public static function __removeUrlXss($string)
     {
         $string = str_replace(array('%0d', '%0a'), '', strip_tags($string));
         return preg_replace(array(
-            "/\(\s*(\"|')/i",           //函数开头
-            "/(\"|')\s*\)/i",           //函数结尾
+            "/\(\s*(\"|')/i",           // The beginning of the function
+            "/(\"|')\s*\)/i",           // The end Function
         ), '', $string);
     }
 
     /**
-     * 检查是否为安全路径
+     * Check for safety path
      *
      * @access public
-     * @param string $path 检查是否为安全路径
+     * @param string $path Check for safety path
      * @return boolean
      */
     public static function __safePath($path)
@@ -100,9 +101,9 @@ class Typecho_Common
     }
 
     /**
-     * __filterAttrs  
-     * 
-     * @param mixed $matches 
+     * __filterAttrs
+     *
+     * @param mixed $matches
      * @static
      * @access public
      * @return bool
@@ -131,12 +132,12 @@ class Typecho_Common
 
         return '<' . $tag . implode('', $parsedAttrs) . '>';
     }
-    
+
     /**
-     * 解析属性
-     * 
+     * Analytics properties
+     *
      * @access public
-     * @param string $attrs 属性字符串
+     * @param string $attrs Attribute string
      * @return array
      */
     public static function __parseAttrs($attrs)
@@ -148,12 +149,12 @@ class Typecho_Common
         $quote = '';
         $key = '';
         $value = '';
-        
+
         for ($i = 0; $i < $len; $i ++) {
             if ('=' != $attrs[$i] && !ctype_space($attrs[$i]) && -1 == $pos) {
                 $key .= $attrs[$i];
-                
-                /** 最后一个 */
+
+                /** Last */
                 if ($i == $len - 1) {
                     if ('' != ($key = trim($key))) {
                         $result[$key] = '';
@@ -161,7 +162,7 @@ class Typecho_Common
                         $value = '';
                     }
                 }
-                
+
             } else if (ctype_space($attrs[$i]) && -1 == $pos) {
                 $pos = -2;
             } else if ('=' == $attrs[$i] && 0 > $pos) {
@@ -182,19 +183,19 @@ class Typecho_Common
                 if ('' != ($key = trim($key))) {
                     $result[$key] = '';
                 }
-                
+
                 $key = '';
                 $value = '';
                 $pos = -1;
                 $key .= $attrs[$i];
             }
         }
-        
+
         return $result;
     }
 
     /**
-     * 自动载入类
+     * Automatically loaded class
      *
      * @param $className
      */
@@ -204,14 +205,14 @@ class Typecho_Common
     }
 
     /**
-     * 程序初始化方法
+     * Init program method
      *
      * @access public
      * @return void
      */
     public static function init()
     {
-        /** 设置自动载入函数 */
+        /** Set up automatic loading function */
         if (function_exists('spl_autoload_register')) {
             spl_autoload_register(array('Typecho_Common', '__autoLoad'));
         } else {
@@ -220,7 +221,7 @@ class Typecho_Common
             }
         }
 
-        /** 兼容php6 */
+        /** php6 compatible */
         if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
             $_GET = self::stripslashesDeep($_GET);
             $_POST = self::stripslashesDeep($_POST);
@@ -231,15 +232,15 @@ class Typecho_Common
             reset($_COOKIE);
         }
 
-        /** 设置异常截获函数 */
+        /** Set intercepted function exceptions */
         set_exception_handler(array('Typecho_Common', 'exceptionHandle'));
     }
 
     /**
-     * 异常截获函数
+     * Intercept function exceptions
      *
      * @access public
-     * @param Exception $exception 截获的异常
+     * @param Exception $exception Intercepted exceptions
      * @return void
      */
     public static function exceptionHandle(Exception $exception)
@@ -261,10 +262,10 @@ class Typecho_Common
     }
 
     /**
-     * 输出错误页面
+     * Output error page
      *
      * @access public
-     * @param mixed $exception 错误信息
+     * @param mixed $exception Error Messages
      * @return void
      */
     public static function error($exception)
@@ -285,7 +286,7 @@ class Typecho_Common
             $code = 500;
             @error_log($message);
 
-            //覆盖原始错误信息
+            // Overwrite the original Error Messages
             $message = 'Database Server Error';
 
             if ($exception instanceof Typecho_Db_Adapter_Exception) {
@@ -311,7 +312,7 @@ class Typecho_Common
         }
 
 
-        /** 设置http code */
+        /** Set http code */
         if (is_numeric($code) && $code > 200) {
             Typecho_Response::setStatus($code);
         }
@@ -377,22 +378,26 @@ EOF;
     }
 
     /**
-     * 判断类是否能被加载
-     * 此函数会遍历所有的include目录, 所以会有一定的性能消耗, 但是不会很大
-     * 可是我们依然建议你在必须检测一个类能否被加载时使用它, 它通常表现为以下两种情况
-     * 1. 当需要被加载的类不存在时, 系统不会停止运行 (如果你不判断, 系统会因抛出严重错误而停止)
-     * 2. 你需要知道哪些类无法被加载, 以提示使用者
-     * 除了以上情况, 你无需关注那些类无法被加载, 因为当它们不存在时系统会自动停止并报错
+     * Determine whether a class can be loaded
+     * This function will traverse all the include directory,
+     * so there will be some performance overhead, but will not be significant.
+     * But we still recommend that you use it when you must detect
+     * whether a class is loaded, it manifests itself in the following two cases:
+     * 1. Needs to be loaded when the class does not exist, the system will
+     *    not stop running (if you do not judge, you will be stopped due to a fatal error)
+     * 2. You need to know which class can not be loaded in order to prompt the user
+     * In addition to the above, you do not need to focus if those classes can not be loaded,
+     * because when they do not exist, the system will automatically stop and throw an error.
      *
      * @access public
-     * @param string $className 类名
-     * @param string $path 指定的路径名称
+     * @param string $className Class name
+     * @param string $path Specify the path name
      * @return boolean
      */
     public static function isAvailableClass($className, $path = NULL)
     {
-        /** 获取所有include目录 */
-        //增加安全目录检测 fix issue 106
+        /** Get all the include directory */
+        // Increase security catalog detection. Fix issue 106
         $dirs = array_map('realpath', array_filter(explode(PATH_SEPARATOR, get_include_path()),
         array('Typecho_Common', '__safePath')));
 
@@ -419,8 +424,8 @@ EOF;
     }
 
     /**
-     * 检测是否在app engine上运行，屏蔽某些功能 
-     * 
+     * To detect whether the app engine running, shielding certain features
+     *
      * @static
      * @access public
      * @return boolean
@@ -436,7 +441,7 @@ EOF;
     }
 
     /**
-     * 递归去掉数组反斜线
+     * Remove recursive array backslash
      *
      * @access public
      * @param mixed $value
@@ -448,20 +453,20 @@ EOF;
     }
 
     /**
-     * 抽取多维数组的某个元素,组成一个新数组,使这个数组变成一个扁平数组
-     * 使用方法:
+     * Extraction of a multidimensional array Element, consisting of a new array, so the array become a flat array
+     * Usage:
      * <code>
      * <?php
      * $fruit = array(array('apple' => 2, 'banana' => 3), array('apple' => 10, 'banana' => 12));
      * $banana = Typecho_Common::arrayFlatten($fruit, 'banana');
      * print_r($banana);
-     * //outputs: array(0 => 3, 1 => 12);
+     * // Outputs: array(0 => 3, 1 => 12);
      * ?>
      * </code>
      *
      * @access public
-     * @param array $value 被处理的数组
-     * @param string $key 需要抽取的键值
+     * @param array $value Array is handled
+     * @param string $key Need to extract the key
      * @return array
      */
     public static function arrayFlatten(array $value, $key)
@@ -482,10 +487,10 @@ EOF;
     }
 
     /**
-     * 根据parse_url的结果重新组合url
+     * Url reassembled according to the results of parse_url
      *
      * @access public
-     * @param array $params 解析后的参数
+     * @param array $params Parsed arguments
      * @return string
      */
     public static function buildUrl($params)
@@ -500,7 +505,7 @@ EOF;
     }
 
     /**
-     * 根据count数目来输出字符
+     * Count the number of characters to output
      * <code>
      * echo splitByCount(20, 10, 20, 30, 40, 50);
      * </code>
@@ -524,21 +529,21 @@ EOF;
     }
 
     /**
-     * 自闭合html修复函数
-     * 使用方法:
+     * Since closing html repair function
+     * Usage:
      * <code>
-     * $input = '这是一段被截断的html文本<a href="#"';
+     * $input = 'This is a section of the truncated text html <a href="#"';
      * echo Typecho_Common::fixHtml($input);
-     * //output: 这是一段被截断的html文本
+     * //output: This is a section of the truncated text html
      * </code>
      *
      * @access public
-     * @param string $string 需要修复处理的字符串
+     * @param string $string String processing needs repair
      * @return string
      */
     public static function fixHtml($string)
     {
-        //关闭自闭合标签
+        // Close self-closing labels
         $startPos = strrpos($string, "<");
 
         if (false == $startPos) {
@@ -551,7 +556,7 @@ EOF;
             $string = substr($string, 0, $startPos);
         }
 
-        //非自闭合html标签列表
+        // Non-self-closing html tag list
         preg_match_all("/<([_0-9a-zA-Z-\:]+)\s*([^>]*)>/is", $string, $startTags);
         preg_match_all("/<\/([_0-9a-zA-Z-\:]+)>/is", $string, $closeTags);
 
@@ -577,8 +582,8 @@ EOF;
     }
 
     /**
-     * 去掉字符串中的html标签
-     * 使用方法:
+     * Remove the string html labels
+     * Usage:
      * <code>
      * $input = '<a href="http://test/test.php" title="example">hello</a>';
      * $output = Typecho_Common::stripTags($input, <a href="">);
@@ -587,8 +592,8 @@ EOF;
      * </code>
      *
      * @access public
-     * @param string $html 需要处理的字符串
-     * @param string $allowableTags 需要忽略的html标签
+     * @param string $html Strings to be processed
+     * @param string $allowableTags Need to ignore the html labels
      * @return string
      */
     public static function stripTags($html, $allowableTags = NULL)
@@ -600,7 +605,7 @@ EOF;
             $normalizeTags = '<' . implode('><', array_map('strtolower', $tags[1])) . '>';
             $attributes = array_map('trim', $tags[2]);
             foreach ($attributes as $key => $val) {
-                $allowableAttributes[strtolower($tags[1][$key])] = 
+                $allowableAttributes[strtolower($tags[1][$key])] =
                     array_map('strtolower', array_keys(self::__parseAttrs($val)));
             }
         }
@@ -614,10 +619,10 @@ EOF;
     }
 
     /**
-     * 过滤用于搜索的字符串
+     * Search for string filters
      *
      * @access public
-     * @param string $query 搜索字符串
+     * @param string $query Search string
      * @return string
      */
     public static function filterSearchQuery($query)
@@ -626,36 +631,36 @@ EOF;
     }
 
     /**
-     * 将url中的非法字符串
+     * Illegal string in the url
      *
-     * @param string $url 需要过滤的url
+     * @param string $url Need to filter the url
      * @return string
      */
     public static function safeUrl($url)
     {
-        //~ 针对location的xss过滤, 因为其特殊性无法使用removeXSS函数
+        //~ Filter for location of xss, Because of its specificity, removeXSS function can not be used
         //~ fix issue 66
         $params = parse_url(str_replace(array("\r", "\n", "\t", ' '), '', $url));
 
-        /** 禁止非法的协议跳转 */
+        /** Jump to prohibit illegal agreement */
         if (isset($params['scheme'])) {
             if (!in_array($params['scheme'], array('http', 'https'))) {
                 return '/';
             }
         }
 
-        /** 过滤解析串 */
+        /** Filter parse strings */
         $params = array_map(array('Typecho_Common', '__removeUrlXss'), $params);
         return self::buildUrl($params);
     }
 
     /**
-     * 处理XSS跨站攻击的过滤函数
+     * Deal with cross-site attacks XSS filter function
      *
      * @author kallahar@kallahar.com
      * @link http://kallahar.com/smallprojects/php_xss_filter_function.php
      * @access public
-     * @param string $val 需要处理的字符串
+     * @param string $val Strings to be processed
      * @return string
      */
     public static function removeXSS($val)
@@ -717,13 +722,13 @@ EOF;
     }
 
     /**
-     * 宽字符串截字函数
+     * Wide string truncated word function
      *
      * @access public
-     * @param string $str 需要截取的字符串
-     * @param integer $start 开始截取的位置
-     * @param integer $length 需要截取的长度
-     * @param string $trim 截取后的截断标示符
+     * @param string $str Need to intercept strings
+     * @param integer $start Start position interception
+     * @param integer $length Need to intercept length
+     * @param string $trim Intercept truncated identifier
      * @return string
      */
     public static function subStr($str, $start, $length, $trim = "...")
@@ -746,15 +751,15 @@ EOF;
                 $str = substr($str, $start, $tLength);
             }
         }
-        
+
         return $length < $iLength ? ($str . $trim) : $str;
     }
 
     /**
-     * 获取宽字符串长度函数
+     * Get wide string length function
      *
      * @access public
-     * @param string $str 需要获取长度的字符串
+     * @param string $str Need to get the string length
      * @return integer
      */
     public static function strLen($str)
@@ -762,13 +767,13 @@ EOF;
         if (__TYPECHO_MB_SUPPORTED__) {
             return mb_strlen($str, self::$charset);
         } else {
-            return 'UTF-8' == strtoupper(self::$charset) 
+            return 'UTF-8' == strtoupper(self::$charset)
                 ? strlen(utf8_decode($str)) : strlen($str);
         }
     }
 
     /**
-     * 检查是否为合法的编码数据
+     * Check whether legitimate encoded data
      *
      * @param string|array $str
      * @return boolean
@@ -788,12 +793,12 @@ EOF;
     }
 
     /**
-     * 生成缩略名
+     * Generate abbreviated name
      *
      * @access public
-     * @param string $str 需要生成缩略名的字符串
-     * @param string $default 默认的缩略名
-     * @param integer $maxLength 缩略名最大长度
+     * @param string $str Need to generate a string of abbreviated name
+     * @param string $default The default abbreviated name
+     * @param integer $maxLength The maximum length of abbreviated name
      * @return string
      */
     public static function slugName($str, $default = NULL, $maxLength = 128)
@@ -803,7 +808,7 @@ EOF;
         if (!strlen($str)) {
             return $default;
         }
-        
+
         if (__TYPECHO_MB_SUPPORTED__) {
             mb_regex_encoding(self::$charset);
             mb_ereg_search_init($str, "[\w" . preg_quote('_-') . "]+");
@@ -835,45 +840,45 @@ EOF;
     }
 
     /**
-     * 去掉html中的分段
+     * Remove the html segments
      *
      * @access public
-     * @param string $html 输入串
+     * @param string $html Input string
      * @return string
      */
     public static function removeParagraph($html)
     {
-        /** 锁定标签 */
+        /** Locked labels */
         $html = self::lockHTML($html);
         $html = str_replace(array("\r", "\n"), '', $html);
-    
+
         $html = trim(preg_replace(
         array("/\s*<p>(.*?)<\/p>\s*/is", "/\s*<br\s*\/>\s*/is",
         "/\s*<(div|blockquote|pre|code|script|table|fieldset|ol|ul|dl|h[1-6])([^>]*)>/is",
         "/<\/(div|blockquote|pre|code|script|table|fieldset|ol|ul|dl|h[1-6])>\s*/is", "/\s*<\!--more-->\s*/is"),
         array("\n\\1\n", "\n", "\n\n<\\1\\2>", "</\\1>\n\n", "\n\n<!--more-->\n\n"),
         $html));
-        
+
         return trim(self::releaseHTML($html));
     }
-    
+
     /**
-     * 锁定标签
-     * 
+     * Locked labels
+     *
      * @access public
-     * @param string $html 输入串
+     * @param string $html Input string
      * @return string
      */
     public static function lockHTML($html)
     {
         return preg_replace_callback("/<(code|pre|script)[^>]*>.*?<\/\\1>/is", array('Typecho_Common', '__lockHTML'), $html);
     }
-    
+
     /**
-     * 释放标签
-     * 
+     * Release labels
+     *
      * @access public
-     * @param string $html 输入串
+     * @param string $html Input string
      * @return string
      */
     public static function releaseHTML($html)
@@ -882,11 +887,11 @@ EOF;
         self::$_lockedBlocks = array('<p></p>' => '');
         return $html;
     }
-    
+
     /**
-     * 文本分段函数
+     * Text piecewise functions
      *
-     * @param string $string 需要分段的字符串
+     * @param string $string Require segmented string
      * @return string
      */
     public static function cutParagraph($string)
@@ -895,16 +900,16 @@ EOF;
         if (!$loaded) {
             $loaded = true;
         }
-        
+
         return Typecho_Common_Paragraph::process($string);
     }
 
     /**
-     * 生成随机字符串
+     * Generate a random string
      *
      * @access public
-     * @param integer $length 字符串长度
-     * @param boolean $specialChars 是否有特殊字符
+     * @param integer $length String length
+     * @param boolean $specialChars Are there special characters?
      * @return string
      */
     public static function randString($length, $specialChars = false)
@@ -923,25 +928,25 @@ EOF;
     }
 
     /**
-     * 对字符串进行hash加密
+     * The hash encryption string
      *
      * @access public
-     * @param string $string 需要hash的字符串
-     * @param string $salt 扰码
+     * @param string $string Need to hash strings
+     * @param string $salt Scrambler
      * @return string
      */
     public static function hash($string, $salt = NULL)
     {
-        /** 生成随机字符串 */
+        /** Generate a random string */
         $salt = empty($salt) ? self::randString(9) : $salt;
         $length = strlen($string);
         $hash = '';
         $last = ord($string[$length - 1]);
         $pos = 0;
 
-        /** 判断扰码长度 */
+        /** Scrambling to determine the length of */
         if (strlen($salt) != 9) {
-            /** 如果不是9直接返回 */
+            /** If 9 is not directly returned */
             return;
         }
 
@@ -956,11 +961,11 @@ EOF;
     }
 
     /**
-     * 判断hash值是否相等
+     * Determine whether the same hash value
      *
      * @access public
-     * @param string $from 源字符串
-     * @param string $to 目标字符串
+     * @param string $from Source string
+     * @param string $to Target string
      * @return boolean
      */
     public static function hashValidate($from, $to)
@@ -974,11 +979,11 @@ EOF;
     }
 
     /**
-     * 将路径转化为链接
+     * The path into links
      *
      * @access public
-     * @param string $path 路径
-     * @param string $prefix 前缀
+     * @param string $path path
+     * @param string $prefix Prefix
      * @return string
      */
     public static function url($path, $prefix)
@@ -988,7 +993,7 @@ EOF;
     }
 
     /**
-     * 获取图片
+     * Get the picture
      *
      * @access public
      * @param string $fileName 文件名
@@ -996,7 +1001,7 @@ EOF;
      */
     public static function mimeContentType($fileName)
     {
-        //改为并列判断
+        // Determine parallel
         if (function_exists('mime_content_type')) {
             return mime_content_type($fileName);
         }
@@ -1338,10 +1343,10 @@ EOF;
     }
 
     /**
-     * 寻找匹配的mime图标
+     * Find matching mime icon
      *
      * @access public
-     * @param string $mime mime类型
+     * @param string $mime mime type
      * @return string
      */
     public static function mimeIconType($mime)

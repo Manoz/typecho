@@ -3,7 +3,7 @@
 /**
  * Typecho Blog Platform
  *
- * 验证类
+ * Validation class
  * <code>
  * $test = "hello";
  * $Validation  = new TypechoValidation();
@@ -17,14 +17,14 @@
  */
 
 /**
- * 验证类
+ * Validation class
  *
  * @package Validate
  */
 class Typecho_Validate
 {
     /**
-     * 内部数据
+     * Internal data
      *
      * @access private
      * @var array
@@ -32,7 +32,7 @@ class Typecho_Validate
     private $_data;
 
     /**
-     * 当前验证指针
+     * The current validation pointer
      *
      * @access private
      * @var string
@@ -40,7 +40,7 @@ class Typecho_Validate
     private $_key;
 
     /**
-     * 验证规则数组
+     * An array of validation rules
      *
      * @access private
      * @var array
@@ -48,7 +48,7 @@ class Typecho_Validate
     private $_rules = array();
 
     /**
-     * 中断模式,一旦出现验证错误即抛出而不再继续执行
+     * Interrupt mode once the validation error is thrown and no longer continue
      *
      * @access private
      * @var boolean
@@ -56,12 +56,12 @@ class Typecho_Validate
     private $_break = false;
 
     /**
-     * 增加验证规则
+     * Increase the validation rules
      *
      * @access public
-     * @param string $key 数值键值
-     * @param string $rule 规则名称
-     * @param string $message 错误字符串
+     * @param string $key Numeric keys
+     * @param string $rule Rule Name
+     * @param string $message Error string
      * @return Typecho_Validation
      */
     public function addRule($key, $rule, $message)
@@ -78,7 +78,7 @@ class Typecho_Validate
     }
 
     /**
-     * 设置为中断模式
+     * Set to interrupt mode
      *
      * @access public
      * @return void
@@ -93,8 +93,8 @@ class Typecho_Validate
      * This function does all the work.
      *
      * @access	public
-     * @param   array $data 需要验证的数据
-     * @param   array $rules 验证数据遵循的规则
+     * @param   array $data Need to validate data
+     * @param   array $rules Data validation rules to follow
      * @return	array
      * @throws  Typecho_Validate_Exception
      */
@@ -127,7 +127,7 @@ class Typecho_Validate
                 }
             }
 
-            /** 开启中断 */
+            /** Open the interruption */
             if ($this->_break && $result) {
                 break;
             }
@@ -137,11 +137,11 @@ class Typecho_Validate
     }
 
     /**
-     * 最小长度
+     * Minimum length
      *
      * @access public
-     * @param string $str 待处理的字符串
-     * @param integer $length 最小长度
+     * @param string $str String to be processed
+     * @param integer $length Minimum length
      * @return boolean
      */
     public static function minLength($str, $length)
@@ -150,11 +150,11 @@ class Typecho_Validate
     }
 
     /**
-     * 验证输入是否一致
+     * Verify that the input is consistent
      *
      * @access public
-     * @param string $str 待处理的字符串
-     * @param string $key 需要一致性检查的键值
+     * @param string $str String to be processed
+     * @param string $key The key needs consistency check
      * @return boolean
      */
     public function confirm($str, $key)
@@ -163,10 +163,10 @@ class Typecho_Validate
     }
 
     /**
-     * 是否为空
+     * Is empty
      *
      * @access public
-     * @param string $str 待处理的字符串
+     * @param string $str String to be processed
      * @return boolean
      */
     public function required($str)
@@ -175,11 +175,11 @@ class Typecho_Validate
     }
 
     /**
-     * 枚举类型判断
+     * Enum type judgment
      *
      * @access public
-     * @param string $str 待处理的字符串
-     * @param array $params 枚举值
+     * @param string $str String to be processed
+     * @param array $params Enum values
      * @return unknown
      */
     public static function enum($str, array $params)
@@ -213,7 +213,7 @@ class Typecho_Validate
     }
 
     /**
-     * 验证是否为网址
+     * Verify whether it is an URL
      *
      * @access public
      * @param string $str
@@ -268,7 +268,7 @@ class Typecho_Validate
     }
 
     /**
-     * 对xss字符串的检测
+     * Detection of xss string
      *
      * @access public
      * @param string $str

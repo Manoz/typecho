@@ -1,6 +1,6 @@
 <?php
 /**
- * 配置管理
+ * Configuration Management
  *
  * @category typecho
  * @package Config
@@ -10,7 +10,7 @@
  */
 
 /**
- * 配置管理类
+ * Configuration Management
  *
  * @category typecho
  * @package Config
@@ -20,7 +20,7 @@
 class Typecho_Config implements Iterator
 {
     /**
-     * 当前配置
+     * Current configuration
      *
      * @access private
      * @var array
@@ -28,22 +28,22 @@ class Typecho_Config implements Iterator
     private $_currentConfig = array();
 
     /**
-     * 实例化一个当前配置
+     * Instantiate the current configuration
      *
      * @access public
-     * @param mixed $config 配置列表
+     * @param mixed $config Configuration List
      */
     public function __construct($config = array())
     {
-        /** 初始化参数 */
+        /** Init parameters */
         $this->setDefault($config);
     }
 
     /**
-     * 工厂模式实例化一个当前配置
+     * Factory mode to instantiate the current configuration
      *
      * @access public
-     * @param array $config 配置列表
+     * @param array $config Configuration List
      * @return Typecho_Config
      */
     public static function factory($config = array())
@@ -52,11 +52,11 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 设置默认的配置
+     * The default configuration settings
      *
      * @access public
-     * @param mixed $config 配置信息
-     * @param boolean $replace 是否替换已经存在的信息
+     * @param mixed $config Configuration Information
+     * @param boolean $replace Whether to replace the existing information
      * @return void
      */
     public function setDefault($config, $replace = false)
@@ -64,15 +64,15 @@ class Typecho_Config implements Iterator
         if (empty($config)) {
             return;
         }
-    
-        /** 初始化参数 */
+
+        /** Init parameters */
         if (is_string($config)) {
             parse_str($config, $params);
         } else {
             $params = $config;
         }
 
-        /** 设置默认参数 */
+        /** Set the default Argument */
         foreach ($params as $name => $value) {
             if ($replace || !array_key_exists($name, $this->_currentConfig)) {
                 $this->_currentConfig[$name] = $value;
@@ -81,7 +81,7 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 重设指针
+     * Reset pointer
      *
      * @access public
      * @return void
@@ -92,7 +92,7 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 返回当前值
+     * Returns the current value
      *
      * @access public
      * @return mixed
@@ -103,7 +103,7 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 指针后移一位
+     * After moving the pointer
      *
      * @access public
      * @return void
@@ -114,7 +114,7 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 获取当前指针
+     * Get the current pointer
      *
      * @access public
      * @return mixed
@@ -125,7 +125,7 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 验证当前值是否到达最后
+     * Verify whether the current value reaches the final
      *
      * @access public
      * @return boolean
@@ -136,10 +136,10 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 魔术函数获取一个配置值
+     * Magic function to get a configuration value
      *
      * @access public
-     * @param string $name 配置名称
+     * @param string $name Configuration Name
      * @return mixed
      */
     public function __get($name)
@@ -148,11 +148,11 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 魔术函数设置一个配置值
+     * Magic function to set a configuration value
      *
      * @access public
-     * @param string $name 配置名称
-     * @param mixed $value 配置值
+     * @param string $name Configuration Name
+     * @param mixed $value Configuration values
      * @return void
      */
     public function __set($name, $value)
@@ -161,11 +161,11 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 直接输出默认配置值
+     * Direct output default configuration values
      *
      * @access public
-     * @param string $name 配置名称
-     * @param array $args 参数
+     * @param string $name Configuration Name
+     * @param array $args Arguments
      * @return void
      */
     public function __call($name, $args)
@@ -174,10 +174,10 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 判断当前配置值是否存在
+     * Analyzing if the current configuration value exists
      *
      * @access public
-     * @param string $name 配置名称
+     * @param string $name Configuration Name
      * @return boolean
      */
     public function __isSet($name)
@@ -186,7 +186,7 @@ class Typecho_Config implements Iterator
     }
 
     /**
-     * 魔术方法,打印当前配置数组
+     * Magic method, print the current configuration array
      *
      * @access public
      * @return string

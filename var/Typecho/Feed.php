@@ -21,26 +21,26 @@
  */
 class Typecho_Feed
 {
-    /** 定义RSS 1.0类型 */
+    /** RSS 1.0 type definitions */
     const RSS1 = 'RSS 1.0';
 
-    /** 定义RSS 2.0类型 */
+    /** RSS 2.0 type definitions */
     const RSS2 = 'RSS 2.0';
 
-    /** 定义ATOM 1.0类型 */
+    /** Atom 1.0 type definitions */
     const ATOM1 = 'ATOM 1.0';
 
-    /** 定义RSS时间格式 */
+    /** Define RSS time format */
     const DATE_RFC822 = 'r';
 
-    /** 定义ATOM时间格式 */
+    /** Define ATOM time format */
     const DATE_W3CDTF = 'c';
 
-    /** 定义行结束符 */
+    /** Define line endings */
     const EOL = "\n";
 
     /**
-     * feed状态
+     * Feed status
      *
      * @access private
      * @var string
@@ -48,7 +48,7 @@ class Typecho_Feed
     private $_type;
 
     /**
-     * 字符集编码
+     * Character set encoding
      *
      * @access private
      * @var string
@@ -56,7 +56,7 @@ class Typecho_Feed
     private $_charset;
 
     /**
-     * 语言状态
+     * Language status
      *
      * @access private
      * @var string
@@ -64,7 +64,7 @@ class Typecho_Feed
     private $_lang;
 
     /**
-     * 聚合地址
+     * Polymerization address
      *
      * @access private
      * @var string
@@ -72,7 +72,7 @@ class Typecho_Feed
     private $_feedUrl;
 
     /**
-     * 基本地址
+     * The base address
      *
      * @access private
      * @var unknown
@@ -80,7 +80,7 @@ class Typecho_Feed
     private $_baseUrl;
 
     /**
-     * 聚合标题
+     * Aggregation title
      *
      * @access private
      * @var string
@@ -88,7 +88,7 @@ class Typecho_Feed
     private $_title;
 
     /**
-     * 聚合副标题
+     * Aggregation subtitle
      *
      * @access private
      * @var string
@@ -96,7 +96,7 @@ class Typecho_Feed
     private $_subTitle;
 
     /**
-     * 版本信息
+     * Version Information
      *
      * @access private
      * @var string
@@ -104,7 +104,7 @@ class Typecho_Feed
     private $_version;
 
     /**
-     * 所有的items
+     * All items
      *
      * @access private
      * @var array
@@ -112,7 +112,7 @@ class Typecho_Feed
     private $_items = array();
 
     /**
-     * 创建Feed对象
+     * Create feed objects
      *
      * @access public
      * @return void
@@ -126,10 +126,10 @@ class Typecho_Feed
     }
 
     /**
-     * 设置标题
+     * Set Title
      *
      * @access public
-     * @param string $title 标题
+     * @param string $title Title
      * @return void
      */
     public function setTitle($title)
@@ -138,10 +138,10 @@ class Typecho_Feed
     }
 
     /**
-     * 设置副标题
+     * Set subtitle
      *
      * @access public
-     * @param string $subTitle 副标题
+     * @param string $subTitle Subtitle
      * @return void
      */
     public function setSubTitle($subTitle)
@@ -150,10 +150,10 @@ class Typecho_Feed
     }
 
     /**
-     * 设置聚合地址
+     * Set polymerized address
      *
      * @access public
-     * @param string $feedUrl 聚合地址
+     * @param string $feedUrl Polymerized address
      * @return void
      */
     public function setFeedUrl($feedUrl)
@@ -162,10 +162,10 @@ class Typecho_Feed
     }
 
     /**
-     * 设置主页
+     * Set Home
      *
      * @access public
-     * @param string $baseUrl 主页地址
+     * @param string $baseUrl Home base Address
      * @return void
      */
     public function setBaseUrl($baseUrl)
@@ -174,10 +174,10 @@ class Typecho_Feed
     }
 
     /**
-     * 获取Feed时间格式
+     * Obtain Feed Time Format
      *
      * @access public
-     * @param integer $stamp 时间戳
+     * @param integer $stamp Timestamp
      * @return string
      */
     public function dateFormat($stamp)
@@ -190,7 +190,7 @@ class Typecho_Feed
     }
 
     /**
-     * $item的格式为
+     * $item format
      * <code>
      * array (
      *     'title'      =>  'xxx',
@@ -215,7 +215,7 @@ class Typecho_Feed
     }
 
     /**
-     * 输出字符串
+     * Output string
      *
      * @access public
      * @return string

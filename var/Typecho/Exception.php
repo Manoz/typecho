@@ -8,8 +8,8 @@
  */
 
 /**
- * Typecho异常基类
- * 主要重载异常打印函数
+ * Typecho exception base class
+ * The main exception print function overloads
  *
  * @package Exception
  */

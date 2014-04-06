@@ -8,15 +8,15 @@
  */
 
 /**
- * Typecho组件基类
+ * Typecho Component base class
  *
- * TODO 增加cache缓存
+ * @todo    Increase the buffer cache
  * @package Router
  */
 class Typecho_Router
 {
     /**
-     * 当前路由名称
+     * The current route name
      *
      * @access public
      * @var string
@@ -24,7 +24,7 @@ class Typecho_Router
     public static $current;
 
     /**
-     * 已经解析完毕的路由表配置
+     * Has completed analytical routing table configuration
      *
      * @access private
      * @var mixed
@@ -32,7 +32,7 @@ class Typecho_Router
     private static $_routingTable = array();
 
     /**
-     * 全路径
+     * Full path
      *
      * @access private
      * @var string
@@ -40,11 +40,11 @@ class Typecho_Router
     private static $_pathInfo = NULL;
 
     /**
-     * 解析路径
+     * Parse path
      *
      * @access public
-     * @param string $pathInfo 全路径
-     * @param mixed $parameter 输入参数
+     * @param string $pathInfo Full path
+     * @param mixed $parameter Input parameters
      * @return mixed
      */
     public static function match($pathInfo, $parameter = NULL)
@@ -54,7 +54,7 @@ class Typecho_Router
                 self::$current = $key;
 
                 try {
-                    /** 载入参数 */
+                    /** Loading parameters */
                     $params = NULL;
 
                     if (!empty($route['params'])) {
@@ -81,7 +81,7 @@ class Typecho_Router
     }
 
     /**
-     * 设置全路径
+     * Set the full path
      *
      * @access public
      * @param string $pathInfo
@@ -93,7 +93,7 @@ class Typecho_Router
     }
 
     /**
-     * 获取全路径
+     * Get the full path
      *
      * @access public
      * @return string
@@ -108,15 +108,15 @@ class Typecho_Router
     }
 
     /**
-     * 路由分发函数
+     * Route distribution function
      *
-     * @param string $path 目的文件所在目录
+     * @param string $path The purpose of the directory where the file
      * @return void
      * @throws Typecho_Route_Exception
      */
     public static function dispatch()
     {
-        /** 获取PATHINFO */
+        /** Get PATHINFO */
         $pathInfo = self::getPathInfo();
 
         foreach (self::$_routingTable as $key => $route) {
@@ -124,7 +124,7 @@ class Typecho_Router
                 self::$current = $key;
 
                 try {
-                    /** 载入参数 */
+                    /** Loading parameters */
                     $params = NULL;
 
                     if (!empty($route['params'])) {
@@ -151,23 +151,23 @@ class Typecho_Router
             }
         }
 
-        /** 载入路由异常支持 */
+        /** Abnormal load routing support */
         throw new Typecho_Router_Exception("Path '{$pathInfo}' not found", 404);
     }
 
     /**
-     * 路由反解析函数
+     * Routing anti-analytic functions
      *
-     * @param string $name 路由配置表名称
-     * @param string $value 路由填充值
-     * @param string $prefix 最终合成路径的前缀
+     * @param string $name Routing configuration table name
+     * @param string $value Routing padding
+     * @param string $prefix Final synthesis path of Prefix
      * @return string
      */
     public static function url($name, array $value = NULL, $prefix = NULL)
     {
         $route = self::$_routingTable[$name];
 
-        //交换数组键值
+        // An array of key exchange
         $pattern = array();
         foreach ($route['params'] as $row) {
             $pattern[$row] = isset($value[$row]) ? $value[$row] : '{' . $row . '}';
@@ -177,10 +177,10 @@ class Typecho_Router
     }
 
     /**
-     * 设置路由器默认配置
+     * Set the default router configuration
      *
      * @access public
-     * @param mixed $routes 配置信息
+     * @param mixed $routes Configuration Information
      * @return void
      */
     public static function setRoutes($routes)
@@ -188,16 +188,16 @@ class Typecho_Router
         if (isset($routes[0])) {
             self::$_routingTable = $routes[0];
         } else {
-            /** 解析路由配置 */
+            /** Resolve routing configuration */
             $parser = new Typecho_Router_Parser($routes);
             self::$_routingTable = $parser->parse();
         }
     }
 
     /**
-     * 获取路由信息
+     * Obtain routing information
      *
-     * @param string $routeName 路由名称
+     * @param string $routeName Route Name
      * @static
      * @access public
      * @return void

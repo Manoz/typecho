@@ -10,14 +10,14 @@
 define('__TYPECHO_FILTER_SUPPORTED__', function_exists('filter_var'));
 
 /**
- * 服务器请求处理类
+ * Server request processing class
  *
  * @package Request
  */
 class Typecho_Request
 {
     /**
-     * 内部参数
+     * Internal parameters
      *
      * @access private
      * @var array
@@ -25,7 +25,7 @@ class Typecho_Request
     private $_params = array();
 
     /**
-     * 路径信息
+     * Path information
      *
      * @access private
      * @var string
@@ -33,7 +33,7 @@ class Typecho_Request
     private $_pathInfo = NULL;
 
     /**
-     * 服务端参数
+     * Server parameters
      *
      * @access private
      * @var array
@@ -41,31 +41,31 @@ class Typecho_Request
     private $_server = array();
 
     /**
-     * _requestUri  
-     * 
+     * _requestUri
+     *
      * @var string
      * @access private
      */
     private $_requestUri = NULL;
 
     /**
-     * _requestRoot  
-     * 
+     * _requestRoot
+     *
      * @var mixed
      * @access private
      */
     private $_requestRoot = NULL;
 
     /**
-     * 获取baseurl
-     * 
+     * Get baseurl
+     *
      * @var string
      * @access private
      */
     private $_baseUrl = NULL;
 
     /**
-     * 客户端ip地址
+     * Client ip address
      *
      * @access private
      * @var string
@@ -73,7 +73,7 @@ class Typecho_Request
     private $_ip = NULL;
 
     /**
-     * 客户端字符串
+     * Client string
      *
      * @access private
      * @var string
@@ -81,7 +81,7 @@ class Typecho_Request
     private $_agent = NULL;
 
     /**
-     * 来源页
+     * Source page
      *
      * @access private
      * @var string
@@ -89,7 +89,7 @@ class Typecho_Request
     private $_referer = NULL;
 
     /**
-     * 单例句柄
+     * Single Handle Cases
      *
      * @access private
      * @var Typecho_Request
@@ -97,14 +97,14 @@ class Typecho_Request
     private static $_instance = NULL;
 
     /**
-     * 全部的http数据
+     * All the http data
      *
      * @var bool|array
      */
     private static $_httpParams = false;
 
     /**
-     * 当前过滤器
+     * Current filter
      *
      * @access private
      * @var array
@@ -112,7 +112,7 @@ class Typecho_Request
     private $_filter = array();
 
     /**
-     * 支持的过滤器列表
+     * Supported filter list
      *
      * @access private
      * @var string
@@ -126,7 +126,7 @@ class Typecho_Request
     );
 
     /**
-     * 获取单例句柄
+     * Get a handle for a single case
      *
      * @access public
      * @return Typecho_Request
@@ -141,7 +141,7 @@ class Typecho_Request
     }
 
     /**
-     * 应用过滤器
+     * Apply filters
      *
      * @access private
      * @param mixed $value
@@ -162,9 +162,9 @@ class Typecho_Request
     }
 
     /**
-     * 检查ip地址是否合法
+     * Check if the ip address is legitimate
      *
-     * @param string $ip ip地址
+     * @param string $ip IP address
      * @return boolean
      */
     private function _checkIp($ip)
@@ -179,9 +179,9 @@ class Typecho_Request
     }
 
     /**
-     * 检查ua是否合法
+     * Agent Legality inspection
      *
-     * @param $agent ua字符串
+     * @param $agent Agent String
      * @return boolean
      */
     private function _checkAgent($agent)
@@ -190,7 +190,7 @@ class Typecho_Request
     }
 
     /**
-     * 初始化变量
+     * Init variables
      */
     public function __construct()
     {
@@ -201,7 +201,7 @@ class Typecho_Request
     }
 
     /**
-     * 设置过滤器
+     * Set the filter
      *
      * @access public
      * @return Typecho_Request
@@ -219,10 +219,10 @@ class Typecho_Request
     }
 
     /**
-     * 获取实际传递参数(magic)
+     * Get real Passing parameters(magic)
      *
      * @access public
-     * @param string $key 指定参数
+     * @param string $key Specify the parameters
      * @return mixed
      */
     public function __get($key)
@@ -231,10 +231,10 @@ class Typecho_Request
     }
 
     /**
-     * 判断参数是否存在
+     * Determine whether there are parameters
      *
      * @access public
-     * @param string $key 指定参数
+     * @param string $key Specify the parameters
      * @return boolean
      */
     public function __isset($key)
@@ -244,11 +244,11 @@ class Typecho_Request
     }
 
     /**
-     * 获取实际传递参数
+     * Get real Passing parameters
      *
      * @access public
-     * @param string $key 指定参数
-     * @param mixed $default 默认参数 (default: NULL)
+     * @param string $key Specify the parameters
+     * @param mixed $default The default parameters (default: NULL)
      * @return mixed
      */
     public function get($key, $default = NULL)
@@ -270,7 +270,7 @@ class Typecho_Request
     }
 
     /**
-     * 获取一个数组
+     * Gets an array
      *
      * @param $key
      * @return array
@@ -285,10 +285,10 @@ class Typecho_Request
     }
 
     /**
-     * 从参数列表指定的值中获取http传递参数
+     * Obtained from the specified value in the http parameter list
      *
      * @access public
-     * @param mixed $params 指定的参数
+     * @param mixed $params Specified parameters
      * @return array
      */
     public function from($params)
@@ -304,11 +304,11 @@ class Typecho_Request
     }
 
     /**
-     * 设置http传递参数
+     * Set up http Passing parameters
      *
      * @access public
-     * @param string $name 指定的参数
-     * @param mixed $value 参数值
+     * @param string $name Specified parameters
+     * @param mixed $value Parameter values
      * @return void
      */
     public function setParam($name, $value)
@@ -319,15 +319,15 @@ class Typecho_Request
     }
 
     /**
-     * 设置多个参数
+     * Set multiple parameters
      *
      * @access public
-     * @param mixed $params 参数列表
+     * @param mixed $params Parameter List
      * @return void
      */
     public function setParams($params)
     {
-        //处理字符串
+        // Handling strings
         if (!is_array($params)) {
             parse_str($params, $out);
             $params = $out;
@@ -338,8 +338,8 @@ class Typecho_Request
     }
 
     /**
-     * getRequestRoot 
-     * 
+     * Get RequestRoot
+     *
      * @access public
      * @return string
      */
@@ -349,7 +349,7 @@ class Typecho_Request
             $root = rtrim(($this->isSecure() ? 'https' : 'http')
                 . '://' . $_SERVER['HTTP_HOST']
                 . $this->getBaseUrl(), '/') . '/';
-            
+
             $pos = strrpos($root, '.php/');
             if ($pos) {
                 $root = dirname(substr($root, 0, $pos));
@@ -362,8 +362,8 @@ class Typecho_Request
     }
 
     /**
-     * 获取当前请求url
-     * 
+     * Get the current url request
+     *
      * @access public
      * @return string
      */
@@ -374,8 +374,8 @@ class Typecho_Request
     }
 
     /**
-     * 获取请求地址
-     * 
+     * Get Request address
+     *
      * @access public
      * @return string
      */
@@ -385,7 +385,7 @@ class Typecho_Request
             return $this->_requestUri;
         }
 
-        //处理requestUri
+        // Get requestUri
         $requestUri = '/';
 
         if (isset($_SERVER['HTTP_X_REWRITE_URL'])) { // check this first so IIS will catch
@@ -419,8 +419,8 @@ class Typecho_Request
     }
 
     /**
-     * getBaseUrl  
-     * 
+     * getBaseUrl
+     *
      * @access public
      * @return string
      */
@@ -430,7 +430,7 @@ class Typecho_Request
             return $this->_baseUrl;
         }
 
-        //处理baseUrl
+        // Get baseUrl
         $filename = (isset($_SERVER['SCRIPT_FILENAME'])) ? basename($_SERVER['SCRIPT_FILENAME']) : '';
 
         if (isset($_SERVER['SCRIPT_NAME']) && basename($_SERVER['SCRIPT_NAME']) === $filename) {
@@ -483,18 +483,19 @@ class Typecho_Request
 
     /**
      * 根据当前uri构造指定参数的uri
+     * According to current uri, structure of the specified uri parameter
      *
      * @access public
-     * @param mixed $parameter 指定的参数
+     * @param mixed $parameter Specified parameters
      * @return string
      */
     public function makeUriByRequest($parameter = NULL)
     {
-        /** 初始化地址 */
+        /** init address */
         $requestUri = $this->getRequestUrl();
         $parts = parse_url($requestUri);
 
-        /** 初始化参数 */
+        /** Init parameters */
         if (is_string($parameter)) {
             parse_str($parameter, $args);
         } else if (is_array($parameter)) {
@@ -503,36 +504,36 @@ class Typecho_Request
             return $requestUri;
         }
 
-        /** 构造query */
+        /** Build query */
         if (isset($parts['query'])) {
             parse_str($parts['query'], $currentArgs);
             $args = array_merge($currentArgs, $args);
         }
         $parts['query'] = http_build_query($args);
 
-        /** 返回地址 */
+        /** Return the address */
         return Typecho_Common::buildUrl($parts);
     }
 
     /**
-     * 获取当前pathinfo
+     * Get the current pathinfo
      *
      * @access public
-     * @param string $inputEncoding 输入编码
-     * @param string $outputEncoding 输出编码
+     * @param string $inputEncoding Encode input
+     * @param string $outputEncoding Encore output
      * @return string
      */
     public function getPathInfo($inputEncoding = NULL, $outputEncoding = NULL)
     {
-        /** 缓存信息 */
+        /** Cache information */
         if (NULL !== $this->_pathInfo) {
             return $this->_pathInfo;
         }
 
-        //参考Zend Framework对pahtinfo的处理, 更好的兼容性
+        // Zend Framework reference to pahtinfo processing, better compatibility
         $pathInfo = NULL;
 
-        //处理requestUri
+        // Process requestUri
         $requestUri = $this->getRequestUri();
         $finalBaseUrl = $this->getBaseUrl();
 
@@ -551,8 +552,8 @@ class Typecho_Request
         }
 
         if (!empty($pathInfo)) {
-            //针对iis的utf8编码做强制转换
-            //参考http://docs.moodle.org/ja/%E5%A4%9A%E8%A8%80%E8%AA%9E%E5%AF%BE%E5%BF%9C%EF%BC%9A%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AE%E8%A8%AD%E5%AE%9A
+            // Make casts of utf8 encoding for iis
+            // Reference: http://docs.moodle.org/ja/%E5%A4%9A%E8%A8%80%E8%AA%9E%E5%AF%BE%E5%BF%9C%EF%BC%9A%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AE%E8%A8%AD%E5%AE%9A
             if (!empty($inputEncoding) && !empty($outputEncoding) &&
             (stripos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false
             || stripos($_SERVER['SERVER_SOFTWARE'], 'ExpressionDevServer') !== false)) {
@@ -571,11 +572,11 @@ class Typecho_Request
     }
 
     /**
-     * 设置服务端参数
+     * Set the server parameters
      *
      * @access public
-     * @param string $name 参数名称
-     * @param mixed $value 参数值
+     * @param string $name Parameter name
+     * @param mixed $value Parameter values
      * @return void
      */
     public function setServer($name, $value = NULL)
@@ -592,10 +593,10 @@ class Typecho_Request
     }
 
     /**
-     * 获取环境变量
+     * Access environment variables
      *
      * @access public
-     * @param string $name 获取环境变量名
+     * @param string $name Get the name of the environment variable
      * @return string
      */
     public function getServer($name)
@@ -608,7 +609,7 @@ class Typecho_Request
     }
 
     /**
-     * 设置ip地址
+     * Set ip address
      *
      * @access public
      * @param string $ip
@@ -639,7 +640,7 @@ class Typecho_Request
     }
 
     /**
-     * 获取ip地址
+     * Get ip address
      *
      * @access public
      * @return string
@@ -654,10 +655,10 @@ class Typecho_Request
     }
 
     /**
-     * 设置客户端
+     * Setting Client
      *
      * @access public
-     * @param string $agent 客户端字符串
+     * @param string $agent Client string
      * @return void
      */
     public function setAgent($agent = NULL)
@@ -667,7 +668,7 @@ class Typecho_Request
     }
 
     /**
-     * 获取客户端
+     * Get the client
      *
      * @access public
      * @return string
@@ -682,10 +683,10 @@ class Typecho_Request
     }
 
     /**
-     * 设置来源页
+     * Set the source page
      *
      * @access public
-     * @param string $referer 客户端字符串
+     * @param string $referer Client string
      * @return void
      */
     public function setReferer($referer = NULL)
@@ -694,7 +695,7 @@ class Typecho_Request
     }
 
     /**
-     * 获取客户端
+     * Get the client
      *
      * @access public
      * @return string
@@ -709,7 +710,7 @@ class Typecho_Request
     }
 
     /**
-     * 判断是否为get方法
+     * Determine the GET method
      *
      * @access public
      * @return boolean
@@ -720,7 +721,7 @@ class Typecho_Request
     }
 
     /**
-     * 判断是否为post方法
+     * Determine the POST method
      *
      * @access public
      * @return boolean
@@ -731,7 +732,7 @@ class Typecho_Request
     }
 
     /**
-     * 判断是否为put方法
+     * Determine the PUT method
      *
      * @access public
      * @return boolean
@@ -742,19 +743,19 @@ class Typecho_Request
     }
 
     /**
-     * 判断是否为https
+     * Determine the HTTPS method
      *
      * @access public
      * @return boolean
      */
     public function isSecure()
     {
-        return (!empty($_SERVER['HTTPS']) && 'off' != strtolower($_SERVER['HTTPS'])) 
+        return (!empty($_SERVER['HTTPS']) && 'off' != strtolower($_SERVER['HTTPS']))
             || (!empty($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT']);
     }
 
     /**
-     * 判断是否为ajax
+     * Determine the AJAX method
      *
      * @access public
      * @return boolean
@@ -765,7 +766,7 @@ class Typecho_Request
     }
 
     /**
-     * 判断是否为flash
+     * Determine the flash method
      *
      * @access public
      * @return boolean
@@ -776,8 +777,8 @@ class Typecho_Request
     }
 
     /**
-     * isMobile  
-     * 
+     * isMobile
+     *
      * @static
      * @access public
      * @return boolean
@@ -789,24 +790,24 @@ class Typecho_Request
     }
 
     /**
-     * 判断输入是否满足要求
+     * Determine whether the input meet the requirements
      *
      * @access public
-     * @param mixed $query 条件
+     * @param mixed $query Condition
      * @return boolean
      */
     public function is($query)
     {
         $validated = false;
 
-        /** 解析串 */
+        /** Parsing strings */
         if (is_string($query)) {
             parse_str($query, $params);
         } else if (is_array($query)) {
             $params = $query;
         }
 
-        /** 验证串 */
+        /** Verify string */
         if ($params) {
             $validated = true;
             foreach ($params as $key => $val) {

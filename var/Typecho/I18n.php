@@ -10,7 +10,7 @@
 /**
  * I18n function
  *
- * @param string $string 需要翻译的文字
+ * @param string $string Text to be translated
  * @return string
  */
 function _t($string) {
@@ -26,7 +26,7 @@ function _t($string) {
 /**
  * I18n function, translate and echo
  *
- * @param string $string 需要翻译并输出的文字
+ * @param string $string Outputs the translated text
  * @return void
  */
 function _e() {
@@ -35,11 +35,11 @@ function _e() {
 }
 
 /**
- * 针对复数形式的翻译函数
+ * Translation function for the plural form
  *
- * @param string $single 单数形式的翻译
- * @param string $plural 复数形式的翻译
- * @param integer $number 数字
+ * @param string $single The single form of translation
+ * @param string $plural The plural form of translation
+ * @param integer $number Number
  * @return string
  */
 function _n($single, $plural, $number) {
@@ -47,14 +47,14 @@ function _n($single, $plural, $number) {
 }
 
 /**
- * 国际化字符翻译
+ * An international character translation
  *
  * @package I18n
  */
 class Typecho_I18n
 {
     /**
-     * 是否已经载入的标志位
+     * If flag has been loaded
      *
      * @access private
      * @var boolean
@@ -62,7 +62,7 @@ class Typecho_I18n
     private static $_loaded = false;
 
     /**
-     * 语言文件
+     * Language files
      *
      * @access private
      * @var string
@@ -70,23 +70,23 @@ class Typecho_I18n
     private static $_lang = NULL;
 
     /**
-     * 初始化语言文件
+     * Initialization language files
      *
      * @access private
      */
     private static function init()
     {
-        /** GetText支持 */
+        /** GetText Support */
         if (false === self::$_loaded && self::$_lang && file_exists(self::$_lang)) {
             self::$_loaded = new Typecho_I18n_GetTextMulti(self::$_lang);
         }
     }
 
     /**
-     * 翻译文字
+     * Translate text
      *
      * @access public
-     * @param string $string 待翻译的文字
+     * @param string $string The text to be translated
      * @return string
      */
     public static function translate($string)
@@ -96,11 +96,11 @@ class Typecho_I18n
     }
 
     /**
-     * 针对复数形式的翻译函数
+     * Translation function for the plural form
      *
-     * @param string $single 单数形式的翻译
-     * @param string $plural 复数形式的翻译
-     * @param integer $number 数字
+     * @param string $single The singular form of translation
+     * @param string $plural The plural form of translation
+     * @param integer $number Number
      * @return string
      */
     public static function ngettext($single, $plural, $number)
@@ -110,64 +110,64 @@ class Typecho_I18n
     }
 
     /**
-     * 词义化时间
+     * Meaning of time
      *
      * @access public
-     * @param string $from 起始时间
-     * @param string $now 终止时间
+     * @param string $from Start time
+     * @param string $now End time
      * @return string
      */
     public static function dateWord($from, $now)
     {
         $between = $now - $from;
 
-        /** 如果是一天 */
+        /** If one day */
         if ($between >= 0 && $between < 86400 && date('d', $from) == date('d', $now)) {
-            /** 如果是一小时 */
+            /** If one hour */
             if ($between < 3600) {
-                /** 如果是一分钟 */
+                /** If one minute */
                 if ($between < 60) {
                     if (0 == $between) {
-                        return _t('刚刚');
+                        return _t('Just now');
                     } else {
-                        return str_replace('%d', $between, _n('一秒前', '%d秒前', $between));
+                        return str_replace('%d', $between, _n('One second ago', '%d seconds ago', $between));
                     }
                 }
 
                 $min = floor($between / 60);
-                return str_replace('%d', $min, _n('一分钟前', '%d分钟前', $min));
+                return str_replace('%d', $min, _n('A minute ago', '%d minutes ago', $min));
             }
 
             $hour = floor($between / 3600);
-            return str_replace('%d', $hour, _n('一小时前', '%d小时前', $hour));
+            return str_replace('%d', $hour, _n('An hour ago', '%d hours ago', $hour));
         }
 
-        /** 如果是昨天 */
-        if ($between > 0 && $between < 172800 
-        && (date('z', $from) + 1 == date('z', $now)                             // 在同一年的情况 
-            || date('z', $from) + 1 == date('L') + 365 + date('z', $now))) {    // 跨年的情况
-            return _t('昨天 %s', date('H:i', $from));
+        /** If it was yesterday */
+        if ($between > 0 && $between < 172800
+        && (date('z', $from) + 1 == date('z', $now)                             // In the case of the same year
+            || date('z', $from) + 1 == date('L') + 365 + date('z', $now))) {    // New Year's case
+            return _t('Yesterday %s', date('H:i', $from));
         }
 
-        /** 如果是一个星期 */
+        /** If one week */
         if ($between > 0 && $between < 604800) {
             $day = floor($between / 86400);
-            return str_replace('%d', $day, _n('一天前', '%d天前', $day));
+            return str_replace('%d', $day, _n('One day ago', '%d days ago', $day));
         }
 
-        /** 如果是 */
+        /** If it is */
         if (date('Y', $from) == date('Y', $now)) {
-            return date(_t('n月j日'), $from);
+            return date(_t('n Month j Day'), $from);
         }
 
-        return date(_t('Y年m月d日'), $from);
+        return date(_t('Y Year m Month d Day'), $from);
     }
 
     /**
-     * 设置语言项
+     * Set language entry
      *
      * @access public
-     * @param string $lang 配置信息
+     * @param string $lang Configuration Information
      * @return void
      */
     public static function setLang($lang)
@@ -176,10 +176,10 @@ class Typecho_I18n
     }
 
     /**
-     * 增加语言项
+     * Increase language items
      *
      * @access public
-     * @param string $lang 语言名称
+     * @param string $lang Language name
      * @return void
      */
     public static function addLang($lang)
@@ -188,7 +188,7 @@ class Typecho_I18n
     }
 
     /**
-     * 获取语言项
+     * Get the language items
      *
      * @access public
      * @return void

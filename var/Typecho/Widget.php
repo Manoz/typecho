@@ -8,14 +8,14 @@
  */
 
 /**
- * Typecho组件基类
+ * Typecho Component base class
  *
  * @package Widget
  */
 abstract class Typecho_Widget
 {
     /**
-     * widget对象池
+     * Widget object pool
      *
      * @access private
      * @var array
@@ -23,7 +23,7 @@ abstract class Typecho_Widget
     private static $_widgetPool = array();
 
     /**
-     * 帮手列表
+     * Helper list
      *
      * @access private
      * @var array
@@ -31,7 +31,7 @@ abstract class Typecho_Widget
     private $_helpers = array();
 
     /**
-     * 数据堆栈每一行
+     * Each row of data stack
      *
      * @access protected
      * @var array
@@ -39,7 +39,7 @@ abstract class Typecho_Widget
     protected $row = array();
 
     /**
-     * 数据堆栈
+     * Data Stack
      *
      * @access public
      * @var array
@@ -47,7 +47,7 @@ abstract class Typecho_Widget
     public $stack = array();
 
     /**
-     * 当前队列指针顺序值,从1开始
+     * The current value of the queue pointer sequence, starting with 1
      *
      * @access public
      * @var integer
@@ -55,7 +55,7 @@ abstract class Typecho_Widget
     public $sequence = 0;
 
     /**
-     * 队列长度
+     * Queue Length
      *
      * @access public
      * @var integer
@@ -63,7 +63,7 @@ abstract class Typecho_Widget
     public $length = 0;
 
     /**
-     * request对象
+     * Request object
      *
      * @var Typecho_Request
      * @access public
@@ -71,7 +71,7 @@ abstract class Typecho_Widget
     public $request;
 
     /**
-     * response对象
+     * Response object
      *
      * @var Typecho_Response
      * @access public
@@ -79,7 +79,7 @@ abstract class Typecho_Widget
     public $response;
 
     /**
-     * config对象
+     * Config object
      *
      * @access public
      * @var public
@@ -87,17 +87,17 @@ abstract class Typecho_Widget
     public $parameter;
 
     /**
-     * 构造函数,初始化组件
+     * Constructors, Init Components
      *
      * @access public
-     * @param mixed $request request对象
-     * @param mixed $response response对象
-     * @param mixed $params 参数列表
+     * @param mixed $request request object
+     * @param mixed $response response object
+     * @param mixed $params Parameter List
      * @return void
      */
     public function __construct($request, $response, $params = NULL)
     {
-        //设置函数内部对象
+        // Set the object inside a function
         $this->request = $request;
         $this->response = $response;
         $this->parameter = new Typecho_Config();
@@ -108,9 +108,9 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 解析回调
-     * 
-     * @param array $matches 
+     * Resolve callback
+     *
+     * @param array $matches
      * @access protected
      * @return string
      */
@@ -128,9 +128,9 @@ abstract class Typecho_Widget
     public function execute(){}
 
     /**
-     * post事件触发
+     * post event trigger
      *
-     * @param boolean $condition 触发条件
+     * @param boolean $condition Triggering conditions
      * @return mixed
      */
     public function on($condition)
@@ -143,10 +143,10 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 获取对象插件句柄
+     * Gets the plugin handles object
      *
      * @access public
-     * @param string $handle 句柄
+     * @param string $handle Handle
      * @return Typecho_Plugin
      */
     public function pluginHandle($handle = NULL)
@@ -155,13 +155,13 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 工厂方法,将类静态化放置到列表中
+     * Factory method, the class static place to the list
      *
      * @access public
-     * @param string $alias 组件别名
-     * @param mixed $params 传递的参数
-     * @param mixed $request 前端参数
-     * @param boolean $enableResponse 是否允许http回执
+     * @param string $alias Component alias
+     * @param mixed $params Parameter passing
+     * @param mixed $request Front-end parameters
+     * @param boolean $enableResponse Whether to allow http receipt
      * @return object
      * @throws Typecho_Exception
      */
@@ -173,12 +173,12 @@ abstract class Typecho_Widget
             $fileName = str_replace('_', '/', $className) . '.php';
             require_once $fileName;
 
-            /** 如果类不存在 */
+            /** If the class does not exist */
             if (!class_exists($className)) {
                 throw new Typecho_Widget_Exception($className);
             }
 
-            /** 初始化request */
+            /** Init request */
             if (!empty($request)) {
                 $requestObject = new Typecho_Request();
                 $requestObject->setParams($request);
@@ -186,11 +186,11 @@ abstract class Typecho_Widget
                 $requestObject = Typecho_Request::getInstance();
             }
 
-            /** 初始化response */
+            /** Init response */
             $responseObject = $enableResponse ? Typecho_Response::getInstance()
             : Typecho_Widget_Helper_Empty::getInstance();
 
-            /** 初始化组件 */
+            /** Init components */
             $widget = new $className($requestObject, $responseObject, $params);
 
             $widget->execute();
@@ -201,10 +201,10 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 释放组件
+     * Release assembly
      *
      * @access public
-     * @param string $alias 组件名称
+     * @param string $alias Component name
      * @return void
      */
     public static function destory($alias)
@@ -215,9 +215,9 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 将类本身赋值
+     * The assignment class itself
      *
-     * @param string $variable 变量名
+     * @param string $variable Variable name
      * @return void
      */
     public function to(&$variable)
@@ -226,28 +226,28 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 格式化解析堆栈内的所有数据
+     * All analytical data formatting within the stack
      *
-     * @param string $format 数据格式
+     * @param string $format Data Format
      * @return void
      */
     public function parse($format)
     {
         while ($this->next()) {
-            echo preg_replace_callback("/\{([_a-z0-9]+)\}/i", 
+            echo preg_replace_callback("/\{([_a-z0-9]+)\}/i",
                 array($this, '__parseCallback'), $format);
         }
     }
 
     /**
-     * 将每一行的值压入堆栈
+     * The value of each row onto the stack
      *
-     * @param array $value 每一行的值
+     * @param array $value Value of each row
      * @return array
      */
     public function push(array $value)
     {
-        //将行数据按顺序置位
+        // The line data in the order set
         $this->row = $value;
         $this->length ++;
 
@@ -256,10 +256,10 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 根据余数输出
+     * According remainder output
      *
      * @access public
-     * @param string $param 需要输出的值
+     * @param string $param Output value needs
      * @return void
      */
     public function alt()
@@ -271,7 +271,7 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 输出顺序值
+     * Order The output value
      *
      * @access public
      * @return void
@@ -282,7 +282,7 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 输出数据长度
+     * Output data length
      *
      * @access public
      * @return void
@@ -293,7 +293,7 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 返回堆栈是否为空
+     * Whether to return the stack is empty
      *
      * @return boolean
      */
@@ -303,7 +303,7 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 返回堆栈每一行的值
+     * Each line of the return value of the stack
      *
      * @return array
      */
@@ -320,7 +320,7 @@ abstract class Typecho_Widget
             if ($this->stack) {
                 $this->row = $this->stack[key($this->stack)];
             }
-            
+
             $this->sequence = 0;
             return false;
         }
@@ -329,11 +329,11 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 魔术函数,用于挂接其它函数
+     * The magic functions, for other functions articulated
      *
      * @access public
-     * @param string $name 函数名
-     * @param array $args 函数参数
+     * @param string $name Function name
+     * @param array $args Function parameters
      * @return void
      */
     public function __call($name, $args)
@@ -342,10 +342,10 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 魔术函数,用于获取内部变量
+     * Magic function is used to obtain internal variables
      *
      * @access public
-     * @param string $name 变量名
+     * @param string $name Variable name
      * @return mixed
      */
     public function __get($name)
@@ -369,10 +369,10 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 设定堆栈每一行的值
+     * Value is set for each row stack
      *
-     * @param string $name 值对应的键值
-     * @param mixed $value 相应的值
+     * @param string $name Corresponding key value
+     * @param mixed $value The corresponding value
      * @return void
      */
     public function __set($name, $value)
@@ -381,7 +381,7 @@ abstract class Typecho_Widget
     }
 
     /**
-     * 验证堆栈值是否存在
+     * Verify that the stack value exists
      *
      * @access public
      * @param string $name

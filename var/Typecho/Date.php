@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 日期处理
+ * Date processing
  *
  * @author qining
  * @category typecho
@@ -10,7 +10,7 @@
 class Typecho_Date
 {
     /**
-     * 期望时区偏移
+     * Expected time zone offset
      *
      * @access public
      * @var integer
@@ -18,7 +18,7 @@ class Typecho_Date
     public static $timezoneOffset = 0;
 
     /**
-     * 服务器时区偏移
+     * Server time zone offset
      *
      * @access public
      * @var integer
@@ -26,7 +26,7 @@ class Typecho_Date
     public static $serverTimezoneOffset = 0;
 
     /**
-     * 当前的GMT时间戳
+     * Current GMT timestamp
      *
      * @access public
      * @var integer
@@ -34,7 +34,7 @@ class Typecho_Date
     public static $gmtTimeStamp;
 
     /**
-     * 可以被直接转换的时间戳
+     * Timestamp can be directly converted
      *
      * @access public
      * @var integer
@@ -42,10 +42,10 @@ class Typecho_Date
     public $timeStamp = 0;
 
     /**
-     * 初始化参数
+     * Init parameters
      *
      * @access public
-     * @param integer $gmtTime GMT时间戳
+     * @param integer $gmtTime GMT timestamp
      * @return void
      */
     public function __construct($gmtTime)
@@ -54,7 +54,7 @@ class Typecho_Date
     }
 
     /**
-     * 设置当前期望的时区偏移
+     * Set the expected current time zone offset
      *
      * @access public
      * @param integer $offset
@@ -67,10 +67,10 @@ class Typecho_Date
     }
 
     /**
-     * 获取格式化时间
+     * Get formatted time
      *
      * @access public
-     * @param string $format 时间格式
+     * @param string $format Time Format
      * @return string
      */
     public function format($format)
@@ -79,7 +79,7 @@ class Typecho_Date
     }
 
     /**
-     * 获取国际化偏移时间
+     * Get internationalization offset time
      *
      * @access public
      * @return string
@@ -90,10 +90,10 @@ class Typecho_Date
     }
 
     /**
-     * 获取单项数据
+     * Access to individual data
      *
      * @access public
-     * @param string $name 名称
+     * @param string $name Name
      * @return integer
      */
     public function __get($name)
@@ -111,7 +111,7 @@ class Typecho_Date
     }
 
     /**
-     * 获取GMT时间
+     * Get GMT Time
      *
      * @access public
      * @return integer

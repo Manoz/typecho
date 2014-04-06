@@ -42,7 +42,7 @@ $(document).ready(function() {
 
     // tag autocomplete 提示
     var tags = $('#tags'), tagsPre = [];
-    
+
     if (tags.length > 0) {
         var items = tags.val().split(','), result = [];
         for (var i = 0; i < items.length; i ++) {
@@ -58,7 +58,7 @@ $(document).ready(function() {
             });
         }
 
-        tags.tokenInput(<?php 
+        tags.tokenInput(<?php
         $data = array();
         while ($tags->next()) {
             $data[] = array(
@@ -73,7 +73,7 @@ $(document).ready(function() {
             searchDelay     :   0,
             preventDuplicates   :   true,
             animateDropdown :   false,
-            hintText        :   '<?php _e('请输入标签名'); ?>',
+            hintText        :   '<?php _e('请输入Label name'); ?>',
             noResultsText   :   '<?php _e('此标签不存在, 按回车创建'); ?>',
             prePopulate     :   tagsPre,
 
@@ -166,7 +166,7 @@ $(document).ready(function() {
         setInterval(function () {
             idInput.val(cid);
             var data = form.serialize();
-                
+
             if (savedData != data && !locked) {
                 locked = true;
 
@@ -218,7 +218,7 @@ $(document).ready(function() {
         $('#edit-secondary .typecho-option-tabs li').removeClass('active');
         $(this).addClass('active');
         $('.tab-content').addClass('hidden');
-        
+
         var selected_tab = $(this).find('a').attr('href'),
             selected_el = $(selected_tab).removeClass('hidden');
 
@@ -247,7 +247,7 @@ $(document).ready(function() {
             password.addClass('hidden');
         }
     });
-    
+
     // 草稿删除确认
     $('.edit-draft-notice a').click(function () {
         if (confirm('<?php _e('您确认要删除这份草稿吗?'); ?>')) {

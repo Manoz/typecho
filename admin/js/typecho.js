@@ -14,7 +14,7 @@
 })(window);
 
 (function ($) {
-    // 下拉菜单插件
+    // Drop-down menu plugin
     $.fn.dropdownMenu = function (options) {
         this.each(function () {
             var menu = this, s = $.extend({
@@ -95,7 +95,7 @@
         });
     };
 
-    // 表格选择插件
+    // Select the plugin form
     $.fn.tableSelectable = function (options) {
         var table = this, s = $.extend({
             checkEl     :   null,
@@ -112,7 +112,7 @@
             }
 
             check.prop('checked', !checked);
-            
+
             if (checked) {
                 t.removeClass('checked');
             } else {
@@ -127,7 +127,7 @@
         }).click(function (e) {
             var target = $(e.toElement ? e.toElement : e.target),
                 tagName = target.prop('tagName').toLowerCase();
-            
+
             if ($.inArray(tagName, ['input', 'textarea', 'a', 'button']) >= 0
                 && 'checkbox' != target.attr('type')) {
                 e.stopPropagation();
@@ -138,7 +138,7 @@
 
         $(s.selectAllEl).click(function () {
             var t = $(this), checked = t.prop('checked');
-            
+
             if (checked) {
                 $(s.rowEl, table).each(function () {
                     var t = $(this), el = $(s.checkEl, this).prop('checked', true);
@@ -176,7 +176,7 @@
  * Licensed like jQuery, see http://docs.jquery.com/License.
  *
  * Configuration options:
- * 
+ *
  * onDragStyle
  *     This is the style that is assigned to the row during drag. There are limitations to the styles that can be
  *     associated with a row (such as you can't assign a borderâ€”well you can, but it won't be
@@ -199,14 +199,14 @@
  *     Pass a function that will be called when the user starts dragging. The function takes 2 parameters: the
  *     table and the row which the user has started to drag.
  * onAllowDrop
- *     Pass a function that will be called as a row is over another row. If the function returns true, allow 
+ *     Pass a function that will be called as a row is over another row. If the function returns true, allow
  *     dropping on that row, otherwise not. The function takes 2 parameters: the dragged row and the row under
  *     the cursor. It returns a boolean: true allows the drop, false doesn't allow it.
  * scrollAmount
  *     This is the number of pixels to scroll if the user moves the mouse cursor to the top or bottom of the
  *     window. The page should automatically scroll up or down as appropriate (tested in IE6, IE7, Safari, FF2,
  *     FF3 beta)
- * 
+ *
  * Other ways to control behaviour:
  *
  * Add class="nodrop" to any rows for which you don't want to allow dropping, and class="nodrag" to any rows
@@ -218,7 +218,7 @@
  *
  * Known problems:
  * - Auto-scoll has some problems with IE7  (it scrolls even when it shouldn't), work-around: set scrollAmount to 0
- * 
+ *
  * Version 0.2: 2008-02-20 First public version
  * Version 0.3: 2008-02-07 Added onDragStart option
  *                         Made the scroll amount configurable (default is 5 as before)
@@ -262,7 +262,7 @@ jQuery.tableDnD = {
             if (0 == $('tfoot', this).length
                 && 0 < $('thead', this).length) {
                 var h = $('thead', this), count = $('th', h).length,
-                    f = $('<tfoot><tr><td style="padding:0;height:0;line-height:0;border:none" colspan="' + count 
+                    f = $('<tfoot><tr><td style="padding:0;height:0;line-height:0;border:none" colspan="' + count
                     + '"></td></tr></tfoot>').insertAfter(h),
                     l = $('tr:last', this);
 
@@ -289,7 +289,7 @@ jQuery.tableDnD = {
         var rows = table.rows; //getElementsByTagName("tr")
         var config = table.tableDnDConfig;
         for (var i=0; i<rows.length; i++) {
-            // To make non-draggable rows, add the nodrag class (eg for Category and Header rows) 
+            // To make non-draggable rows, add the nodrag class (eg for Category and Header rows)
 			// inspired by John Tarr and Famic
             var nodrag = $(rows[i]).hasClass("nodrag");
             if (! nodrag) { //There is no NoDnD attribute on rows I want to drag
@@ -380,7 +380,7 @@ jQuery.tableDnD = {
 	        }
 
 	    }
-		    
+
 		if (mousePos.y-yOffset < config.scrollAmount) {
 	    	window.scrollBy(0, -config.scrollAmount);
 	    } else {
@@ -511,7 +511,7 @@ jQuery.fn.extend(
     var el = document.createElement('input'),
         name = 'onpaste';
     el.setAttribute(name, '');
-    return (typeof el[name] === 'function')?'paste':'input';             
+    return (typeof el[name] === 'function')?'paste':'input';
 }
 
 var pasteEventName = getPasteEvent() + ".mask",
@@ -806,7 +806,7 @@ $.fn.extend({
 
 					focusText = input.val();
 					pos = checkVal();
-					
+
 					caretTimeoutId = setTimeout(function(){
 						writeBuffer();
 						if (pos == mask.length) {
@@ -824,9 +824,9 @@ $.fn.extend({
 				.bind("keydown.mask", keydownEvent)
 				.bind("keypress.mask", keypressEvent)
 				.bind(pasteEventName, function() {
-					setTimeout(function() { 
+					setTimeout(function() {
 						var pos=checkVal(true);
-						input.caret(pos); 
+						input.caret(pos);
 						if (settings.completed && pos == input.val().length)
 							settings.completed.call(input);
 					}, 0);
@@ -884,7 +884,7 @@ jQuery.fn.extend({
                 rc.setEndPoint('EndToStart', re);
 
                 return { start: rc.text.length, end: rc.text.length + r.text.length, length: r.text.length, text: r.text };
-            }) || 
+            }) ||
 
             /* browser not supported */
             function() { return null; }
@@ -1007,7 +1007,7 @@ jQuery.cookie = function (key, value, options) {
  *		- A string selector, that will be relative to the element to scroll ( 'li:eq(2)', etc )
  *		- A hash { top:x, left:y }, x and y can be any kind of number/string like above.
  *		- A percentage of the container's dimension/s, for example: 50% to go to the middle.
- *		- The string 'max' for go-to-end. 
+ *		- The string 'max' for go-to-end.
  * @param {Number, Function} duration The OVERALL length of the animation, this argument can be the settings object instead.
  * @param {Object,Function} settings Optional set of settings or the onAfter callback.
  *	 @option {String} axis Which axis must be scrolled, use 'x', 'y', 'xy' or 'yx'.
@@ -1017,7 +1017,7 @@ jQuery.cookie = function (key, value, options) {
  *	 @option {Object, Number} offset Add/deduct from the end position. One number for both axes or { top:x, left:y }.
  *	 @option {Object, Number} over Add/deduct the height/width multiplied by 'over', can be { top:x, left:y } when using both axes.
  *	 @option {Boolean} queue If true, and both axis are given, the 2nd axis will only be animated after the first one ends.
- *	 @option {Function} onAfter Function to be called after the scrolling ends. 
+ *	 @option {Function} onAfter Function to be called after the scrolling ends.
  *	 @option {Function} onAfterFirst If queuing is activated, this function will be called after the first scrolling ends.
  * @return {jQuery} Returns the same jQuery object, for chaining.
  *
@@ -1033,7 +1033,7 @@ jQuery.cookie = function (key, value, options) {
  * @desc Scroll to a DOM element (same for jQuery object)
  * @example var second_child = document.getElementById('container').firstChild.nextSibling;
  *			$('#container').scrollTo( second_child, { duration:500, axis:'x', onAfter:function(){
- *				alert('scrolled!!');																   
+ *				alert('scrolled!!');
  *			}});
  *
  * @desc Scroll on both axes, to different values
@@ -1041,7 +1041,7 @@ jQuery.cookie = function (key, value, options) {
  */
 
 ;(function( $ ){
-	
+
 	var $scrollTo = $.scrollTo = function( target, duration, settings ){
 		$(window).scrollTo( target, duration, settings );
 	};
@@ -1069,9 +1069,9 @@ jQuery.cookie = function (key, value, options) {
 					return elem;
 
 			var doc = (elem.contentWindow || elem).document || elem.ownerDocument || elem;
-			
+
 			return /webkit/i.test(navigator.userAgent) || doc.compatMode == 'BackCompat' ?
-				doc.body : 
+				doc.body :
 				doc.documentElement;
 		});
 	};
@@ -1083,16 +1083,16 @@ jQuery.cookie = function (key, value, options) {
 		}
 		if( typeof settings == 'function' )
 			settings = { onAfter:settings };
-			
+
 		if( target == 'max' )
 			target = 9e9;
-			
+
 		settings = $.extend( {}, $scrollTo.defaults, settings );
 		// Speed is still recognized for backwards compatibility
 		duration = duration || settings.duration;
 		// Make sure the settings are given right
 		settings.queue = settings.queue && settings.axis.length > 1;
-		
+
 		if( settings.queue )
 			// Let's keep the overall duration
 			duration /= 2;
@@ -1123,7 +1123,7 @@ jQuery.cookie = function (key, value, options) {
 				case 'object':
 					// DOMElement / jQuery
 					if( targ.is || targ.style )
-						// Get the real position of the target 
+						// Get the real position of the target
 						toff = (targ = $(targ)).offset();
 			}
 			$.each( settings.axis.split(''), function( i, axis ){
@@ -1141,16 +1141,16 @@ jQuery.cookie = function (key, value, options) {
 						attr[key] -= parseInt(targ.css('margin'+Pos)) || 0;
 						attr[key] -= parseInt(targ.css('border'+Pos+'Width')) || 0;
 					}
-					
+
 					attr[key] += settings.offset[pos] || 0;
-					
+
 					if( settings.over[pos] )
 						// Scroll to a fraction of its width/height
 						attr[key] += targ[axis=='x'?'width':'height']() * settings.over[pos];
-				}else{ 
+				}else{
 					var val = targ[pos];
 					// Handle percentage values
-					attr[key] = val.slice && val.slice(-1) == '%' ? 
+					attr[key] = val.slice && val.slice(-1) == '%' ?
 						parseFloat(val) / 100 * max
 						: val;
 				}
@@ -1171,7 +1171,7 @@ jQuery.cookie = function (key, value, options) {
 				}
 			});
 
-			animate( settings.onAfter );			
+			animate( settings.onAfter );
 
 			function animate( callback ){
 				$elem.animate( attr, duration, settings.easing, callback && function(){
@@ -1181,21 +1181,21 @@ jQuery.cookie = function (key, value, options) {
 
 		}).end();
 	};
-	
+
 	// Max scrolling position, works on quirks mode
 	// It only fails (not too badly) on IE, quirks mode.
 	$scrollTo.max = function( elem, axis ){
 		var Dim = axis == 'x' ? 'Width' : 'Height',
 			scroll = 'scroll'+Dim;
-		
+
 		if( !$(elem).is('html,body') )
 			return elem[scroll] - $(elem)[Dim.toLowerCase()]();
-		
+
 		var size = 'client' + Dim,
 			html = elem.ownerDocument.documentElement,
 			body = elem.ownerDocument.body;
 
-		return Math.max( html[scroll], body[scroll] ) 
+		return Math.max( html[scroll], body[scroll] )
 			 - Math.min( html[size]  , body[size]   );
 	};
 
@@ -1223,7 +1223,7 @@ jQuery.fn.css = function() {
         'clip','float','clear','cursor','list-style-image','list-style-position',
         'list-style-type','marker-offset'];
     var len = attr.length, obj = {};
-    for (var i = 0; i < len; i++) 
+    for (var i = 0; i < len; i++)
         obj[attr[i]] = jQuery.fn.css2.call(this, attr[i]);
     return obj;
 };

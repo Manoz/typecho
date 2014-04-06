@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* vim: set et sw=2 ts=2 sts=2 fdm=marker ff=unix fenc=utf8 */
 /**
-* Typecho 后台样式
+* Typecho Background Styles
 *
 * @author  Typecho Team
 * @since   2008-09-26
@@ -10,7 +10,7 @@
 * @version 0.9
 */
 /**
-* Typecho 全局样式
+* Typecho Global Style
 */
 /* line 18, ../scss/style.scss */
 html {
@@ -56,7 +56,7 @@ a.balloon-button {
   font-size: .85714em;
   text-align: center;
   text-decoration: none;
-  /** 修正ie中文不对齐 */
+  /** Fix IE */
   zoom: 1;
   -moz-border-radius: 30px;
   -webkit-border-radius: 30px;
@@ -307,7 +307,7 @@ select {
       text-decoration: none !important; }
 
 /**
-* 提示信息框
+* Message box
 */
 /* line 6, ../scss/_messages.scss */
 .message {
@@ -369,7 +369,7 @@ select {
   border-radius: 20px; }
 
 /**
-* 后台分页
+* Background tab
 */
 /* line 5, ../scss/_pagenavi.scss */
 .typecho-pager {
@@ -409,7 +409,7 @@ select {
   color: #444; }
 
 /**
-* 后台头部导航
+* Back of the head navigation
 */
 /* line 4, ../scss/_header.scss */
 .typecho-head-nav {
@@ -523,7 +523,7 @@ select {
   color: #FFF; }
 
 /**
-* 注脚
+* Foot notes
 */
 /* line 4, ../scss/_footer.scss */
 .typecho-foot {
@@ -542,13 +542,13 @@ select {
     margin: 0 3px;
     color: #999; }
 
-/* 低版本浏览器升级提示 */
+/* Upgrade old version of the browser */
 /* line 84, ../scss/style.scss */
 .browsehappy {
   border: none;
   text-align: center; }
 
-/** 顶部消息样式 by 70 */
+/** Top News Style by 70 */
 /* line 90, ../scss/style.scss */
 .popup {
   display: none;
@@ -578,10 +578,10 @@ select {
   margin-right: 10px; }
 
 /**
-* logo 的样式
+* logo Style
 */
 /**
-* 载入状态
+* Load state
 */
 /* line 128, ../scss/style.scss */
 .loading {
@@ -589,7 +589,7 @@ select {
   background: transparent url(../img/ajax-loader.gif) no-repeat left center; }
 
 /**
-* 典型配置选项
+* Typical configure Options
 */
 /* line 137, ../scss/style.scss */
 .typecho-option {
@@ -631,15 +631,15 @@ select {
   border: 1px dashed #D9D9D6;
   max-width: 100%; }
 
-/** 增加配置面板内部的错误样式 by 70 */
-/** 
-* 安装样式
-* 
+/** Increased internal error style configuration panel by 70 */
+/**
+* Mount Style
+*
 * @author mingcheng
 * @date   2008-09-06
 */
 /**
-* 安装向导
+* Installation Wizard
 */
 /* line 190, ../scss/style.scss */
 .typecho-install {
@@ -686,7 +686,7 @@ select {
   border-color: #FFF; }
 
 /**
-* 安装主体内容
+* Installation main content
 */
 /* line 234, ../scss/style.scss */
 .typecho-install .typecho-install-body input {
@@ -697,7 +697,7 @@ select {
   margin: 1em 0; }
 
 /**
-* 欢迎界面
+* Welcome Screen
 */
 /* line 246, ../scss/style.scss */
 #typecho-welcome {
@@ -749,7 +749,7 @@ select {
   font-size: 14px; }
 
 /**
-* 登录框
+* Login box
 */
 /* line 300, ../scss/style.scss */
 .typecho-login-wrap {
@@ -778,7 +778,7 @@ select {
   margin: 0 3px; }
 
 /**
-* 标题
+* Title
 */
 /* line 327, ../scss/style.scss */
 .typecho-page-title h2 {
@@ -798,10 +798,10 @@ select {
   text-decoration: none; }
 
 /**
-* 后台页面主体
+* Backend page body
 */
 /**
-* 主页主体
+* Home body
 */
 /* line 353, ../scss/style.scss */
 .typecho-dashboard ul {
@@ -813,7 +813,7 @@ select {
   margin-bottom: 5px; }
 
 /**
-* 标签页
+* Tab
 */
 /* line 365, ../scss/style.scss */
 .typecho-option-tabs {
@@ -873,10 +873,10 @@ select {
   background-color: #E9E9E6; }
 
 /**
-* 表格列表页
+* List of Tables Page
 */
 /**
-* 列表页选项
+* List Options
 */
 /* line 423, ../scss/style.scss */
 .typecho-list-operate {
@@ -918,9 +918,9 @@ a.operate-reply {
   text-decoration: none; }
 
 /**
-* 列表表格
+* List Forms
 */
-/** 增加表格标题 by 70 */
+/** Increase the table heading by 70 */
 /* line 466, ../scss/style.scss */
 .typecho-list-table-title {
   margin: 1em 0;
@@ -986,7 +986,7 @@ a.operate-reply {
   opacity: 1; }
 
 /**
-* 评论管理
+* Comments Management
 */
 /* line 530, ../scss/style.scss */
 .comment-reply-content {
@@ -1019,7 +1019,7 @@ a.operate-reply {
   display: block; }
 
 /**
-* 评论回复
+* Comment Reply
 */
 /* line 561, ../scss/style.scss */
 #typecho-respond {
@@ -1027,7 +1027,7 @@ a.operate-reply {
   display: none; }
 
 /**
-* 模板列表
+* Template List
 */
 /* line 579, ../scss/style.scss */
 .typecho-theme-list img {
@@ -1045,7 +1045,7 @@ a.operate-reply {
   background-color: #FFF9E8; }
 
 /**
-* 后台配置项
+* Background configuration items
 */
 /* line 599, ../scss/style.scss */
 .typecho-page-main .typecho-option input.text {
@@ -1069,7 +1069,7 @@ a.operate-reply {
     display: none; }
 
 /**
-* 编辑模板
+* Edit Template
 */
 /* line 624, ../scss/style.scss */
 .typecho-select-theme {
@@ -1091,7 +1091,7 @@ a.operate-reply {
   width: 150px; }
 
 /**
-* 编辑模板（编辑详情）
+* Edit the template (edit details)
 */
 /* line 647, ../scss/style.scss */
 .typecho-edit-theme ul {
@@ -1118,7 +1118,7 @@ a.operate-reply {
   height: 500px; }
 
 /**
-* 编写页面
+* Write page
 */
 /* line 674, ../scss/style.scss */
 .typecho-post-area .edit-draft-notice {
@@ -1262,7 +1262,7 @@ a.operate-reply {
   padding: 0; }
 
 /**
-* 标签列表
+* Tag list
 */
 /* line 817, ../scss/style.scss */
 .typecho-page-main ul.tag-list {
@@ -1375,13 +1375,13 @@ a.operate-reply {
   visibility: hidden; }
 
 /**
-* 附件管理
+* Attachment Manager
 */
 /* line 913, ../scss/style.scss */
 .edit-media button {
   margin-right: 6px; }
 
-/* 拖动调整 textarea 大小 */
+/* Drag textarea resize */
 /* line 916, ../scss/style.scss */
 .resize {
   display: block;
@@ -1397,13 +1397,13 @@ a.operate-reply {
     height: 1px;
     background-color: #D9D9D6; }
 
-/* 拖动排序 */
+/* Drag the sort */
 /* line 932, ../scss/style.scss */
 .tDnD_whileDrag {
   background-color: #FFFBCC; }
 
 /**
-* 导入扩展样式
+* Importing extended style
 */
 /**
  * icons
@@ -1496,7 +1496,7 @@ a.operate-reply {
     .i-exlink {
       background-position: 0 -48px; } }
 
-/* 文件类型图标 */
+/* File Type Icons */
 /* line 109, ../scss/_icons.scss */
 .mime-office {
   background-position: 0 -128px; }
@@ -1577,7 +1577,7 @@ a.operate-reply {
     .mime-unknow {
       background-position: 0 -192px; } }
 
-/* Logo 图标 */
+/* Logo Icon */
 /* line 161, ../scss/_icons.scss */
 .i-logo, .i-logo-s {
   width: 169px;
@@ -1686,7 +1686,7 @@ a.operate-reply {
 .wmd-visualhide {
   visibility: hidden; }
 
-/* 对话框 */
+/* Dialog */
 /* line 83, ../scss/components/_editor.scss */
 .wmd-prompt-background {
   background-color: #000; }
@@ -1716,7 +1716,7 @@ a.operate-reply {
   .wmd-prompt-dialog button {
     margin-right: 10px; }
 
-/* 预览 */
+/* Preview */
 /* line 107, ../scss/components/_editor.scss */
 #wmd-preview {
   background: #FFF;
@@ -1769,7 +1769,7 @@ a.operate-reply {
     text-align: center;
     content: "- more -"; }
 
-/* 编辑器全屏 */
+/* Full-screen editor */
 /* line 153, ../scss/components/_editor.scss */
 .fullscreen #wmd-button-bar, .fullscreen #text, .fullscreen #wmd-preview, .fullscreen .submit {
   position: absolute;

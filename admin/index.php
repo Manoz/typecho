@@ -10,45 +10,45 @@ $stat = Typecho_Widget::widget('Widget_Stat');
         <?php include 'page-title.php'; ?>
         <div class="row typecho-page-main">
             <div class="col-mb-12 welcome-board" role="main">
-                <p><?php _e('目前有 <em>%s</em> 篇文章, 并有 <em>%s</em> 条关于你的评论在 <em>%s</em> 个分类中.',
+                <p><?php _e('There are <em>%s</em> articles, <em>%s</em> comments and <em>%s</em> categorie(s).',
                 $stat->myPublishedPostsNum, $stat->myPublishedCommentsNum, $stat->categoriesNum); ?>
-                <br><?php _e('点击下面的链接快速开始:'); ?></p>
+                <br><?php _e('Click the links below the Quick Start:'); ?></p>
 
                 <ul id="start-link" class="clearfix">
                     <?php if($user->pass('contributor', true)): ?>
-                    <li><a href="<?php $options->adminUrl('write-post.php'); ?>"><?php _e('撰写新文章'); ?></a></li>
+                    <li><a href="<?php $options->adminUrl('write-post.php'); ?>"><?php _e('Write a new post'); ?></a></li>
                     <?php if($user->pass('editor', true) && 'on' == $request->get('__typecho_all_comments') && $stat->waitingCommentsNum > 0): ?>
-                        <li><a href="<?php $options->adminUrl('manage-comments.php?status=waiting'); ?>"><?php _e('待审核的评论'); ?></a>
+                        <li><a href="<?php $options->adminUrl('manage-comments.php?status=waiting'); ?>"><?php _e('Pending reviews'); ?></a>
                         <span class="balloon"><?php $stat->waitingCommentsNum(); ?></span>
                         </li>
                     <?php elseif($stat->myWaitingCommentsNum > 0): ?>
-                        <li><a href="<?php $options->adminUrl('manage-comments.php?status=waiting'); ?>"><?php _e('待审核评论'); ?></a>
+                        <li><a href="<?php $options->adminUrl('manage-comments.php?status=waiting'); ?>"><?php _e('Pending review'); ?></a>
                         <span class="balloon"><?php $stat->myWaitingCommentsNum(); ?></span>
                         </li>
                     <?php endif; ?>
                     <?php if($user->pass('editor', true) && 'on' == $request->get('__typecho_all_comments') && $stat->spamCommentsNum > 0): ?>
-                        <li><a href="<?php $options->adminUrl('manage-comments.php?status=spam'); ?>"><?php _e('垃圾评论'); ?></a>
+                        <li><a href="<?php $options->adminUrl('manage-comments.php?status=spam'); ?>"><?php _e('Spam'); ?></a>
                         <span class="balloon"><?php $stat->spamCommentsNum(); ?></span>
                         </li>
                     <?php elseif($stat->mySpamCommentsNum > 0): ?>
-                        <li><a href="<?php $options->adminUrl('manage-comments.php?status=spam'); ?>"><?php _e('垃圾评论'); ?></a>
+                        <li><a href="<?php $options->adminUrl('manage-comments.php?status=spam'); ?>"><?php _e('Spam'); ?></a>
                         <span class="balloon"><?php $stat->mySpamCommentsNum(); ?></span>
                         </li>
                     <?php endif; ?>
                     <?php if($user->pass('administrator', true)): ?>
-                    <li><a href="<?php $options->adminUrl('themes.php'); ?>"><?php _e('更换外观'); ?></a></li>
-                    <li><a href="<?php $options->adminUrl('plugins.php'); ?>"><?php _e('插件管理'); ?></a></li>
-                    <li><a href="<?php $options->adminUrl('options-general.php'); ?>"><?php _e('系统设置'); ?></a></li>
+                    <li><a href="<?php $options->adminUrl('themes.php'); ?>"><?php _e('Change appearance'); ?></a></li>
+                    <li><a href="<?php $options->adminUrl('plugins.php'); ?>"><?php _e('Plugins manager'); ?></a></li>
+                    <li><a href="<?php $options->adminUrl('options-general.php'); ?>"><?php _e('System settings'); ?></a></li>
                     <?php endif; ?>
                     <?php endif; ?>
-                    <!--<li><a href="<?php $options->adminUrl('profile.php'); ?>"><?php _e('更新我的资料'); ?></a></li>-->
+                    <!--<li><a href="<?php $options->adminUrl('profile.php'); ?>"><?php _e('Update my profile'); ?></a></li>-->
                 </ul>
                 <?php $version = Typecho_Cookie::get('__typecho_check_version'); ?>
                 <?php if ($version && $version['available']): ?>
                 <div class="update-check">
                     <p class="message notice">
-                        <?php _e('您当前使用的版本是'); ?> <?php echo $version['current']; ?> &rarr;
-                        <strong><a href="<?php echo $version['link']; ?>"><?php _e('官方最新版本是'); ?> <?php echo $version['latest']; ?></a></strong>
+                        <?php _e('You are currently using version'); ?> <?php echo $version['current']; ?> &rarr;
+                        <strong><a href="<?php echo $version['link']; ?>"><?php _e('The latest official version is'); ?> <?php echo $version['latest']; ?></a></strong>
                     </p>
                 </div>
                 <?php endif; ?>
@@ -56,7 +56,7 @@ $stat = Typecho_Widget::widget('Widget_Stat');
 
             <div class="col-mb-12 col-tb-4" role="complementary">
                 <section class="latest-link">
-                    <h3><?php _e('最近发布的文章'); ?></h3>
+                    <h3><?php _e('Recently published articles'); ?></h3>
                     <?php Typecho_Widget::widget('Widget_Contents_Post_Recent', 'pageSize=10')->to($posts); ?>
                     <ul>
                     <?php if($posts->have()): ?>
@@ -67,7 +67,7 @@ $stat = Typecho_Widget::widget('Widget_Stat');
                         </li>
                     <?php endwhile; ?>
                     <?php else: ?>
-                        <li><em><?php _e('暂时没有文章'); ?></em></li>
+                        <li><em><?php _e('There is no article'); ?></em></li>
                     <?php endif; ?>
                     </ul>
                 </section>
@@ -75,7 +75,7 @@ $stat = Typecho_Widget::widget('Widget_Stat');
 
             <div class="col-mb-12 col-tb-4" role="complementary">
                 <section class="latest-link">
-                    <h3><?php _e('最近得到的回复'); ?></h3>
+                    <h3><?php _e('Recently received a reply'); ?></h3>
                     <ul>
                         <?php Typecho_Widget::widget('Widget_Comments_Recent', 'pageSize=10')->to($comments); ?>
                         <?php if($comments->have()): ?>
@@ -87,7 +87,7 @@ $stat = Typecho_Widget::widget('Widget_Stat');
                         </li>
                         <?php endwhile; ?>
                         <?php else: ?>
-                        <li><?php _e('暂时没有回复'); ?></li>
+                        <li><?php _e('No reply'); ?></li>
                         <?php endif; ?>
                     </ul>
                 </section>
@@ -95,10 +95,10 @@ $stat = Typecho_Widget::widget('Widget_Stat');
 
             <div class="col-mb-12 col-tb-4" role="complementary">
                 <section class="latest-link">
-                    <h3><?php _e('官方最新日志'); ?></h3>
+                    <h3><?php _e('The latest official news'); ?></h3>
                     <div id="typecho-message">
                         <ul>
-                            <li><?php _e('读取中...'); ?></li>
+                            <li><?php _e('Loading...'); ?></li>
                         </ul>
                     </div>
                 </section>
@@ -137,9 +137,9 @@ $(document).ready(function () {
     function applyUpdate(update) {
         if (update.available) {
             $('<div class="update-check"><p>'
-                + '<?php _e('您当前使用的版本是 %s'); ?>'.replace('%s', update.current) + '<br />'
+                + '<?php _e('You are currently using version %s'); ?>'.replace('%s', update.current) + '<br />'
                 + '<strong><a href="' + update.link + '" target="_blank">'
-                + '<?php _e('官方最新版本是 %s'); ?>'.replace('%s', update.latest) + '</a></strong></p></div>')
+                + '<?php _e('The latest official version is %s'); ?>'.replace('%s', update.latest) + '</a></strong></p></div>')
             .appendTo('.welcome-board').effect('highlight');
         }
     }

@@ -46,7 +46,7 @@ $(document).ready(function() {
         drop        :   function () {
             $(this).parent().removeClass('drag');
         },
-        
+
         dragend     :   function () {
             $(this).parent().removeClass('drag');
         },
@@ -64,25 +64,25 @@ $(document).ready(function() {
     }
 
     function fileUploadError (error) {
-        var file = error.file, code = error.code, word; 
-        
+        var file = error.file, code = error.code, word;
+
         switch (code) {
             case plupload.FILE_SIZE_ERROR:
-                word = '<?php _e('文件大小超过限制'); ?>';
+                word = '<?php _e('File size exceeds limit'); ?>';
                 break;
             case plupload.FILE_EXTENSION_ERROR:
-                word = '<?php _e('文件扩展名不被支持'); ?>';
+                word = '<?php _e('File extensions are not supported'); ?>';
                 break;
             case plupload.FILE_DUPLICATE_ERROR:
-                word = '<?php _e('文件已经上传过'); ?>';
+                word = '<?php _e('File already uploaded'); ?>';
                 break;
             case plupload.HTTP_ERROR:
             default:
-                word = '<?php _e('上传出现错误'); ?>';
+                word = '<?php _e('Error on upload'); ?>';
                 break;
         }
 
-        var fileError = '<?php _e('%s 上传失败'); ?>'.replace('%s', file.name),
+        var fileError = '<?php _e('%s upload failed'); ?>'.replace('%s', file.name),
             li, exist = $('#' + file.id);
 
         if (exist.length > 0) {
@@ -102,12 +102,12 @@ $(document).ready(function() {
             .data('url', data.url)
             .data('image', data.isImage)
             .html('<input type="hidden" name="attachment[]" value="' + data.cid + '" />'
-                + '<a class="insert" target="_blank" href="###" title="<?php _e('点击插入文件'); ?>">' + data.title + '</a><div class="info">' + data.bytes
-                + ' <a class="file" target="_blank" href="<?php $options->adminUrl('media.php'); ?>?cid=' 
-                + data.cid + '" title="<?php _e('编辑'); ?>"><i class="i-edit"></i></a>'
-                + ' <a class="delete" href="###" title="<?php _e('删除'); ?>"><i class="i-delete"></i></a></div>')
+                + '<a class="insert" target="_blank" href="###" title="<?php _e('Click to insert file'); ?>">' + data.title + '</a><div class="info">' + data.bytes
+                + ' <a class="file" target="_blank" href="<?php $options->adminUrl('media.php'); ?>?cid='
+                + data.cid + '" title="<?php _e('Edit'); ?>"><i class="i-edit"></i></a>'
+                + ' <a class="delete" href="###" title="<?php _e('Delete'); ?>"><i class="i-delete"></i></a></div>')
             .effect('highlight', 1000);
-            
+
         attachInsertEvent(li);
         attachDeleteEvent(li);
         updateAttacmentNumber();
@@ -127,7 +127,7 @@ $(document).ready(function() {
             drop_element    :   $('.upload-area').get(0),
             filters         :   {
                 max_file_size       :   '<?php echo $phpMaxFilesize ?>',
-                mime_types          :   [{'title' : '<?php _e('允许上传的文件'); ?>', 'extensions' : '<?php echo implode(',', $options->allowedAttachmentTypes); ?>'}],
+                mime_types          :   [{'title' : '<?php _e('Allowed file uploads'); ?>', 'extensions' : '<?php echo implode(',', $options->allowedAttachmentTypes); ?>'}],
                 prevent_duplicates  :   true
             },
 
@@ -183,7 +183,7 @@ $(document).ready(function() {
     function attachDeleteEvent (el) {
         var file = $('a.insert', el).text();
         $('.delete', el).click(function () {
-            if (confirm('<?php _e('确认要删除文件 %s 吗?'); ?>'.replace('%s', file))) {
+            if (confirm('<?php _e('Confirm that you want to delete the file %s ?'); ?>'.replace('%s', file))) {
                 var cid = $(this).parents('li').data('cid');
                 $.post('<?php $security->index('/action/contents-attachment-edit'); ?>',
                     {'do' : 'delete', 'cid' : cid},

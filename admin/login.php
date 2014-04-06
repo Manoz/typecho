@@ -17,31 +17,31 @@ include 'header.php';
         <form action="<?php $options->loginAction(); ?>" method="post" name="login" role="form">
             <p>
                 <label for="name" class="sr-only"><?php _e('用户名'); ?></label>
-                <input type="text" id="name" name="name" value="<?php echo $rememberName; ?>" placeholder="<?php _e('用户名'); ?>" class="text-l w-100" autofocus />
+                <input type="text" id="name" name="name" value="<?php echo $rememberName; ?>" placeholder="<?php _e('Username'); ?>" class="text-l w-100" autofocus />
             </p>
             <p>
                 <label for="password" class="sr-only"><?php _e('密码'); ?></label>
-                <input type="password" id="password" name="password" class="text-l w-100" placeholder="<?php _e('密码'); ?>" />
+                <input type="password" id="password" name="password" class="text-l w-100" placeholder="<?php _e('Password'); ?>" />
             </p>
             <p class="submit">
-                <button type="submit" class="btn btn-l w-100 primary"><?php _e('登录'); ?></button>
+                <button type="submit" class="btn btn-l w-100 primary"><?php _e('Login'); ?></button>
                 <input type="hidden" name="referer" value="<?php echo htmlspecialchars($request->get('referer')); ?>" />
             </p>
             <p>
-                <label for="remember"><input type="checkbox" name="remember" class="checkbox" value="1" id="remember" /> <?php _e('下次自动登录'); ?></label>
+                <label for="remember"><input type="checkbox" name="remember" class="checkbox" value="1" id="remember" /> <?php _e('Remember?'); ?></label>
             </p>
         </form>
-        
+
         <p class="more-link">
-            <a href="<?php $options->siteUrl(); ?>"><?php _e('返回首页'); ?></a>
+            <a href="<?php $options->siteUrl(); ?>"><?php _e('Back Home'); ?></a>
             <?php if($options->allowRegister): ?>
             &bull;
-            <a href="<?php $options->registerUrl(); ?>"><?php _e('用户注册'); ?></a>
+            <a href="<?php $options->registerUrl(); ?>"><?php _e('Register'); ?></a>
             <?php endif; ?>
         </p>
     </div>
 </div>
-<?php 
+<?php
 include 'common-js.php';
 ?>
 <script>

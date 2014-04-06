@@ -12,49 +12,49 @@ $(document).ready(function () {
     var options = {}, isMarkdown = <?php echo intval($content->isMarkdown || !$content->have()); ?>;
 
     options.strings = {
-        bold: '<?php _e('加粗'); ?> <strong> Ctrl+B',
-        boldexample: '<?php _e('加粗文字'); ?>',
-            
-        italic: '<?php _e('斜体'); ?> <em> Ctrl+I',
-        italicexample: '<?php _e('斜体文字'); ?>',
+        bold: '<?php _e('Bold'); ?> <strong> Ctrl+B',
+        boldexample: '<?php _e('Bold text'); ?>',
 
-        link: '<?php _e('链接'); ?> <a> Ctrl+L',
-        linkdescription: '<?php _e('请输入链接描述'); ?>',
+        italic: '<?php _e('Italic'); ?> <em> Ctrl+I',
+        italicexample: '<?php _e('Italic text'); ?>',
 
-        quote:  '<?php _e('引用'); ?> <blockquote> Ctrl+Q',
-        quoteexample: '<?php _e('引用文字'); ?>',
+        link: '<?php _e('Link'); ?> <a> Ctrl+L',
+        linkdescription: '<?php _e('Enter link description'); ?>',
 
-        code: '<?php _e('代码'); ?> <pre><code> Ctrl+K',
-        codeexample: '<?php _e('请输入代码'); ?>',
+        quote:  '<?php _e('Quote'); ?> <blockquote> Ctrl+Q',
+        quoteexample: '<?php _e('Quoted text'); ?>',
 
-        image: '<?php _e('图片'); ?> <img> Ctrl+G',
-        imagedescription: '<?php _e('请输入图片描述'); ?>',
+        code: '<?php _e('Code'); ?> <pre><code> Ctrl+K',
+        codeexample: '<?php _e('Please enter the code'); ?>',
 
-        olist: '<?php _e('数字列表'); ?> <ol> Ctrl+O',
-        ulist: '<?php _e('普通列表'); ?> <ul> Ctrl+U',
-        litem: '<?php _e('列表项目'); ?>',
+        image: '<?php _e('Image'); ?> <img> Ctrl+G',
+        imagedescription: '<?php _e('Please enter a description'); ?>',
 
-        heading: '<?php _e('标题'); ?> <h1>/<h2> Ctrl+H',
-        headingexample: '<?php _e('标题文字'); ?>',
+        olist: '<?php _e('Ordered list'); ?> <ol> Ctrl+O',
+        ulist: '<?php _e('Unordered list'); ?> <ul> Ctrl+U',
+        litem: '<?php _e('List items'); ?>',
 
-        hr: '<?php _e('分割线'); ?> <hr> Ctrl+R',
-        more: '<?php _e('摘要分割线'); ?> <!--more--> Ctrl+M',
+        heading: '<?php _e('Title'); ?> <h1>/<h2> Ctrl+H',
+        headingexample: '<?php _e('Title text'); ?>',
 
-        undo: '<?php _e('撤销'); ?> - Ctrl+Z',
-        redo: '<?php _e('重做'); ?> - Ctrl+Y',
-        redomac: '<?php _e('重做'); ?> - Ctrl+Shift+Z',
+        hr: '<?php _e('Dividing line'); ?> <hr> Ctrl+R',
+        more: '<?php _e('Read more tag'); ?> <!--more--> Ctrl+M',
 
-        fullscreen: '<?php _e('全屏'); ?> - Ctrl+J',
-        exitFullscreen: '<?php _e('退出全屏'); ?> - Ctrl+E',
-        fullscreenUnsupport: '<?php _e('此浏览器不支持全屏操作'); ?>',
+        undo: '<?php _e('Undo'); ?> - Ctrl+Z',
+        redo: '<?php _e('Redo'); ?> - Ctrl+Y',
+        redomac: '<?php _e('Redo'); ?> - Ctrl+Shift+Z',
 
-        imagedialog: '<p><b><?php _e('插入图片'); ?></b></p><p><?php _e('请在下方的输入框内输入要插入的远程图片地址'); ?></p><p><?php _e('您也可以使用附件功能插入上传的本地图片'); ?></p>',
-        linkdialog: '<p><b><?php _e('插入链接'); ?></b></p><p><?php _e('请在下方的输入框内输入要插入的链接地址'); ?></p>',
+        fullscreen: '<?php _e('Fullscreen'); ?> - Ctrl+J',
+        exitFullscreen: '<?php _e('Exit Fullscreen'); ?> - Ctrl+E',
+        fullscreenUnsupport: '<?php _e('This browser does not support fullscreen operation.'); ?>',
 
-        ok: '<?php _e('确定'); ?>',
-        cancel: '<?php _e('取消'); ?>',
+        imagedialog: '<p><b><?php _e('Insert Picture'); ?></b></p><p><?php _e('Please fill in the input box below to insert the remote image address'); ?></p><p><?php _e('You can also use the attachments feature to insert local upload images'); ?></p>',
+        linkdialog: '<p><b><?php _e('Insert Link'); ?></b></p><p><?php _e('Please fill in the input box below to insert the link address'); ?></p>',
 
-        help: '<?php _e('Markdown语法帮助'); ?>'
+        ok: '<?php _e('Send'); ?>',
+        cancel: '<?php _e('Cancel'); ?>',
+
+        help: '<?php _e('Markdown syntax help'); ?>'
     };
 
     var converter = new Markdown.Converter(),
@@ -63,13 +63,13 @@ $(document).ready(function () {
         mark = '@mark' + Math.ceil(Math.random() * 100000000) + '@',
         span = '<span class="diff" />',
         cache = {};
-    
-    // 设置markdown
+
+    // Set markdown
     Markdown.Extra.init(converter, {
         extensions  :   ["tables", "fenced_code_gfm", "def_list", "attr_list", "footnotes"]
     });
 
-    // 自动跟随
+    // Automatically follow
     converter.hooks.chain('postConversion', function (html) {
         // clear special html tags
         html = html.replace(/<\/?(\!doctype|html|head|body|link|title|input|select|button|textarea|style|noscript)[^>]*>/ig, function (all) {
@@ -98,7 +98,7 @@ $(document).ready(function () {
 
         if (diffs.length > 0) {
             var stack = [], markStr = mark;
-            
+
             for (var i = 0; i < diffs.length; i ++) {
                 var diff = diffs[i], op = diff[0], str = diff[1]
                     sp = str.lastIndexOf('<'), ep = str.lastIndexOf('>');
@@ -118,7 +118,7 @@ $(document).ready(function () {
                             stack.push(markStr);
                         }
                     }
-                    
+
                     markStr = '';
                 } else {
                     stack.push(str);
@@ -140,7 +140,7 @@ $(document).ready(function () {
             }
         }
 
-        // 替换img
+        // Replace img
         html = html.replace(/<(img)\s+([^>]*)\s*src="([^"]+)"([^>]*)>/ig, function (all, tag, prefix, src, suffix) {
             if (!cache[src]) {
                 cache[src] = false;
@@ -154,7 +154,7 @@ $(document).ready(function () {
             return all;
         });
 
-        // 替换block
+        // Replace block
         html = html.replace(/<(iframe|embed)\s+([^>]*)>/ig, function (all, tag, src) {
             if (src[src.length - 1] == '/') {
                 src = src.substring(0, src.length - 1);
@@ -210,7 +210,7 @@ $(document).ready(function () {
 
     var input = $('#text'), th = textarea.height(), ph = preview.height(),
         uploadBtn = $('<button type="button" id="btn-fullscreen-upload" class="btn btn-link">'
-            + '<i class="i-upload"><?php _e('附件'); ?></i></button>')
+            + '<i class="i-upload"><?php _e('Attachment'); ?></i></button>')
             .prependTo('.submit .right')
             .click(function() {
                 $('a', $('.typecho-option-tabs li').not('.active')).trigger('click');
@@ -227,14 +227,14 @@ $(document).ready(function () {
         ph = preview.height();
         $(document.body).addClass('fullscreen');
         var h = $(window).height() - toolbar.outerHeight();
-        
+
         textarea.css('height', h);
         preview.css('height', h);
     });
 
     editor.hooks.chain('enterFullScreen', function () {
         $(document.body).addClass('fullscreen');
-        
+
         var h = window.screen.height - toolbar.outerHeight();
         textarea.css('height', h);
         preview.css('height', h);
@@ -271,26 +271,26 @@ $(document).ready(function () {
             Typecho.insertFileToEditor(file.title, file.url, file.isImage);
         };
 
-        // 编辑预览切换
-        var edittab = $('.editor').prepend('<div class="wmd-edittab"><a href="#wmd-editarea" class="active"><?php _e('撰写'); ?></a><a href="#wmd-preview"><?php _e('预览'); ?></a></div>'),
+        // Edit preview switch
+        var edittab = $('.editor').prepend('<div class="wmd-edittab"><a href="#wmd-editarea" class="active"><?php _e('Write'); ?></a><a href="#wmd-preview"><?php _e('Preview'); ?></a></div>'),
             editarea = $(textarea.parent()).attr("id", "wmd-editarea");
 
         $(".wmd-edittab a").click(function() {
             $(".wmd-edittab a").removeClass('active');
             $(this).addClass("active");
             $("#wmd-editarea, #wmd-preview").addClass("wmd-hidetab");
-        
+
             var selected_tab = $(this).attr("href"),
                 selected_el = $(selected_tab).removeClass("wmd-hidetab");
 
-            // 预览时隐藏编辑器按钮
+            // Editor button to hide the preview
             if (selected_tab == "#wmd-preview") {
                 $("#wmd-button-row").addClass("wmd-visualhide");
             } else {
                 $("#wmd-button-row").removeClass("wmd-visualhide");
             }
 
-            // 预览和编辑窗口高度一致
+            // Highly consistent preview and edit window
             $("#wmd-preview").outerHeight($("#wmd-editarea").innerHeight());
 
             return false;
@@ -300,8 +300,8 @@ $(document).ready(function () {
     if (isMarkdown) {
         initMarkdown();
     } else {
-        var notice = $('<div class="message notice"><?php _e('这篇文章不是由Markdown语法创建的, 继续使用Markdown编辑它吗?'); ?> '
-            + '<button class="btn btn-xs primary yes"><?php _e('是'); ?></button> ' 
+        var notice = $('<div class="message notice"><?php _e('This article is not created with the Markdown syntax, Edit it to continue to use Markdown?'); ?> '
+            + '<button class="btn btn-xs primary yes"><?php _e('是'); ?></button> '
             + '<button class="btn btn-xs no"><?php _e('否'); ?></button></div>')
             .hide().insertBefore(textarea).slideDown();
 

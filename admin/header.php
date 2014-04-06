@@ -3,15 +3,15 @@ if (!defined('__TYPECHO_ADMIN__')) {
     exit;
 }
 
-$header = '<link rel="stylesheet" href="' . Typecho_Common::url('css/normalize.css?v=' . $suffixVersion, $options->adminUrl) . '"> 
-<link rel="stylesheet" href="' . Typecho_Common::url('css/grid.css?v=' . $suffixVersion, $options->adminUrl) . '"> 
+$header = '<link rel="stylesheet" href="' . Typecho_Common::url('css/normalize.css?v=' . $suffixVersion, $options->adminUrl) . '">
+<link rel="stylesheet" href="' . Typecho_Common::url('css/grid.css?v=' . $suffixVersion, $options->adminUrl) . '">
 <link rel="stylesheet" href="' . Typecho_Common::url('css/style.css?v=' . $suffixVersion, $options->adminUrl) . '">
 <!--[if lt IE 9]>
 <script src="' . Typecho_Common::url('js/html5shiv.js?v=' . $suffixVersion, $options->adminUrl) . '"></script>
 <script src="' . Typecho_Common::url('js/respond.js?v=' . $suffixVersion, $options->adminUrl) . '"></script>
 <![endif]-->';
 
-/** 注册一个初始化插件 */
+/** Register a plugin init */
 $header = Typecho_Plugin::factory('admin/header.php')->header($header);
 
 ?><!DOCTYPE HTML>
@@ -27,5 +27,5 @@ $header = Typecho_Plugin::factory('admin/header.php')->header($header);
     </head>
     <body<?php if (isset($bodyClass)) {echo ' class="' . $bodyClass . '"';} ?>>
     <!--[if lt IE 9]>
-        <div class="message error browsehappy" role="dialog"><?php _e('当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>'); ?>.</div>
+        <div class="message error browsehappy" role="dialog"><?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.'); ?>.</div>
     <![endif]-->

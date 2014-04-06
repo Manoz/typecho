@@ -2,5 +2,5 @@
     </body>
 </html>
 <?php
-/** 注册一个结束插件 */
+/** Register an end plugins */
 Typecho_Plugin::factory('admin/footer.php')->end();

@@ -10,20 +10,20 @@ Typecho_Widget::widget('Widget_Metas_Category_Admin')->to($categories);
     <div class="body container">
         <?php include 'page-title.php'; ?>
         <div class="row typecho-page-main manage-metas">
-            
+
                 <div class="col-mb-12" role="main">
-                    
+
                     <form method="post" name="manage_categories" class="operate-form">
                     <div class="typecho-list-operate clearfix">
                         <div class="operate">
-                            <label><i class="sr-only"><?php _e('全选'); ?></i><input type="checkbox" class="typecho-table-select-all" /></label>
+                            <label><i class="sr-only"><?php _e('Select'); ?></i><input type="checkbox" class="typecho-table-select-all" /></label>
                             <div class="btn-group btn-drop">
-                                <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only"><?php _e('操作'); ?></i><?php _e('选中项'); ?> <i class="i-caret-down"></i></button>
+                                <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only"><?php _e('Operate'); ?></i><?php _e('Selected items'); ?> <i class="i-caret-down"></i></button>
                                 <ul class="dropdown-menu">
-                                    <li><a lang="<?php _e('此分类下的所有内容将被删除, 你确认要删除这些分类吗?'); ?>" href="<?php $security->index('/action/metas-category-edit?do=delete'); ?>"><?php _e('删除'); ?></a></li>
-                                    <li><a lang="<?php _e('刷新分类可能需要等待较长时间, 你确认要刷新这些分类吗?'); ?>" href="<?php $security->index('/action/metas-category-edit?do=refresh'); ?>"><?php _e('刷新'); ?></a></li>
+                                    <li><a lang="<?php _e('All contents of this category will be deleted, are you sure you want to delete these categories?'); ?>" href="<?php $security->index('/action/metas-category-edit?do=delete'); ?>"><?php _e('Delete'); ?></a></li>
+                                    <li><a lang="<?php _e('Refresh categories may need to wait a long time, are you sure you want to refresh these categories?'); ?>" href="<?php $security->index('/action/metas-category-edit?do=refresh'); ?>"><?php _e('Refresh'); ?></a></li>
                                     <li class="multiline">
-                                        <button type="button" class="btn merge btn-s" rel="<?php $security->index('/action/metas-category-edit?do=merge'); ?>"><?php _e('合并到'); ?></button>
+                                        <button type="button" class="btn merge btn-s" rel="<?php $security->index('/action/metas-category-edit?do=merge'); ?>"><?php _e('Merge into'); ?></button>
                                         <select name="merge">
                                             <?php $categories->parse('<option value="{mid}">{name}</option>'); ?>
                                         </select>
@@ -49,11 +49,11 @@ Typecho_Widget::widget('Widget_Metas_Category_Admin')->to($categories);
                             <thead>
                                 <tr class="nodrag">
                                     <th> </th>
-                                    <th><?php _e('名称'); ?></th>
-                                    <th><?php _e('子分类'); ?></th>
-                                    <th><?php _e('缩略名'); ?></th>
+                                    <th><?php _e('Name'); ?></th>
+                                    <th><?php _e('Subcategory'); ?></th>
+                                    <th><?php _e('Abbreviated name'); ?></th>
                                     <th> </th>
-                                    <th><?php _e('文章数'); ?></th>
+                                    <th><?php _e('Posts'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,23 +61,23 @@ Typecho_Widget::widget('Widget_Metas_Category_Admin')->to($categories);
                                 <?php while ($categories->next()): ?>
                                 <tr id="mid-<?php $categories->theId(); ?>">
                                     <td><input type="checkbox" value="<?php $categories->mid(); ?>" name="mid[]"/></td>
-                                    <td><a href="<?php $options->adminUrl('category.php?mid=' . $categories->mid); ?>"><?php $categories->name(); ?></a> 
-                                    <a href="<?php $categories->permalink(); ?>" title="<?php _e('浏览 %s', $categories->name); ?>"><i class="i-exlink"></i></a>
+                                    <td><a href="<?php $options->adminUrl('category.php?mid=' . $categories->mid); ?>"><?php $categories->name(); ?></a>
+                                    <a href="<?php $categories->permalink(); ?>" title="<?php _e('Browse %s', $categories->name); ?>"><i class="i-exlink"></i></a>
                                     </td>
                                     <td>
-                                    
+
                                     <?php if (count($categories->children) > 0): ?>
-                                    <a href="<?php $options->adminUrl('manage-categories.php?parent=' . $categories->mid); ?>"><?php echo _n('一个分类', '%d个分类', count($categories->children)); ?></a>
+                                    <a href="<?php $options->adminUrl('manage-categories.php?parent=' . $categories->mid); ?>"><?php echo _n('Categorie', '%d categories', count($categories->children)); ?></a>
                                     <?php else: ?>
-                                    <a href="<?php $options->adminUrl('category.php?parent=' . $categories->mid); ?>"><?php echo _e('新增'); ?></a>
+                                    <a href="<?php $options->adminUrl('category.php?parent=' . $categories->mid); ?>"><?php echo _e('New'); ?></a>
                                     <?php endif; ?>
                                     </td>
                                     <td><?php $categories->slug(); ?></td>
                                     <td>
                                     <?php if ($options->defaultCategory == $categories->mid): ?>
-                                    <?php _e('默认'); ?>
+                                    <?php _e('Default'); ?>
                                     <?php else: ?>
-                                    <a class="hidden-by-mouse" href="<?php $security->index('/action/metas-category-edit?do=default&mid=' . $categories->mid); ?>" title="<?php _e('设为默认'); ?>"><?php _e('默认'); ?></a>
+                                    <a class="hidden-by-mouse" href="<?php $security->index('/action/metas-category-edit?do=default&mid=' . $categories->mid); ?>" title="<?php _e('Set as default'); ?>"><?php _e('Default'); ?></a>
                                     <?php endif; ?>
                                     </td>
                                     <td><a class="balloon-button left size-<?php echo Typecho_Common::splitByCount($categories->count, 1, 10, 20, 50, 100); ?>" href="<?php $options->adminUrl('manage-posts.php?category=' . $categories->mid); ?>"><?php $categories->count(); ?></a></td>
@@ -85,14 +85,14 @@ Typecho_Widget::widget('Widget_Metas_Category_Admin')->to($categories);
                                 <?php endwhile; ?>
                                 <?php else: ?>
                                 <tr>
-                                    <td colspan="6"><h6 class="typecho-list-table-title"><?php _e('没有任何分类'); ?></h6></td>
+                                    <td colspan="6"><h6 class="typecho-list-table-title"><?php _e('There is no categories'); ?></h6></td>
                                 </tr>
                                 <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
                     </form>
-                    
+
                 </div>
         </div>
     </div>

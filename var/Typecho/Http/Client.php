@@ -1,6 +1,6 @@
 <?php
 /**
- * Http客户端
+ * Http Client
  *
  * @author qining
  * @category typecho
@@ -11,7 +11,7 @@
  */
 
 /**
- * Http客户端
+ * Http Client
  *
  * @author qining
  * @category typecho
@@ -19,17 +19,17 @@
  */
 class Typecho_Http_Client
 {
-    /** POST方法 */
+    /** POST method */
     const METHOD_POST = 'POST';
 
-    /** GET方法 */
+    /** GET method */
     const METHOD_GET = 'GET';
 
-    /** 定义行结束符 */
+    /** Define line endings */
     const EOL = "\r\n";
 
     /**
-     * 获取可用的连接
+     * Get available connections
      *
      * @access public
      * @return Typecho_Http_Client_Adapter

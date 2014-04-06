@@ -1,6 +1,6 @@
 <?php
 /**
- * 客户端适配器
+ * Client Adapter
  *
  * @author qining
  * @category typecho
@@ -11,7 +11,7 @@
  */
 
 /**
- * 客户端适配器
+ * Client Adapter
  *
  * @author qining
  * @category typecho
@@ -20,7 +20,7 @@
 abstract class Typecho_Http_Client_Adapter
 {
     /**
-     * 方法名
+     * Method name
      *
      * @access protected
      * @var string
@@ -28,7 +28,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $method = Typecho_Http_Client::METHOD_GET;
 
     /**
-     * 传递参数
+     * Passing parameters
      *
      * @access protected
      * @var string
@@ -36,7 +36,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $query;
 
     /**
-     * 设置超时
+     * Set the timeout
      *
      * @access protected
      * @var string
@@ -44,7 +44,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $timeout = 3;
 
     /**
-     * 需要在body中传递的值
+     * Value needs to pass in the body
      *
      * @access protected
      * @var array
@@ -52,7 +52,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $data = array();
 
     /**
-     * 文件列表
+     * File List
      *
      * @access protected
      * @var array
@@ -60,7 +60,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $files = array();
 
     /**
-     * 头信息参数
+     * Header Argument
      *
      * @access protected
      * @var array
@@ -76,7 +76,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $cookies = array();
 
     /**
-     * 协议名称及版本
+     * Protocol name and version
      *
      * @access protected
      * @var string
@@ -84,7 +84,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $rfc = 'HTTP/1.1';
 
     /**
-     * 请求地址
+     * Request address
      *
      * @access protected
      * @var string
@@ -92,7 +92,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $url;
 
     /**
-     * 主机名
+     * Hostname
      *
      * @access protected
      * @var string
@@ -100,7 +100,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $host;
 
     /**
-     * 前缀
+     * Prefix
      *
      * @access protected
      * @var string
@@ -108,7 +108,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $scheme = 'http';
 
     /**
-     * 路径
+     * path
      *
      * @access protected
      * @var string
@@ -116,7 +116,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $path = '/';
 
     /**
-     * 设置ip
+     * Set ip
      *
      * @access protected
      * @var string
@@ -124,7 +124,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $ip;
 
     /**
-     * 端口
+     * Port
      *
      * @access protected
      * @var integer
@@ -132,7 +132,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $port = 80;
 
     /**
-     * 回执头部信息
+     * Receipt header information
      *
      * @access protected
      * @var array
@@ -140,7 +140,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $responseHeader = array();
 
     /**
-     * 回执代码
+     * Receipt code
      *
      * @access protected
      * @var integer
@@ -148,7 +148,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $responseStatus;
 
     /**
-     * 回执身体
+     * Receipt of the body
      *
      * @access protected
      * @var string
@@ -156,7 +156,7 @@ abstract class Typecho_Http_Client_Adapter
     protected $responseBody;
 
     /**
-     * 判断适配器是否可用
+     * Determine if adapters are available
      *
      * @access public
      * @return boolean
@@ -167,7 +167,7 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 设置方法名
+     * Set Method name
      *
      * @access public
      * @param string $method
@@ -180,11 +180,11 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 设置指定的COOKIE值
+     * Set specified COOKIE value
      *
      * @access public
-     * @param string $key 指定的参数
-     * @param mixed $value 设置的值
+     * @param string $key Specified parameters
+     * @param mixed $value The value
      * @return Typecho_Http_Client_Adapter
      */
     public function setCookie($key, $value)
@@ -194,10 +194,10 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 设置传递参数
+     * Set Passing parameters
      *
      * @access public
-     * @param mixed $query 传递参数
+     * @param mixed $query Passing parameters
      * @return Typecho_Http_Client_Adapter
      */
     public function setQuery($query)
@@ -208,10 +208,10 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 设置需要POST的数据
+     * Settings need to POST data
      *
      * @access public
-     * @param array $data 需要POST的数据
+     * @param array $data POST data needed
      * @return Typecho_Http_Client_Adapter
      */
     public function setData($data)
@@ -222,10 +222,10 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 设置需要POST的文件
+     * Set of documents POST
      *
      * @access public
-     * @param array $files 需要POST的文件
+     * @param array $files POST documents needed
      * @return Typecho_Http_Client_Adapter
      */
     public function setFiles(array $files)
@@ -236,10 +236,10 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 设置超时时间
+     * Set the timeout time
      *
      * @access public
-     * @param integer $timeout 超时时间
+     * @param integer $timeout Timeout
      * @return Typecho_Http_Client_Adapter
      */
     public function setTimeout($timeout)
@@ -249,10 +249,10 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 设置http协议
+     * Set http protocol
      *
      * @access public
-     * @param string $rfc http协议
+     * @param string $rfc http protocol
      * @return Typecho_Http_Client_Adapter
      */
     public function setRfc($rfc)
@@ -262,10 +262,10 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 设置ip地址
+     * Set ip address
      *
      * @access public
-     * @param string $ip ip地址
+     * @param string $ip ip address
      * @return Typecho_Http_Client_Adapter
      */
     public function setIp($ip)
@@ -275,11 +275,11 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 设置头信息参数
+     * Set Header Argument
      *
      * @access public
-     * @param string $key 参数名称
-     * @param string $value 参数值
+     * @param string $key Parameter name
+     * @param string $value Parameter values
      * @return Typecho_Http_Client_Adapter
      */
     public function setHeader($key, $value)
@@ -290,11 +290,11 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 发送请求
+     * Send request
      *
      * @access public
-     * @param string $url 请求地址
-     * @param string $rfc 请求协议
+     * @param string $url Request address
+     * @param string $rfc Request Protocol
      * @return string
      */
     public function send($url)
@@ -325,7 +325,7 @@ abstract class Typecho_Http_Client_Adapter
             $this->port = $params['port'];
         }
 
-        /** 整理cookie */
+        /** Sorting cookie */
         if (!empty($this->cookies)) {
             $this->setHeader('Cookie', str_replace('&', '; ', http_build_query($this->cookies)));
         }
@@ -375,10 +375,10 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 获取回执的头部信息
+     * Get header information, return receipt
      *
      * @access public
-     * @param string $key 头信息名称
+     * @param string $key Header name
      * @return string
      */
     public function getResponseHeader($key)
@@ -388,7 +388,7 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 获取回执代码
+     * Get Receipt code
      *
      * @access public
      * @return integer
@@ -399,7 +399,7 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 获取回执身体
+     * Get receipt body
      *
      * @access public
      * @return string
@@ -410,10 +410,10 @@ abstract class Typecho_Http_Client_Adapter
     }
 
     /**
-     * 需要实现的请求方法
+     * Request method need to implement
      *
      * @access public
-     * @param string $url 请求地址
+     * @param string $url Request address
      * @return string
      */
     abstract public function httpSend($url);

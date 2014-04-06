@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
- * CURL适配器
+ * CURL adapter
  *
  * @author qining
  * @category typecho
@@ -12,7 +12,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * CURL适配器
+ * CURL adapter
  *
  * @author qining
  * @category typecho
@@ -21,7 +21,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Typecho_Http_Client_Adapter_Curl extends Typecho_Http_Client_Adapter
 {
     /**
-     * 判断适配器是否可用
+     * Determine if adapters are available
      *
      * @access public
      * @return boolean
@@ -32,10 +32,10 @@ class Typecho_Http_Client_Adapter_Curl extends Typecho_Http_Client_Adapter
     }
 
     /**
-     * 发送请求
+     * Send request
      *
      * @access public
-     * @param string $url 请求地址
+     * @param string $url Request address
      * @return string
      */
     public function httpSend($url)
@@ -55,7 +55,7 @@ class Typecho_Http_Client_Adapter_Curl extends Typecho_Http_Client_Adapter
         curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
 
-        /** 设置HTTP版本 */
+        /** Set HTTP version */
         switch ($this->rfc) {
             case 'HTTP/1.0':
                 curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
@@ -68,7 +68,7 @@ class Typecho_Http_Client_Adapter_Curl extends Typecho_Http_Client_Adapter
                 break;
         }
 
-        /** 设置header信息 */
+        /** Set header information */
         if (!empty($this->headers)) {
             if (isset($this->headers['User-Agent'])) {
                 curl_setopt($ch, CURLOPT_USERAGENT, $this->headers['User-Agent']);
@@ -89,7 +89,7 @@ class Typecho_Http_Client_Adapter_Curl extends Typecho_Http_Client_Adapter
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
 
-        /** POST模式 */
+        /** Method POST */
         if (Typecho_Http_Client::METHOD_POST == $this->method) {
             if (!isset($this->headers['content-type'])) {
                 curl_setopt($ch, CURLOPT_POST, true);

@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
- * Socket适配器
+ * Socket adapter
  *
  * @author qining
  * @category typecho
@@ -12,7 +12,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  */
 
 /**
- * Socket适配器
+ * Socket adapter
  *
  * @author qining
  * @category typecho
@@ -21,7 +21,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Typecho_Http_Client_Adapter_Socket extends Typecho_Http_Client_Adapter
 {
     /**
-     * 判断适配器是否可用
+     * Determine if adapters are available
      *
      * @access public
      * @return boolean
@@ -32,10 +32,10 @@ class Typecho_Http_Client_Adapter_Socket extends Typecho_Http_Client_Adapter
     }
 
     /**
-     * 发送请求
+     * Send request
      *
      * @access public
-     * @param string $url 请求地址
+     * @param string $url Request address
      * @return string
      */
     public function httpSend($url)
@@ -47,14 +47,14 @@ class Typecho_Http_Client_Adapter_Socket extends Typecho_Http_Client_Adapter
         $request .= 'Cache-Control: no-cache' . $eol;
         $request .= 'Connection: Close' . $eol;
 
-        /** 设置header信息 */
+        /** Set header information */
         if (!empty($this->headers)) {
             foreach ($this->headers as $key => $val) {
                 $request .= $key . ': ' . $val . $eol;
             }
         }
 
-        /** 发送POST信息 */
+        /** Method POST */
         if (Typecho_Http_Client::METHOD_POST == $this->method) {
             if (empty($this->files)) {
                 $content = is_array($this->data) ? http_build_query($this->data) : $this->data;
@@ -95,13 +95,13 @@ class Typecho_Http_Client_Adapter_Socket extends Typecho_Http_Client_Adapter
             $request .= $eol;
         }
 
-        /** 打开连接 */
+        /** Open the connection */
         $socket = @fsockopen($this->ip ? $this->ip : $this->host, $this->port, $errno, $errstr, $this->timeout);
         if (false === $socket) {
             throw new Typecho_Http_Client_Exception($errno . ':' . $errstr, 500);
         }
 
-        /** 发送数据 */
+        /** Send data */
         fwrite($socket, $request);
         stream_set_timeout($socket, $this->timeout);
         $response = '';
@@ -113,7 +113,7 @@ class Typecho_Http_Client_Adapter_Socket extends Typecho_Http_Client_Adapter
             if (false === $buf || '' === $buf) {
                 $info = stream_get_meta_data($socket);
 
-                //超时判断
+                // Timeout judgment
                 if ($info['timed_out']) {
                     throw new Typecho_Http_Client_Exception(__CLASS__ . ': timeout reading from ' . $this->host . ':' . $this->port, 500);
                 } else {
@@ -135,14 +135,14 @@ class Typecho_Http_Client_Adapter_Socket extends Typecho_Http_Client_Adapter
     }
 
     /**
-     * 获取回执身体
+     * Get receipt body
      *
      * @access public
      * @return string
      */
     public function getResponseBody()
     {
-        /** 支持chunked编码 */
+        /** Support chunked encoding */
         if ('chunked' == $this->getResponseHeader('Transfer-Encoding')) {
             $parts = explode("\r\n", $this->reponseBody, 2);
             $counter = hexdec($parts[0]);

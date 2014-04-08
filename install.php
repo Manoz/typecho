@@ -192,7 +192,21 @@ list($prefixVersion, $suffixVersion) = explode('/', $currentVersion);
                     <p class="message error"><?php _e('You do not have uploaded config.inc.php file. Please re-install!'); ?> <button class="btn primary" type="submit"><?php _e('Reinstall &raquo;'); ?></button></p>
                     </form>
                 </div>
+                <?php elseif (!Typecho_Cookie::get('__typecho_config')): ?>
+                <h1 class="typecho-install-title"><?php _e('Not installed!'); ?></h1>
+                <div class="typecho-install-body">
+                    <form method="post" action="?config" name="config">
+                    <p class="message error"><?php _e('You do not perform the installation steps, you need to reinstall!'); ?> <button class="btn primary" type="submit"><?php _e('Reinstall &raquo;'); ?></button></p>
+                    </form>
+                </div>
                 <?php else : ?>
+                <?php
+                    $config = unserialize(base64_decode(Typecho_Cookie::get('__typecho_config')));
+                    Typecho_Cookie::delete('__typecho_config');
+                    $db = new Typecho_Db($config['adapter'], $config['prefix']);
+                    $db->addServer($config, Typecho_Db::READ | Typecho_Db::WRITE);
+                    Typecho_Db::set($db);
+                ?>
                 <h1 class="typecho-install-title"><?php _e('Successful installation!'); ?></h1>
                 <div class="typecho-install-body">
                     <div class="message success">
@@ -349,7 +363,6 @@ list($prefixVersion, $suffixVersion) = explode('/', $currentVersion);
                                         'url' => 'http://www.typecho.org', 'screenName' => $config['userName'], 'group' => 'administrator', 'created' => Typecho_Date::gmtTime())));
 
                                         unset($_SESSION['typecho']);
-                                        Typecho_Cookie::delete('__typecho_config');
                                         header('Location: ./install.php?finish&user=' . urlencode($config['userName'])
                                             . '&password=' . urlencode($password));
                                     } catch (Typecho_Db_Exception $e) {
@@ -383,7 +396,6 @@ list($prefixVersion, $suffixVersion) = explode('/', $currentVersion);
                                                 // However, you want to update the site users
                                                 $installDb->query($installDb->update('table.options')->rows(array('value' => $config['siteUrl']))->where('name = ?', 'siteUrl'));
                                                 unset($_SESSION['typecho']);
-                                                Typecho_Cookie::delete('__typecho_config');
                                                 header('Location: ./install.php?finish&use_old');
                                                 exit;
                                             } else {

@@ -22,8 +22,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widget_Interface_Do
 {
     /**
-     * 自定义字段的hook名称 
-     * 
+     * 自定义字段的hook名称
+     *
      * @var string
      * @access protected
      */
@@ -82,8 +82,8 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
     }
 
     /**
-     * getFields  
-     * 
+     * getFields
+     *
      * @access protected
      * @return void
      */
@@ -154,8 +154,8 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
      */
     protected function attach($cid)
     {
-        if ($this->request->attachment && is_array($this->request->attachment)) {
-            $attachments = $this->request->filter('int')->attachment;
+        $attachments = $this->request->getArray('attachment');
+        if (!empty($attachments)) {
 
             foreach ($attachments as $key => $attachment) {
                 $this->db->query($this->db->update('table.contents')->rows(array('parent' => $cid, 'status' => 'publish',
@@ -238,7 +238,7 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
 
         /** 真实的内容id */
         $realId = 0;
-        
+
         /** 是否是从草稿状态发布 */
         $isDraftToPublish = ('post_draft' == $this->type);
 
@@ -281,7 +281,7 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
 
             /** 保存自定义字段 */
             $this->applyFields($this->getFields(), $realId);
-        
+
             $this->db->fetchRow($this->select()->where('table.contents.cid = ?', $realId)->limit(1), array($this, 'push'));
         }
     }
@@ -318,7 +318,7 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
 
         /** 如果草稿已经存在 */
         if ($this->draft) {
-        
+
             /** 直接将草稿状态更改 */
             if ($this->update($contents, $this->db->sql()->where('cid = ?', $this->draft['cid']))) {
                 $realId = $this->draft['cid'];
@@ -353,7 +353,7 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
 
             /** 同步附件 */
             $this->attach($this->cid);
-            
+
             /** 保存自定义字段 */
             $this->applyFields($this->getFields(), $realId);
         }
@@ -480,7 +480,7 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
 
     /**
      * getDefaultFieldItems
-     * 
+     *
      * @access public
      * @return array
      */
@@ -499,9 +499,9 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
 
         if (file_exists($configFile)) {
             require_once $configFile;
-            
+
             if (function_exists('themeFields')) {
-                themeFields($layout); 
+                themeFields($layout);
             }
 
             if (function_exists($this->themeCustomFieldsHook)) {
@@ -509,7 +509,7 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
             }
         }
 
-        $items = $layout->getItems(); 
+        $items = $layout->getItems();
         foreach ($items as $item) {
             if ($item instanceof Typecho_Widget_Helper_Form_Element) {
                 $name = $item->input->getAttribute('name');
@@ -537,7 +537,7 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
                 foreach ($elements as $el) {
                     $div->addItem($el);
                 }
-                
+
                 $defaultFields[$name] = array($item->label, $div);
             }
         }
@@ -547,14 +547,14 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
 
     /**
      * getFieldItems
-     * 
+     *
      * @access public
      * @return void
      */
     public function getFieldItems()
     {
         $fields = array();
-        
+
         if ($this->have()) {
             $defaultFields = $this->getDefaultFieldItems();
             $rows = $this->db->fetchAll($this->db->select()->from('table.fields')
@@ -851,10 +851,10 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
         /** 返回原网页 */
         $this->response->goBack();
     }
-    
+
     /**
      * 删除文章所属草稿
-     * 
+     *
      * @access public
      * @return void
      */
@@ -881,7 +881,7 @@ class Widget_Contents_Post_Edit extends Widget_Abstract_Contents implements Widg
         /** 设置提示信息 */
         $this->widget('Widget_Notice')->set($deleteCount > 0 ? _t('草稿已经被删除') : _t('没有草稿被删除'),
         $deleteCount > 0 ? 'success' : 'notice');
-        
+
         /** 返回原网页 */
         $this->response->goBack();
     }
